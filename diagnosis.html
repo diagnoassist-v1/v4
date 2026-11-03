@@ -1,0 +1,4069 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#193fa4">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>التشخيص | DIAGNO-ASSIST</title>
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="nav-bar.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --blue: #1a41ad;
+            --blue-deep: #193fa4;
+            --blue-mid: #1a44b5;
+            --blue-light: #2b5be0;
+            --sky: #1a44b5;
+            --ink: #0b1c4d;
+            --muted: #455a94;
+            --line: #cbd7f7;
+            --bg: #e0f2fe;
+            --card-radius: 20px;
+        }
+        body {
+            font-family:'Readex Pro','Tajawal','Cairo', 'Segoe UI', Tahoma, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container { width: min(1440px, 92%); margin-inline: auto; }
+
+        /* ===== شريط التنقل ===== */
+        header.nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(16px);background:linear-gradient(120deg,#0b1c4d,#193fa4 45%,#193fa4);border-bottom:1px solid rgba(255,255,255,.14);box-shadow:0 12px 36px rgba(11, 28, 77,.35)}
+        header.nav .brand-name{background:linear-gradient(120deg,#fff,#b6c8f9);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        header.nav .brand-sub{color:#bfd0fa}
+        header.nav .nav-links a{color:#d6e4ff}
+        header.nav .nav-links a::after{background:linear-gradient(90deg,#3b6cf5,#2b5be0)}
+        header.nav .nav-links a:hover{color:#fff}
+        .nav-inner{display:flex;align-items:center;justify-content:space-between;height:96px;gap:24px;width:auto;max-width:none;padding-inline:3%}
+        .brand{display:flex;align-items:center;gap:16px;text-decoration:none;flex-shrink:0}
+        .brand-logo{width:64px;height:64px;border-radius:20px;object-fit:cover;box-shadow:0 10px 26px rgba(26, 65, 173,.30),0 0 0 4px rgba(26, 65, 173,.08)}
+        .brand-text{line-height:1.15}
+        .brand-name{display:block;font-size:27px;font-weight:900;letter-spacing:.5px;background:linear-gradient(120deg,#193fa4,#1a41ad 55%,#1a44b5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .brand-sub{display:block;font-size:13.5px;font-weight:700;letter-spacing:.3px;margin-top:3px}
+        .nav-links{display:flex;gap:34px;align-items:center}
+        .nav-links a{text-decoration:none;font-weight:700;font-size:15.5px;position:relative;padding:6px 0;transition:color .25s}
+        .nav-links a::after{content:"";position:absolute;bottom:-2px;right:0;width:0;height:3px;border-radius:3px;transition:width .3s}
+        .nav-links a:hover::after{width:100%}
+        .nav-links a .ico{font-size:17px}
+        .nav-cta{padding:12px 28px;font-size:15px;border-radius:14px;background:linear-gradient(135deg,#1a41ad,#2b5be0);color:#fff;border:none;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 8px 24px rgba(26, 65, 173,.35);transition:all .25s}
+        .nav-cta:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(26, 65, 173,.45)}
+
+        /* ===== البطل الأزرق ===== */
+        .page-hero {
+            background: linear-gradient(135deg, #0b1c4d 0%, #193fa4 40%, #1a41ad 100%);
+            padding: 52px 0 56px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .page-hero::before {
+            content: ""; position: absolute; inset: 0;
+            background:
+                radial-gradient(circle at 85% 20%, rgba(34,211,238,.12), transparent 45%),
+                radial-gradient(circle at 15% 85%, rgba(43, 91, 224,.15), transparent 45%);
+        }
+        .page-hero::after {
+            content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(34,211,238,.5), transparent);
+        }
+        .hero-title {
+            font-size: clamp(30px, 4vw, 42px);
+            font-weight: 900; color: #fff; line-height: 1.3;
+            margin-bottom: 10px; position: relative; z-index: 1;
+        }
+        .hero-title .grad {
+            background: linear-gradient(120deg, #2b5be0, #3b6cf5);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-subtitle {
+            font-size: 15px; color: rgba(255,255,255,.65); line-height: 1.8;
+            max-width: 560px; margin: 0 auto 32px;
+            position: relative; z-index: 1;
+        }
+
+        /* ===== المحتوى الرئيسي ===== */
+        .main-content { padding: 40px 0 60px; }
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.55fr 1fr;
+            gap: 26px;
+            align-items: start;
+        }
+
+        /* ===== بطاقة الكتابة (العمود الأيمن) ===== */
+        .write-card {
+            background: #fff;
+            border-radius: var(--card-radius);
+            padding: 30px;
+            box-shadow: 0 2px 20px rgba(11, 28, 77,.05);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #eef2f9;
+        }
+        .write-card::before {
+            content: ""; position: absolute; top: 0; right: 0; left: 0; height: 4px;
+            background: linear-gradient(90deg, var(--blue), var(--sky), var(--blue-mid));
+        }
+        .write-header {
+            display: flex; align-items: center; gap: 14px; margin-bottom: 6px;
+        }
+        .write-icon {
+            width: 48px; height: 48px; border-radius: 14px;
+            background: linear-gradient(135deg, var(--blue), var(--blue-light));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 21px; color: #fff;
+            box-shadow: 0 6px 16px rgba(26, 65, 173,.22);
+        }
+        .write-header h2 { font-size: 19px; font-weight: 900; color: var(--ink); }
+        .write-sub { font-size: 13.5px; color: var(--muted); margin-bottom: 18px; padding-right: 62px; }
+
+        .symptoms-area {
+            width: 100%;
+            border: 2px solid #eef2f9;
+            border-radius: 14px;
+            padding: 16px 18px;
+            font-size: 14.5px;
+            color: var(--ink);
+            background: #f8fafc;
+            outline: none;
+            resize: vertical;
+            min-height: 190px;
+            line-height: 2;
+            transition: border-color .3s, box-shadow .3s;
+            font-family:'Readex Pro','Tajawal','Cairo', 'Segoe UI', Tahoma, sans-serif;
+        }
+        .symptoms-area:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 4px rgba(26, 65, 173,.06);
+        }
+        .symptoms-area::placeholder { color: #93a6c9; font-size: 13.5px; }
+
+        .counter-row {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-top: 12px;
+        }
+        .counter-hint { font-size: 12px; color: #93a6c9; }
+        .count-pill {
+            font-size: 13px; font-weight: 700; color: #283e7a;
+            background: #e9f1ff; border-radius: 20px; padding: 5px 14px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .count-pill .count-bar {
+            width: 72px; height: 5px; background: #cbd7f7; border-radius: 10px; overflow: hidden;
+        }
+        .count-pill .count-fill {
+            height: 100%; background: var(--blue); border-radius: 10px; transition: width .3s;
+        }
+        .count-pill.warn { background: #fdf0d9; color: #b45309; }
+        .count-pill.warn .count-fill { background: #f59e0b; }
+        .count-pill.ok { background: #dff6e8; color: #15803d; }
+        .count-pill.ok .count-fill { background: #16a34a; }
+
+        .suggest-section { margin-top: 20px; }
+        .suggest-label {
+            font-size: 13px; font-weight: 700; color: var(--muted);
+            margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+        }
+        .suggest-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+        .chip {
+            background: #e9f1ff; border: 1.5px solid #bfd0fa;
+            color: #283e7a; font-size: 12.5px; font-weight: 700;
+            padding: 7px 15px; border-radius: 20px;
+            cursor: pointer; transition: all .25s;
+            font-family: inherit;
+        }
+        .chip:hover {
+            background: #dbe7fe; border-color: #93bbff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(26, 65, 173,.1);
+        }
+
+        .btn-analyze {
+            width: 100%;
+            background: linear-gradient(135deg, var(--blue), var(--blue-light));
+            color: #fff; border: none;
+            padding: 16px; border-radius: 14px;
+            font-weight: 900; font-size: 17px;
+            cursor: pointer; margin-top: 22px;
+            font-family: inherit;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            box-shadow: 0 10px 28px rgba(26, 65, 173,.3);
+            transition: all .3s;
+            position: relative; overflow: hidden;
+        }
+        .btn-analyze::before {
+            content: ""; position: absolute; top: 0; right: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(100deg, transparent, rgba(255,255,255,.22), transparent);
+            transform: skewX(-20deg);
+            animation: btnShine 3s ease-in-out infinite;
+        }
+        @keyframes btnShine {
+            0% { right: -100%; }
+            50%, 100% { right: 150%; }
+        }
+        .btn-analyze:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 36px rgba(26, 65, 173,.4);
+        }
+        .btn-analyze .analyze-ico {
+            width: 38px; height: 38px; border-radius: 11px;
+            background: rgba(255,255,255,.2);
+            display: flex; align-items: center; justify-content: center; font-size: 19px;
+        }
+
+        /* ===== العمود الأيسر ===== */
+        .side-stack { display: flex; flex-direction: column; gap: 22px; }
+
+        /* ===== بطاقة نظرة عامة ===== */
+        .overview-card {
+            background: #fff;
+            border-radius: var(--card-radius);
+            padding: 26px;
+            box-shadow: 0 2px 20px rgba(11, 28, 77,.05);
+            border: 1px solid #eef2f9;
+        }
+        .overview-title {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 17px; font-weight: 900; color: var(--ink);
+            margin-bottom: 20px;
+        }
+        .overview-title .ot-icon {
+            width: 38px; height: 38px; border-radius: 11px;
+            background: linear-gradient(135deg, #eaf2ff, #e6f7ff);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+        }
+        .stat-row {
+            display: flex; align-items: center; gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid #f2f5fb;
+        }
+        .stat-row:last-child { border-bottom: none; }
+        .stat-circle {
+            width: 46px; height: 46px; border-radius: 50%;
+            background: linear-gradient(135deg, #eaf2ff, #dbe4fc);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .stat-circle svg { width: 20px; height: 20px; }
+        .stat-num {
+            font-size: 24px; font-weight: 900; color: var(--blue-deep);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 12.5px; color: var(--muted); font-weight: 700;
+            margin-top: 2px;
+        }
+
+        /* ===== بطاقة التجربة السريعة ===== */
+        .quick-card {
+            background: #fff;
+            border-radius: var(--card-radius);
+            padding: 26px;
+            box-shadow: 0 2px 20px rgba(11, 28, 77,.05);
+            border: 1px solid #eef2f9;
+        }
+        .quick-title {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 17px; font-weight: 900; color: var(--ink);
+            margin-bottom: 8px;
+        }
+        .quick-title .qt-icon {
+            width: 38px; height: 38px; border-radius: 11px;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+        }
+        .quick-desc {
+            font-size: 13px; color: var(--muted); line-height: 1.9;
+            margin-bottom: 18px;
+        }
+        .btn-demo {
+            width: 100%;
+            color: #fff; border: none;
+            padding: 13px 18px; border-radius: 13px;
+            font-weight: 800; font-size: 13.5px;
+            cursor: pointer; font-family: inherit;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            transition: all .25s;
+            margin-bottom: 10px;
+        }
+        .btn-demo:last-of-type { margin-bottom: 0; }
+        .btn-demo:hover { transform: translateY(-3px); }
+        .btn-demo-green {
+            background: linear-gradient(135deg, #059669, #10b981);
+            box-shadow: 0 6px 20px rgba(5,150,105,.25);
+        }
+        .btn-demo-blue {
+            background: linear-gradient(135deg, var(--blue), var(--blue-light));
+            box-shadow: 0 6px 20px rgba(26, 65, 173,.25);
+        }
+        .btn-demo-purple {
+            background: linear-gradient(135deg, #193fa4, #2b5be0);
+            box-shadow: 0 6px 20px rgba(25, 63, 164,.25);
+        }
+        .btn-demo .demo-ico {
+            width: 30px; height: 30px; border-radius: 8px;
+            background: rgba(255,255,255,.2);
+            display: flex; align-items: center; justify-content: center; font-size: 15px;
+        }
+        /* صندوق اختيار الاضطراب في زر التجربة */
+        .trial-box {
+            margin: -4px 0 12px; padding: 13px;
+            border-radius: 13px; background: #f8f7ff; border: 1px dashed #ddd6fe;
+        }
+        .trial-box[hidden] { display: none; }
+        .trial-hint { font-size: 11.5px; font-weight: 800; color: #153287; margin-bottom: 9px; line-height: 1.8; }
+        .trial-list { display: flex; flex-wrap: wrap; gap: 6px; max-height: 175px; overflow: auto; padding-left: 2px; }
+        .trial-chip {
+            font-family: inherit; font-size: 11.5px; font-weight: 700;
+            padding: 5px 10px; border-radius: 999px;
+            background: #fff; border: 1px solid #e9e5ff; color: #5b21b6;
+            cursor: pointer; transition: all .2s;
+        }
+        .trial-chip:hover { background: #5b21b6; border-color: #5b21b6; color: #fff; }
+        .quick-footer {
+            font-size: 11.5px; color: #93a6c9; line-height: 1.8;
+            margin-top: 14px;
+        }
+
+        /* ===== طبقة التحليل ===== */
+        .analyzing-overlay {
+            display: none;
+            position: fixed; inset: 0;
+            background: rgba(11, 28, 77,.96);
+            backdrop-filter: blur(20px);
+            z-index: 2000;
+            align-items: center; justify-content: center;
+            flex-direction: column; text-align: center;
+            padding: 20px;
+        }
+        .analyzing-overlay.show { display: flex; }
+        .an-spinner {
+            width: 110px; height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue), var(--sky));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 50px; color: #fff;
+            margin-bottom: 28px;
+            box-shadow: 0 20px 60px rgba(26, 65, 173,.5);
+            animation: pulse 2s ease-in-out infinite;
+            position: relative;
+        }
+        .an-spinner::before {
+            content: ""; position: absolute; inset: -8px;
+            border: 3px dashed rgba(255,255,255,.25);
+            border-radius: 50%;
+            animation: spinLoader 8s linear infinite;
+        }
+        @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+        @keyframes spinLoader { to { transform: rotate(360deg); } }
+        .an-title { color: #fff; font-size: 26px; font-weight: 900; margin-bottom: 8px; }
+        .an-sub { color: #bfd0fa; font-size: 14px; margin-bottom: 28px; max-width: 460px; line-height: 1.8; }
+        .an-progress-wrap { width: 360px; max-width: 80vw; margin-bottom: 22px; }
+        .an-progress-bar {
+            width: 100%; height: 8px;
+            background: rgba(255,255,255,.1);
+            border-radius: 10px; overflow: hidden;
+        }
+        .an-progress-fill {
+            height: 100%; width: 0;
+            background: linear-gradient(90deg, #2b5be0, #34d399);
+            border-radius: 10px;
+            animation: fillProgress 10s linear forwards;
+        }
+        @keyframes fillProgress { from{width:0} to{width:100%} }
+        .an-steps { color: #bfd0fa; font-size: 13px; line-height: 2.2; }
+        .an-step {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 6px 0; transition: color .3s;
+        }
+        .an-step.active { color: #fff; font-weight: 700; }
+        .an-step .step-dot {
+            width: 26px; height: 26px; border-radius: 50%;
+            background: rgba(255,255,255,.08);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 800;
+        }
+        .an-step.active .step-dot {
+            background: var(--blue);
+            box-shadow: 0 4px 12px rgba(26, 65, 173,.4);
+        }
+
+        /* ===== التذييل ===== */
+        footer {
+            background: #0b1c4d; color: #bfd0fa;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 30px; padding: 50px 0 30px;
+        }
+        .footer-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+        .footer-brand img {
+            width: 48px; height: 48px; border-radius: 13px; object-fit: cover;
+            box-shadow: 0 6px 18px rgba(0,0,0,.3);
+        }
+        .footer-brand .fname { font-size: 18px; font-weight: 900; color: #fff; }
+        .footer-brand .fsub { display: block; font-size: 10.5px; color: #93aede; margin-top: 2px; }
+        .footer-col p { font-size: 12.5px; line-height: 1.9; }
+        .footer-col h4 { color: #fff; font-size: 14px; margin-bottom: 12px; }
+        .footer-col a {
+            display: block; color: #93aede; text-decoration: none;
+            font-size: 12.5px; margin-bottom: 9px; transition: color .25s;
+        }
+        .footer-col a:hover { color: #fff; }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,.08);
+            text-align: center; padding: 18px 0; color: #6478ad; font-size: 12.5px;
+        }
+
+        /* ===== ظهور تدريجي ===== */
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ===== استجابة ===== */
+        @media (max-width: 1020px) {
+            .content-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 620px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            .write-card, .overview-card, .quick-card { padding: 22px; }
+        }
+        @media(max-width:800px){.nav-links{display:none}.nav-inner{padding-inline:4%}}
+        @media(max-width:430px){
+          .nav-inner{height:auto;min-height:60px;gap:8px;padding-inline:2%}
+          .brand-logo{width:36px;height:36px;border-radius:10px}
+          .brand-name{font-size:16px}
+          .brand-sub{font-size:9px}
+          .brand{gap:6px}
+          .nav-cta{padding:7px 12px;font-size:11px;border-radius:8px}
+          .write-card,.overview-card,.quick-card{padding:16px}
+          .an-progress-wrap{width:100%;max-width:90vw}
+          .an-title{font-size:18px}
+          .an-sub{font-size:11px}
+          .footer-grid{gap:16px;padding:22px 0 18px}
+          .write-sub{padding-right:0;font-size:12px}
+          .progress-nav .step{padding:5px 7px}
+          .progress-nav .step .step-icon{width:20px;height:20px;font-size:9px}
+          .progress-nav .step-connector{width:6px}
+        }
+        /* ===== التشخيص الفارقي: خطوات ولوحات ===== */
+        .dx-progress{display:flex;justify-content:center;gap:8px;margin:0 auto 20px;max-width:780px;flex-wrap:wrap;grid-column:1/-1}
+        #dxPanels{grid-column:1/-1;width:100%}
+        .dx-pstep{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:800;color:#8b9bb8;background:#fff;border:1px solid #e3ebf7;padding:7px 13px;border-radius:99px;transition:.2s}
+        .dx-pstep b{width:18px;height:18px;border-radius:50%;background:#eef3fb;color:#8b9bb8;display:grid;place-items:center;font-size:10px}
+        .dx-pstep.on{color:#193fa4;border-color:#bcd3fb;background:#eff5ff}
+        .dx-pstep.on b{background:#1a41ad;color:#fff}
+        .dx-pstep.done{color:#193fa4;border-color:#c7ece4;background:#f0fdf9}
+        .dx-pstep.done b{background:#193fa4;color:#fff}
+        .dx-panel{background:#fff;border:1px solid #e5edf8;border-radius:20px;padding:26px;box-shadow:0 18px 40px rgba(16,49,107,.07);animation:dxIn .35s ease;margin-top:18px}
+        @keyframes dxIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+        .dx-panel h2{font-size:19px;font-weight:900;color:#11286b;margin-bottom:4px}
+        .dx-sub{font-size:12.5px;color:#7186a6;line-height:1.8;margin-bottom:16px}
+        .dx-reco{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+        .dx-chip{font-size:11px;font-weight:700;color:#193fa4;background:#eff5ff;border:1px solid #dbe7fb;border-radius:99px;padding:4px 10px}
+        .hypo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:20px}
+        .hypo-card{position:relative;border:1.5px solid #e3ebf7;border-radius:16px;padding:18px;background:linear-gradient(180deg,#f8faff,#f6faff);transition:.2s}
+        .hypo-card:hover{border-color:#a9c7f5;box-shadow:0 10px 24px rgba(26, 65, 173,.08)}
+        .hypo-card .hc-ico{font-size:26px;line-height:1}
+        .hypo-card h3{font-size:14.5px;font-weight:900;color:#11286b;margin:8px 0 4px}
+        .hypo-card .hc-en{font-size:10.5px;color:#8ba0bf;direction:ltr;text-align:right}
+        .hypo-card .hc-cat{display:inline-block;margin-top:10px;font-size:10.5px;font-weight:800;color:#4338ca;background:#eef0ff;border-radius:8px;padding:3px 8px}
+        .hypo-card .hc-code{position:absolute;top:14px;left:14px;font-size:10px;font-weight:800;color:#94a3b8;background:#fff;border:1px solid #e6edf7;border-radius:6px;padding:2px 6px;direction:ltr}
+        .dx-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-top:1px solid #eef3fb;padding-top:18px}
+        .dx-btn{border:0;cursor:pointer;font-family:inherit;font-weight:800;font-size:13.5px;padding:12px 22px;border-radius:12px;background:linear-gradient(135deg,#1a41ad,#193fa4);color:#fff;box-shadow:0 8px 20px rgba(26, 65, 173,.25);transition:.2s}
+        .dx-btn:hover{transform:translateY(-1px)}
+        .dx-btn:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
+        .dx-btn.ghost{background:#fff;color:#193fa4;border:1.5px solid #c9dcfb;box-shadow:none}
+        .q-list{display:grid;gap:14px}
+        .q-item{border:1px solid #e6edf8;border-radius:14px;padding:16px;background:#f8faff}
+        .q-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:4px}
+        .q-title{font-size:13px;font-weight:900;color:#11286b}
+        .q-badge{font-size:10px;font-weight:800;color:#64748b;background:#eef3f9;border-radius:6px;padding:2px 7px;white-space:nowrap}
+        .q-hint{font-size:11.5px;color:#7d90ae;line-height:1.7;margin-bottom:10px}
+        .q-opts{display:flex;flex-wrap:wrap;gap:8px}
+        .q-opt{font-family:inherit;font-size:12px;font-weight:700;color:#1f346e;background:#fff;border:1.5px solid #dde7f6;border-radius:10px;padding:8px 12px;cursor:pointer;transition:.15s}
+        .q-opt:hover{border-color:#9dc0f2}
+        .q-opt.on{background:#1a41ad;border-color:#1a41ad;color:#fff;box-shadow:0 6px 16px rgba(26, 65, 173,.22)}
+        .q-free{display:flex;gap:8px;margin-top:10px}
+        .q-free input{flex:1;font-family:inherit;font-size:12px;padding:9px 12px;border:1.5px solid #e2eaf6;border-radius:10px;background:#fff;color:#1e293b}
+        .q-free input:focus{outline:none;border-color:#93b8f0}
+        .q-free button{font-family:inherit;font-size:11.5px;font-weight:800;padding:0 14px;border-radius:10px;border:1.5px solid #cfe0fa;background:#eaeffd;color:#193fa4;cursor:pointer}
+        .q-status{font-size:10.5px;font-weight:700;margin-top:8px;color:#193fa4}
+        .dx-warn{font-size:12px;font-weight:700;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:9px 12px;margin-bottom:14px}
+        .final-card{border:1.5px solid #d7ecdf;background:linear-gradient(180deg,#f4fdf8,#eefaf3);border-radius:18px;padding:22px;margin-bottom:18px}
+        .final-card .fc-top{display:flex;align-items:center;gap:14px}
+        .final-card .fc-ico{width:56px;height:56px;border-radius:16px;background:#fff;display:grid;place-items:center;font-size:26px;box-shadow:0 8px 20px rgba(6,95,70,.1)}
+        .final-card h3{font-size:19px;font-weight:900;color:#065f46}
+        .final-card .fc-en{font-size:11px;color:#6b8f83;direction:ltr;text-align:right}
+        .final-card .fc-meta{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+        .final-card .fc-tag{font-size:10.5px;font-weight:800;color:#193fa4;background:#fff;border:1px solid #cdeee0;border-radius:7px;padding:3px 8px}
+        .dx-list{display:grid;gap:9px;margin:0 0 18px}
+        .dx-li{display:flex;gap:9px;font-size:12px;line-height:1.8;color:#1f346e;background:#f8fbff;border:1px solid #e9f0fa;border-radius:11px;padding:10px 12px}
+        .dx-li b{color:#11286b}
+        .dx-li .x{color:#b91c1c;font-weight:900}
+        .dx-li .ok{color:#193fa4;font-weight:900}
+        .dx-sec-title{font-size:13px;font-weight:900;color:#11286b;margin:0 0 10px}
+        @media (max-width:620px){.dx-panel{padding:18px}.dx-progress{gap:6px}.dx-pstep{font-size:10px;padding:6px 9px}}
+    
+/* ==========================================================================
+   DIAGNO-ASSIST — 3D NEURO-GLASS & ORBITAL STUDIO (ROYAL COBALT #1a41ad EDITION)
+   Anchored in exact swatch colors: #193fa4 -> #1a41ad -> #1a44b5
+   ========================================================================== */
+:root {
+    --cobalt-core: #1a41ad;
+    --cobalt-left: #193fa4;
+    --cobalt-right: #1a44b5;
+    --cobalt-bright: #2b5be0;
+    --cobalt-deep: #122d7a;
+    --cobalt-navy: #0b1c4d;
+    --cobalt-ice: #edf1fc;
+    --cobalt-border: #c5d3f7;
+    --blue: #1a41ad !important;
+    --blue-deep: #193fa4 !important;
+    --blue-mid: #1a44b5 !important;
+    --blue-light: #2b5be0 !important;
+    --blue-pale: #e3eafd !important;
+    --primary: #1a41ad !important;
+    --primary-dark: #193fa4 !important;
+    --primary-light: #2b5be0 !important;
+    --sky: #1a44b5 !important;
+    --teal: #1a41ad !important;
+    --teal-deep: #193fa4 !important;
+    --teal-soft: #eef2fe !important;
+    --rose: #1a41ad !important;
+    --rose-deep: #193fa4 !important;
+    --rose-soft: #eef2fe !important;
+    --navy: #11286b !important;
+    --navy-dark: #0b1c4d !important;
+    --dark: #0b1c4d !important;
+    --dark-mid: #11286b !important;
+    --ink: #0b1c4d !important;
+    --text: #11286b !important;
+    --text-dark: #0b1c4d !important;
+    --text-mid: #283e7a !important;
+    --text-light: #455a94 !important;
+    --text-lighter: #6478ad !important;
+    --muted: #455a94 !important;
+    --slate: #1f346e !important;
+    --slate-light: #455a94 !important;
+    --line: #cbd7f7 !important;
+    --border: #cbd7f7 !important;
+    --bg: #e0f2fe !important;
+    --grad-start: #122d7a !important;
+    --grad-mid: #193fa4 !important;
+    --grad-end: #1a44b5 !important;
+    --card-radius: 28px !important;
+    --radius: 28px !important;
+}
+
+@keyframes neuroReveal {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal, .fade-up, .plan, .pay-header, .card-3d, .pay-form {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: neuroReveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+}
+
+/* 1. ARCHITECTURAL BLUEPRINT GRID & LIGHT SKY-BLUE CANVAS */
+body {
+    font-family: 'Tajawal', 'Readex Pro', 'Cairo', sans-serif !important;
+    background-color: #e0f2fe !important;
+    background-image:
+        radial-gradient(circle at 10% 12%, rgba(56, 189, 248, 0.20) 0%, transparent 38%),
+        radial-gradient(circle at 90% 18%, rgba(14, 165, 233, 0.15) 0%, transparent 42%),
+        radial-gradient(circle at 50% 90%, rgba(125, 211, 252, 0.25) 0%, transparent 45%),
+        linear-gradient(to right, rgba(14, 165, 233, 0.075) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(14, 165, 233, 0.075) 1px, transparent 1px),
+        linear-gradient(160deg, #f0f9ff 0%, #dff2fe 52%, #e6f6ff 100%) !important;
+    background-size: 100% 100%, 100% 100%, 100% 100%, 32px 32px, 32px 32px, 100% 100% !important;
+    background-attachment: fixed !important;
+    color: #0b1c4d !important;
+    position: relative;
+}
+
+.bg-fx { background: transparent !important; }
+
+h1, h2, h3, h4, .brand-name, .hero-title, .header-title, .card-title, .section-title, .modal-title {
+    font-family: 'Readex Pro', 'Tajawal', 'Cairo', sans-serif !important;
+    letter-spacing: -0.2px;
+}
+
+.bg-blob.blob-1, .orb-1 { background: #7dd3fc !important; opacity: 0.28 !important; }
+.bg-blob.blob-2, .orb-2 { background: #38bdf8 !important; opacity: 0.20 !important; }
+.orb-3 { background: #bae6fd !important; opacity: 0.30 !important; }
+
+/* 2. FLOATING 3D LOGO-INSPIRED CYAN-AZURE CAPSULE NAVBAR (#34bae6 -> #219ad5 -> #0b69b4) */
+header.nav {
+    position: sticky !important;
+    top: 12px !important;
+    z-index: 200 !important;
+    width: 97% !important;
+    max-width: none !important;
+    margin: 12px auto 0 !important;
+    border-radius: 999px !important;
+    background-color: #219ad5 !important;
+    background-image:
+        radial-gradient(circle at 14% 22%, rgba(52, 186, 230, 0.65) 0%, transparent 45%),
+        radial-gradient(circle at 86% 80%, rgba(9, 103, 175, 0.65) 0%, transparent 50%),
+        linear-gradient(125deg, #0967af 0%, #0b69b4 30%, #219ad5 66%, #34bae6 100%) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 2.5px solid rgba(255, 255, 255, 0.94) !important;
+    box-shadow: 0 20px 46px -10px rgba(9, 103, 175, 0.40),
+                0 0 0 1.5px rgba(33, 154, 213, 0.48),
+                inset 0 2px 5px rgba(255, 255, 255, 0.55),
+                inset 0 -3px 8px rgba(9, 103, 175, 0.42) !important;
+    padding: 0 10px !important;
+}
+header.nav .nav-inner,
+header.nav .container.nav-inner {
+    height: 74px !important;
+    padding-inline: 24px !important;
+    width: 100% !important;
+    max-width: none !important;
+}
+header.nav .brand-logo {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 16px !important;
+    object-fit: cover;
+    border: 2.5px solid #ffffff !important;
+    box-shadow: 0 8px 20px rgba(7, 82, 142, 0.42),
+                0 0 0 3px rgba(255, 255, 255, 0.30) !important;
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1) !important;
+}
+header.nav .brand:hover .brand-logo {
+    transform: scale(1.07) rotate(-4deg) !important;
+}
+header.nav .brand-name {
+    font-size: 22px !important;
+    font-weight: 900 !important;
+    background: linear-gradient(180deg, #ffffff 0%, #e0f7ff 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    filter: drop-shadow(0 2px 6px rgba(7, 82, 142, 0.32)) !important;
+}
+header.nav .brand-sub {
+    color: #e6f8ff !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+}
+header.nav .nav-links {
+    background: rgba(255, 255, 255, 0.18) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.48) !important;
+    padding: 5px 7px !important;
+    border-radius: 999px !important;
+    gap: 6px !important;
+    box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.38), 0 6px 16px rgba(7, 82, 142, 0.20) !important;
+}
+header.nav .nav-links a {
+    color: #ffffff !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+    padding: 7px 16px !important;
+    border-radius: 999px !important;
+    text-shadow: 0 1px 3px rgba(7, 82, 142, 0.32) !important;
+    transition: all 0.25s cubic-bezier(.34,1.56,.64,1) !important;
+}
+header.nav .nav-links a::after { display: none !important; }
+header.nav .nav-links a:hover {
+    background: #ffffff !important;
+    color: #0967af !important;
+    text-shadow: none !important;
+    box-shadow: 0 6px 16px rgba(7, 82, 142, 0.28) !important;
+    transform: translateY(-1px);
+}
+header.nav .nav-cta, header.nav .btn-primary.nav-cta {
+    background: linear-gradient(180deg, #ffffff 0%, #ecf9ff 100%) !important;
+    color: #0967af !important;
+    border-radius: 999px !important;
+    padding: 10px 24px !important;
+    font-size: 14px !important;
+    font-weight: 900 !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 8px 22px rgba(7, 82, 142, 0.35),
+                0 0 0 3px rgba(255, 255, 255, 0.28),
+                inset 0 2px 3px #ffffff !important;
+}
+header.nav .nav-cta:hover {
+    background: #ffffff !important;
+    color: #0b69b4 !important;
+    transform: translateY(-2px) scale(1.03) !important;
+    box-shadow: 0 12px 28px rgba(7, 82, 142, 0.45),
+                0 0 0 4px rgba(255, 255, 255, 0.38) !important;
+}
+
+/* 3. COMPACT 3D ORBITAL ROYAL COBALT HERO ISLAND (FOR INTERIOR PAGES) */
+.page-hero, .hero:not(:has(.hero-grid)), .mini-hero, .hero-card, header.page-header, .pay-header {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 16px auto 24px !important;
+    border-radius: 32px !important;
+    padding: 28px 32px !important;
+    background-color: #1a41ad !important;
+    background-image:
+        radial-gradient(circle at 12% 20%, rgba(68, 114, 242, 0.42) 0%, transparent 40%),
+        radial-gradient(circle at 88% 80%, rgba(11, 28, 77, 0.48) 0%, transparent 48%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px, 100% 100% !important;
+    border: 2.5px solid rgba(255, 255, 255, 0.90) !important;
+    box-shadow: 0 24px 52px -12px rgba(25, 63, 164, 0.42),
+                0 0 0 1.5px rgba(26, 68, 181, 0.45),
+                inset 0 3px 6px rgba(255, 255, 255, 0.45),
+                inset 0 -4px 12px rgba(11, 28, 77, 0.40) !important;
+    color: #ffffff !important;
+    position: relative !important;
+    top: auto !important;
+    overflow: hidden !important;
+}
+.page-hero .container,
+header.page-header .container,
+header.page-header .header-inner,
+.hero .hero-inner,
+.mini-hero .container {
+    width: 100% !important;
+    max-width: none !important;
+}
+/* Orbital 3D Rings inside Hero Island */
+.page-hero::before, .hero:not(:has(.hero-grid))::before, .mini-hero::before, header.page-header::before, .pay-header::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -65px !important;
+    right: -55px !important;
+    width: 230px !important;
+    height: 230px !important;
+    border-radius: 50% !important;
+    border: 2px dashed rgba(255, 255, 255, 0.28) !important;
+    background: radial-gradient(circle, rgba(96, 140, 255, 0.26) 0%, transparent 68%) !important;
+    box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.18), 0 0 0 24px rgba(255, 255, 255, 0.04) !important;
+    pointer-events: none !important;
+}
+.page-hero::after, .hero:not(:has(.hero-grid))::after, .mini-hero::after, header.page-header::after, .pay-header::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: -75px !important;
+    left: -45px !important;
+    width: 210px !important;
+    height: 210px !important;
+    border-radius: 50% !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.16) 0%, transparent 70%) !important;
+    box-shadow: 0 0 0 20px rgba(96, 140, 255, 0.08) !important;
+    pointer-events: none !important;
+}
+.page-hero h1, .hero:not(:has(.hero-grid)) h1, .mini-hero h1, .hero:not(:has(.hero-grid)) .hero-title, .header-title, .hero-left h1, .hero-name, .pay-header h1 {
+    color: #ffffff !important;
+    text-shadow: 0 4px 16px rgba(11, 28, 77, 0.40) !important;
+    font-weight: 900 !important;
+    position: relative;
+    z-index: 2;
+}
+.page-hero h1 .grad, .hero:not(:has(.hero-grid)) h1 .gradient-text {
+    background: linear-gradient(180deg, #ffffff 0%, #c7d7fe 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+.page-hero p, .hero:not(:has(.hero-grid)) p, .mini-hero p, .hero:not(:has(.hero-grid)) .hero-subtitle, .hero-left p, .hero-role, .hero-since, .pay-header p {
+    color: rgba(255, 255, 255, 0.92) !important;
+    font-weight: 600 !important;
+    margin-bottom: 10px !important;
+    position: relative;
+    z-index: 2;
+}
+.breadcrumb {
+    display: inline-flex !important;
+    background: rgba(11, 28, 77, 0.32) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+    padding: 5px 16px !important;
+    border-radius: 999px !important;
+    color: #ffffff !important;
+    margin-bottom: 10px !important;
+}
+.breadcrumb a { color: #dbe4fc !important; font-weight: 800 !important; }
+.breadcrumb a:hover { color: #ffffff !important; text-decoration: underline !important; }
+.back-btn, .patients-list-btn, .hero-pill, .header-badge, .hero-chip, .hero-tag, .hero-stat, .pay-badge {
+    background: rgba(255, 255, 255, 0.20) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.60) !important;
+    color: #ffffff !important;
+    border-radius: 999px !important;
+    box-shadow: 0 6px 18px rgba(11, 28, 77, 0.20), inset 0 1px 2px rgba(255, 255, 255, 0.45) !important;
+    position: relative;
+    z-index: 2;
+}
+.hero-stat { border-radius: 20px !important; }
+.back-btn:hover, .patients-list-btn:hover {
+    background: #ffffff !important;
+    color: #193fa4 !important;
+    border-color: #ffffff !important;
+    transform: translateY(-2px) !important;
+}
+
+/* ==========================================================================
+   BESPOKE REDESIGN FOR INDEX.HTML (ROYAL COBALT #1a41ad EDITION)
+   ========================================================================== */
+.hero:has(.hero-grid) {
+    padding: 24px 0 36px !important;
+}
+.hero-grid {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 0 auto !important;
+    background:
+        radial-gradient(circle at 18% 20%, rgba(26, 68, 181, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(25, 63, 164, 0.10) 0%, transparent 50%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(242, 246, 255, 0.93) 100%) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 3px solid #ffffff !important;
+    border-radius: 40px !important;
+    padding: 52px 56px !important;
+    box-shadow: 0 28px 68px -14px rgba(25, 63, 164, 0.18),
+                0 0 0 1.5px rgba(26, 68, 181, 0.32),
+                inset 0 3px 8px #ffffff !important;
+    position: relative !important;
+}
+.hero:has(.hero-grid) .pill {
+    background: linear-gradient(180deg, #f0f4fe 0%, #dfe8fc 100%) !important;
+    border: 1.5px solid #93aff5 !important;
+    color: #193fa4 !important;
+    box-shadow: 0 6px 16px rgba(25, 63, 164, 0.10), inset 0 1px 0 #ffffff !important;
+}
+.hero:has(.hero-grid) h1.hero-title {
+    color: #0b1c4d !important;
+    text-shadow: none !important;
+}
+.hero:has(.hero-grid) .grad, .sec-head .grad {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #2b5be0 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+.brain-wrap {
+    background:
+        radial-gradient(circle at 30% 25%, #2b5be0 0%, #1a44b5 38%, #1a41ad 72%, #193fa4 100%) !important;
+    border: 4px solid #ffffff !important;
+    box-shadow: 0 34px 72px rgba(25, 63, 164, 0.38),
+                0 0 0 12px rgba(255, 255, 255, 0.75),
+                0 0 0 14px rgba(26, 68, 181, 0.30),
+                inset 0 4px 12px rgba(255, 255, 255, 0.50) !important;
+}
+.float-card {
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 22px !important;
+    box-shadow: 0 18px 42px -8px rgba(25, 63, 164, 0.20),
+                0 0 0 1.5px #bfd0fa,
+                inset 0 2px 3px #ffffff !important;
+}
+.float-card .fc-ico {
+    background: linear-gradient(135deg, #e3eafd, #bfd0fa) !important;
+    border: 1.5px solid #ffffff !important;
+    box-shadow: 0 4px 12px rgba(25, 63, 164, 0.14) !important;
+}
+/* Floating 3D Orbital Trust Band (.marquee-band) */
+.marquee-band {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 4px auto 28px !important;
+    border-radius: 34px !important;
+    padding: 24px 24px !important;
+    background-color: #1a41ad !important;
+    background-image:
+        radial-gradient(circle at 15% 20%, rgba(68, 114, 242, 0.42) 0%, transparent 42%),
+        radial-gradient(circle at 85% 80%, rgba(11, 28, 77, 0.45) 0%, transparent 48%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    background-size: 100% 100%, 100% 100%, 26px 26px, 26px 26px, 100% 100% !important;
+    border: 2.5px solid #ffffff !important;
+    box-shadow: 0 24px 54px -12px rgba(25, 63, 164, 0.38),
+                0 0 0 1.5px rgba(26, 68, 181, 0.45),
+                inset 0 2px 5px rgba(255, 255, 255, 0.45) !important;
+}
+.marquee-band::after { display: none !important; }
+.band-item {
+    background: rgba(255, 255, 255, 0.16) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.52) !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 24px rgba(11, 28, 77, 0.22), inset 0 1px 2px rgba(255, 255, 255, 0.40) !important;
+}
+.band-item .bi {
+    background: rgba(255, 255, 255, 0.22) !important;
+    border: 1px solid rgba(255, 255, 255, 0.48) !important;
+}
+@media(min-width: 1021px) {
+    .band-inner { flex-wrap: nowrap !important; gap: 12px !important; }
+    .band-item { padding: 11px 20px !important; font-size: 14px !important; white-space: nowrap !important; }
+}
+
+section.block { padding: 56px 0 !important; }
+.sec-tag {
+    background: linear-gradient(180deg, #f0f4fe 0%, #dfe8fc 100%) !important;
+    border: 1.5px solid #93aff5 !important;
+    color: #193fa4 !important;
+    padding: 6px 20px !important;
+    border-radius: 999px !important;
+    box-shadow: 0 4px 12px rgba(25, 63, 164, 0.10), inset 0 1px 0 #ffffff !important;
+}
+.feat-card, .step-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(244, 247, 255, 0.96) 100%) !important;
+    border: 2.5px solid #ffffff !important;
+    border-radius: 30px !important;
+    box-shadow: 0 20px 46px -12px rgba(25, 63, 164, 0.15),
+                0 0 0 1.5px #c5d3f7,
+                inset 0 3px 6px #ffffff !important;
+}
+.feat-card::before {
+    height: 6px !important;
+    background: linear-gradient(90deg, #193fa4, #1a41ad, #2b5be0) !important;
+    transform: scaleX(1) !important;
+}
+.feat-card:hover, .step-card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 28px 58px -12px rgba(25, 63, 164, 0.28),
+                0 0 0 2.5px #1a44b5,
+                inset 0 3px 6px #ffffff !important;
+}
+.feat-ico {
+    width: 66px !important;
+    height: 66px !important;
+    border-radius: 20px !important;
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border: 2.5px solid #ffffff !important;
+    box-shadow: 0 12px 26px rgba(25, 63, 164, 0.32),
+                0 0 0 3px rgba(26, 68, 181, 0.22),
+                inset 0 2px 3px rgba(255, 255, 255, 0.40) !important;
+}
+.step-num {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 22px rgba(25, 63, 164, 0.34) !important;
+}
+.step-ico {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 18px !important;
+    background: linear-gradient(135deg, #eef2fe 0%, #dbe4fc 100%) !important;
+    border: 1.5px solid #bfd0fa !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 28px !important;
+}
+.cta-box {
+    background-color: #1a41ad !important;
+    background-image:
+        radial-gradient(circle at 15% 20%, rgba(68, 114, 242, 0.45) 0%, transparent 42%),
+        radial-gradient(circle at 85% 80%, rgba(11, 28, 77, 0.48) 0%, transparent 48%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px, 100% 100% !important;
+    border: 3px solid #ffffff !important;
+    border-radius: 36px !important;
+    box-shadow: 0 28px 64px -12px rgba(25, 63, 164, 0.42),
+                0 0 0 1.5px rgba(26, 68, 181, 0.45),
+                inset 0 3px 6px rgba(255, 255, 255, 0.45) !important;
+}
+.cta-box p { color: rgba(255, 255, 255, 0.92) !important; }
+.btn-white {
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    color: #193fa4 !important;
+    border: 2px solid #bfd0fa !important;
+    box-shadow: 0 14px 32px rgba(11, 28, 77, 0.28), inset 0 2px 3px #ffffff !important;
+}
+
+/* Steps Bar in results.html */
+.steps-bar {
+    width: min(1040px, 92%) !important;
+    margin: 12px auto 4px !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(22px) saturate(180%) !important;
+    padding: 9px 16px !important;
+    border-radius: 999px !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 14px 36px -8px rgba(25, 63, 164, 0.16), 0 0 0 1.5px rgba(26, 68, 181, 0.30) !important;
+}
+.steps-bar .step-pill {
+    color: #284285 !important;
+    background: linear-gradient(180deg, #f4f7fe 0%, #e6ecfc 100%) !important;
+    border: 1.5px solid #cbd7f7 !important;
+    border-radius: 999px !important;
+}
+.steps-bar .step-pill.active {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+    box-shadow: 0 8px 20px rgba(25, 63, 164, 0.38) !important;
+}
+.steps-bar .step-connector { background: #cbd7f7 !important; }
+
+/* 4. 3D SCULPTED WHITE BENTO CARDS */
+.card, .section-card, .write-card, .overview-card, .quick-card, .form-card, .auth-card, .dx-panel, .axis-block, .file-card, .case-card, .stage, .panel, .block:not(section), .ref-card, .metric, .question-card, .plan, .trust-card, .faq-item, .stat, .reassess-card, .pay-form, .amount-section {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(246, 249, 255, 0.96) 100%) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 28px !important;
+    box-shadow: 0 18px 42px -10px rgba(25, 63, 164, 0.13),
+                0 4px 12px rgba(25, 63, 164, 0.06),
+                0 0 0 1.5px rgba(191, 208, 250, 0.85),
+                inset 0 2px 4px #ffffff !important;
+    transition: all 0.3s cubic-bezier(.34,1.56,.64,1) !important;
+}
+.card:hover, .section-card:hover, .file-card:hover, .case-card:hover, .axis-block:hover, .plan:hover, .trust-card:hover, .pay-form:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 24px 50px -10px rgba(25, 63, 164, 0.22),
+                0 0 0 2px #1a44b5,
+                inset 0 2px 4px #ffffff !important;
+}
+
+/* ==========================================================================
+   BESPOKE REDESIGN FOR PROFILE.HTML (ROYAL COBALT 2-COLUMN BENTO)
+   ========================================================================== */
+.profile-section {
+    max-width: 1180px !important;
+    margin: 0 auto 48px !important;
+    padding: 0 20px !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 24px !important;
+    align-items: stretch !important;
+}
+.profile-section .card {
+    margin-bottom: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+.profile-section .card:nth-child(5) {
+    grid-column: 1 / -1 !important;
+}
+.profile-section .card-header {
+    margin: 12px 12px 0 !important;
+    padding: 16px 20px !important;
+    border-radius: 20px !important;
+    background: linear-gradient(135deg, #eef2fe 0%, #dbe4fc 100%) !important;
+    border: 1.5px solid #bfd0fa !important;
+    box-shadow: inset 0 1px 0 #ffffff !important;
+}
+.profile-section .card-header .icon {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 16px !important;
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 18px rgba(25, 63, 164, 0.30), inset 0 2px 2px rgba(255, 255, 255, 0.45) !important;
+}
+.profile-section .card-header .icon svg {
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+}
+.profile-section .card-title {
+    color: #0b1c4d !important;
+    font-size: 1.12rem !important;
+    font-weight: 900 !important;
+}
+.profile-section .card-subtitle { color: #455a94 !important; }
+.profile-section .card-body {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 22px 24px 24px !important;
+}
+.profile-section .card-body > .btn { margin-top: auto !important; }
+.avatar {
+    width: 112px !important;
+    height: 112px !important;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(43, 91, 224, 0.35)) !important;
+    border: 4px solid #ffffff !important;
+    box-shadow: 0 14px 34px rgba(11, 28, 77, 0.36), 0 0 0 6px rgba(255, 255, 255, 0.18) !important;
+}
+.avatar-upload {
+    background: linear-gradient(135deg, #2b5be0, #193fa4) !important;
+    border: 2.5px solid #ffffff !important;
+}
+.lang-option {
+    background: linear-gradient(180deg, #f5f8ff 0%, #e8eeff 100%) !important;
+    border: 1.5px solid #cbd7f7 !important;
+    border-radius: 18px !important;
+    box-shadow: inset 0 1px 0 #ffffff !important;
+}
+.lang-option.active {
+    background: linear-gradient(135deg, #e3eafd 0%, #bfd0fa 100%) !important;
+    border: 2px solid #193fa4 !important;
+    box-shadow: 0 10px 24px rgba(25, 63, 164, 0.18), inset 0 1px 0 #ffffff !important;
+}
+.lang-option.active::after {
+    background: linear-gradient(135deg, #193fa4, #2b5be0) !important;
+}
+@media(max-width: 860px) {
+    .profile-section { grid-template-columns: 1fr !important; }
+    .profile-section .card:nth-child(5) { grid-column: auto !important; }
+}
+
+/* ==========================================================================
+   BESPOKE REDESIGN FOR PAYMENT.HTML (ROYAL COBALT EDAHABIA)
+   ========================================================================== */
+.payment-wrap {
+    max-width: 1240px !important;
+    margin: 0 auto !important;
+    padding: 4px 20px 48px !important;
+}
+.pay-header {
+    width: 100% !important;
+    margin: 14px auto 28px !important;
+}
+.pay-grid {
+    max-width: 1180px !important;
+    margin: 0 auto !important;
+    gap: 28px !important;
+}
+.card-golden {
+    background-color: #193fa4 !important;
+    background-image:
+        radial-gradient(circle at 82% 18%, rgba(245, 212, 122, 0.28) 0%, transparent 45%),
+        radial-gradient(circle at 15% 85%, rgba(68, 114, 242, 0.35) 0%, transparent 50%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(135deg, #0b1c4d 0%, #193fa4 48%, #1a41ad 80%, #1a44b5 100%) !important;
+    background-size: 100% 100%, 100% 100%, 24px 24px, 24px 24px, 100% 100% !important;
+    border-radius: 28px !important;
+    border: 2.5px solid rgba(245, 212, 122, 0.65) !important;
+    box-shadow: 0 26px 56px -12px rgba(11, 28, 77, 0.45),
+                0 0 0 4px rgba(255, 255, 255, 0.8),
+                inset 0 2px 5px rgba(255, 255, 255, 0.35) !important;
+    transform: none !important;
+}
+.card-golden:hover {
+    transform: translateY(-5px) scale(1.01) !important;
+}
+.amount-section {
+    padding: 24px 26px !important;
+    margin-top: 22px !important;
+}
+.amount-label, .amount-total-label {
+    color: #455a94 !important;
+    font-weight: 800 !important;
+}
+.amount-value {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #2b5be0 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+.amount-total-value {
+    color: #0b1c4d !important;
+    font-size: 1.35rem !important;
+    font-weight: 900 !important;
+}
+.amount-period {
+    color: #193fa4 !important;
+    font-weight: 700 !important;
+}
+.amount-divider {
+    background: linear-gradient(90deg, transparent, #bfd0fa, transparent) !important;
+}
+.pay-form h2 {
+    background: linear-gradient(135deg, #eef2fe 0%, #dbe4fc 100%) !important;
+    border: 1.5px solid #bfd0fa !important;
+    padding: 14px 18px !important;
+    border-radius: 20px !important;
+    color: #0b1c4d !important;
+    margin-bottom: 22px !important;
+}
+.pay-form h2 .icon {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border-radius: 14px !important;
+    box-shadow: 0 6px 14px rgba(25, 63, 164, 0.30) !important;
+}
+.btn-pay {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border-radius: 999px !important;
+    border: 2px solid rgba(255, 255, 255, 0.85) !important;
+    box-shadow: 0 12px 28px rgba(25, 63, 164, 0.38),
+                inset 0 2px 3px rgba(255, 255, 255, 0.50) !important;
+}
+.btn-pay:hover {
+    transform: translateY(-2px) scale(1.01) !important;
+    box-shadow: 0 16px 36px rgba(25, 63, 164, 0.48) !important;
+}
+.pay-features {
+    background: linear-gradient(180deg, #f2f5fe 0%, #e6ecfc 100%) !important;
+    border: 1.5px solid #bfd0fa !important;
+    border-radius: 20px !important;
+}
+.pay-features h4 { color: #0b1c4d !important; }
+.pay-features li { color: #1f346e !important; font-weight: 700 !important; }
+.pay-features li::before {
+    background: linear-gradient(135deg, #193fa4, #2b5be0) !important;
+}
+
+/* Summary Card & Form Card Header Contrast in patient.html / patient-severity.html */
+.summary-card, .main-diag {
+    background:
+        radial-gradient(circle at 18% 15%, rgba(68, 114, 242, 0.38) 0%, transparent 45%),
+        linear-gradient(150deg, #122d7a 0%, #193fa4 45%, #1a41ad 78%, #1a44b5 100%) !important;
+    border: 2.5px solid #ffffff !important;
+    border-radius: 28px !important;
+    box-shadow: 0 22px 50px -10px rgba(25, 63, 164, 0.38),
+                0 0 0 1.5px rgba(26, 68, 181, 0.42),
+                inset 0 2px 4px rgba(255, 255, 255, 0.40) !important;
+    color: #ffffff !important;
+}
+.form-card-header {
+    background: linear-gradient(135deg, #eef2fe 0%, #dbe4fc 100%) !important;
+    border-bottom: 1.5px solid #bfd0fa !important;
+    padding: 18px 24px !important;
+}
+.form-card-header .pfh-avatar {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 55%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 16px rgba(25, 63, 164, 0.32) !important;
+}
+.form-card-header .pfh-name { color: #0b1c4d !important; }
+.form-card-header .pfh-sub { color: #455a94 !important; }
+.form-card-header .pfh-file-num {
+    background: #ffffff !important;
+    color: #193fa4 !important;
+    border: 1.5px solid #93aff5 !important;
+    box-shadow: 0 2px 8px rgba(25, 63, 164, 0.10) !important;
+}
+.pm-head {
+    background: linear-gradient(135deg, #122d7a 0%, #193fa4 55%, #1a44b5 100%) !important;
+}
+
+/* 5. CREATIVE BENTO REDESIGN FOR TOOLS.HTML & TOOLS-SEVERITY-SCALE.HTML */
+.pricing-section, .faq-section, .trust-section {
+    background: transparent !important;
+}
+.tools-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    max-width: 1240px !important;
+    gap: 22px !important;
+}
+.tool-card.teal {
+    grid-column: 2 / 3 !important;
+    max-width: none !important;
+}
+@media(max-width: 1020px) {
+    .tools-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    .tool-card.teal { grid-column: 1 / -1 !important; max-width: 480px !important; }
+}
+@media(max-width: 640px) {
+    .tools-grid { grid-template-columns: 1fr !important; }
+    .tool-card.teal { grid-column: auto !important; max-width: none !important; }
+}
+
+.tool-card, .scale-card {
+    background: linear-gradient(180deg, #ffffff 0%, #f6f9ff 100%) !important;
+    border: 2.5px solid #ffffff !important;
+    border-radius: 30px !important;
+    box-shadow: 0 20px 46px -12px rgba(25, 63, 164, 0.16),
+                0 0 0 1.5px #c5d3f7,
+                inset 0 3px 6px #ffffff !important;
+    overflow: hidden !important;
+}
+.tool-card:hover, .scale-card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 28px 60px -12px rgba(25, 63, 164, 0.28),
+                0 0 0 2.5px #1a44b5,
+                inset 0 3px 6px #ffffff !important;
+}
+.tool-card .tool-card-bg, .scale-card .scale-card-bg {
+    background:
+        radial-gradient(circle at 50% 0%, rgba(26, 68, 181, 0.12) 0%, transparent 65%),
+        linear-gradient(180deg, #ffffff 0%, #f2f6ff 100%) !important;
+}
+/* Floating 3D Inset Capsule Banner in exact swatch color (#193fa4 -> #1a41ad -> #1a44b5) */
+.tool-card .tool-card-wave, .scale-card .scale-card-wave {
+    clip-path: none !important;
+    height: 82px !important;
+    top: 12px !important;
+    left: 12px !important;
+    right: 12px !important;
+    border-radius: 22px !important;
+    background-color: #1a41ad !important;
+    background-image:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.30) 0%, transparent 50%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    background-size: 100% 100%, 20px 20px, 20px 20px, 100% 100% !important;
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.45),
+                0 8px 20px rgba(25, 63, 164, 0.22) !important;
+    opacity: 1 !important;
+}
+.tool-card .tool-icon {
+    width: 82px !important;
+    height: 82px !important;
+    margin-top: 14px !important;
+    border-radius: 24px !important;
+    background: linear-gradient(145deg, #ffffff 0%, #eef2fe 100%) !important;
+    border: 3px solid #ffffff !important;
+    box-shadow: 0 14px 28px rgba(25, 63, 164, 0.24),
+                0 0 0 4px rgba(26, 68, 181, 0.22),
+                inset 0 2px 4px #ffffff !important;
+}
+.tool-card:hover .tool-icon {
+    transform: scale(1.08) rotate(-4deg) !important;
+}
+.tool-card h3, .scale-card h3 {
+    color: #0b1c4d !important;
+}
+.tool-card .tool-card-line, .scale-card .scale-card-line {
+    background: linear-gradient(90deg, #2b5be0, #193fa4) !important;
+    height: 4px !important;
+    width: 48px !important;
+    border-radius: 99px !important;
+}
+.tool-card .tool-step {
+    background: linear-gradient(180deg, #f8faff 0%, #eef2fe 100%) !important;
+    border: 1.5px solid #cbd7f7 !important;
+    border-radius: 14px !important;
+    color: #11286b !important;
+    box-shadow: inset 0 1px 0 #ffffff !important;
+}
+.tool-card .tool-step-icon {
+    background: linear-gradient(135deg, #2b5be0, #193fa4) !important;
+    color: #ffffff !important;
+    border-radius: 9px !important;
+    box-shadow: 0 4px 10px rgba(25, 63, 164, 0.25) !important;
+}
+.tool-card .tool-btn, .scale-card .scale-btn, .builder-cta {
+    background: linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border-radius: 999px !important;
+    border: 2px solid rgba(255, 255, 255, 0.85) !important;
+    box-shadow: 0 10px 24px rgba(25, 63, 164, 0.34),
+                inset 0 2px 3px rgba(255, 255, 255, 0.45) !important;
+}
+.scale-card .scale-clipboard {
+    margin-top: 12px !important;
+    border-color: #bfd0fa !important;
+    border-radius: 24px !important;
+    box-shadow: 0 16px 34px rgba(25, 63, 164, 0.20), inset 0 2px 3px #ffffff !important;
+}
+.scale-card .scale-clipboard::before {
+    background: linear-gradient(90deg, #2b5be0, #193fa4) !important;
+}
+.scale-card .scale-clipboard-icon, .scale-card .scale-card-circle {
+    background: linear-gradient(135deg, #2b5be0, #193fa4) !important;
+    box-shadow: 0 6px 16px rgba(25, 63, 164, 0.30) !important;
+}
+.scale-card .scale-card-circle {
+    top: 24px !important;
+    left: 24px !important;
+    width: 48px !important;
+    height: 48px !important;
+    border: 2px solid rgba(255, 255, 255, 0.65) !important;
+}
+.scale-card .scale-clipboard-line { background: #cbd7f7 !important; }
+.scale-card .scale-check { background: #1a41ad !important; }
+.scale-card .en-name, .scale-card .scale-card-dots { color: #193fa4 !important; }
+
+/* 6. PATIENT-FILE.HTML DOSSIER SHELL */
+.file-shell {
+    background: linear-gradient(180deg, #e6ecfc 0%, #d8e2fb 60%, #cad7f9 100%) !important;
+    border: 2.5px solid #ffffff !important;
+    border-radius: 18px 32px 32px 32px !important;
+    box-shadow: 0 26px 60px -12px rgba(25, 63, 164, 0.22),
+                0 0 0 1.5px #b6c8f9,
+                inset 0 3px 6px rgba(255, 255, 255, 0.9) !important;
+}
+.file-shell::before {
+    color: #ffffff !important;
+    background: linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    border: 2px solid #ffffff !important;
+    border-bottom: none !important;
+    border-radius: 18px 18px 0 0 !important;
+    box-shadow: 0 -6px 18px rgba(25, 63, 164, 0.28) !important;
+}
+.file-shell::after {
+    background: repeating-linear-gradient(90deg, #8aa7f5 0 10px, transparent 10px 20px) !important;
+}
+.file-shell .card {
+    background: linear-gradient(180deg, #ffffff 0%, #f8faff 100%) !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 12px 28px rgba(25, 63, 164, 0.10) !important;
+}
+.file-shell .card-title {
+    color: #0b1c4d !important;
+    border-bottom: 1.5px dashed #bfd0fa !important;
+}
+.file-shell .info-item, .file-shell .stat, .file-shell .sess, .file-shell .interview-item {
+    background: #f4f7fe !important;
+    border: 1.5px solid #cbd7f7 !important;
+}
+.file-shell .interview-item { border-inline-start: 4px solid #1a41ad !important; }
+.file-shell .info-item .k, .file-shell .stat .sl, .file-shell .sess-date, .file-shell .interview-date { color: #455a94 !important; }
+.file-shell .info-item .v, .file-shell .sess-scale, .file-shell .interview-title, .file-shell .field-label { color: #0b1c4d !important; }
+.file-shell .stat .sv { color: #193fa4 !important; }
+.file-shell .sess-num { background: linear-gradient(135deg, #2b5be0, #193fa4) !important; }
+.file-shell .btn-primary {
+    background: linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    box-shadow: 0 8px 22px rgba(25, 63, 164, 0.34) !important;
+}
+.file-shell .btn-soft, .file-shell .chip:not(.sev) {
+    background: #eaeffd !important;
+    color: #193fa4 !important;
+    border-color: #bfd0fa !important;
+}
+
+/* 7. TACTILE 3D INPUTS, BUTTONS, PILLS, & TABLES ACROSS ALL PAGES */
+input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="date"], input[type="tel"], input[type="time"], select, textarea, .form-input, .search-input, .sort-select, .symptoms-area, .notes-area, .scale-search, .pay-form .field input {
+    background: linear-gradient(180deg, #f4f7fe 0%, #ffffff 100%) !important;
+    border: 1.5px solid #c5d3f7 !important;
+    border-radius: 16px !important;
+    color: #0b1c4d !important;
+    box-shadow: inset 0 2px 5px rgba(25, 63, 164, 0.06), 0 1px 0 #ffffff !important;
+    font-family: 'Tajawal', 'Readex Pro', 'Cairo', sans-serif !important;
+}
+input:focus, select:focus, textarea:focus, .form-input:focus, .search-input:focus, .sort-select:focus, .symptoms-area:focus, .notes-area:focus, .scale-search:focus, .pay-form .field input:focus {
+    background: #ffffff !important;
+    border-color: #1a44b5 !important;
+    box-shadow: 0 8px 22px rgba(26, 65, 173, 0.16), 0 0 0 4px rgba(26, 68, 181, 0.18) !important;
+    outline: none !important;
+}
+
+/* All Primary Buttons Unified in Exact Swatch Royal Cobalt (#193fa4 -> #1a41ad -> #1a44b5) */
+.btn-primary, .btn-primary2, .auth-btn, .btn-analyze, .btn-save-test, .act-btn.primary-solid, .act-btn.save, .dx-btn:not(.ghost), .fbtn.open, .btn-test, .action-btn.primary, .fill-modal-btn.primary, .btn-gen, .rem-btn.solid, .btn-main, .plan:not(.golden) .btn-buy, .cta-btn {
+    background: linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border-radius: 999px !important;
+    border: 2px solid rgba(255, 255, 255, 0.85) !important;
+    box-shadow: 0 10px 24px rgba(25, 63, 164, 0.36),
+                inset 0 2px 3px rgba(255, 255, 255, 0.45) !important;
+}
+.btn-primary:hover, .btn-primary2:hover, .auth-btn:hover, .btn-analyze:hover, .btn-save-test:hover, .act-btn.primary-solid:hover, .dx-btn:not(.ghost):hover, .fbtn.open:hover, .btn-test:hover, .btn-gen:hover, .rem-btn.solid:hover, .btn-main:hover, .plan:not(.golden) .btn-buy:hover {
+    transform: translateY(-2px) scale(1.01) !important;
+    box-shadow: 0 14px 32px rgba(25, 63, 164, 0.48),
+                inset 0 2px 4px rgba(255, 255, 255, 0.60) !important;
+}
+
+/* Tactile 3D Answer & Option Pills */
+.answers-row button, .q-opt, .sel-opt, .step-pill {
+    border-radius: 16px !important;
+    border: 1.5px solid #cbd7f7 !important;
+    background: linear-gradient(180deg, #ffffff 0%, #f2f5fe 100%) !important;
+    color: #152f78 !important;
+    box-shadow: 0 4px 10px rgba(25, 63, 164, 0.06), inset 0 1px 0 #ffffff !important;
+}
+.answers-row button:hover, .q-opt:hover, .sel-opt:hover {
+    border-color: #1a44b5 !important;
+    background: #ffffff !important;
+    color: #193fa4 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(26, 65, 173, 0.16) !important;
+}
+.answers-row button.sel, .q-opt.on, .sel-opt.sel, .step-pill.active {
+    background: linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 22px rgba(25, 63, 164, 0.36), inset 0 2px 3px rgba(255, 255, 255, 0.45) !important;
+}
+
+.question-card:has(button.sel), .question-card.answered {
+    border-color: #1a44b5 !important;
+    background: linear-gradient(180deg, #ffffff 0%, #f2f6ff 100%) !important;
+    box-shadow: 0 16px 38px rgba(25, 63, 164, 0.16), 0 0 0 2px #1a44b5 !important;
+}
+.tq-num, .fc-avatar, .score-circle, .auth-ico, .write-icon {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    box-shadow: 0 8px 20px rgba(25, 63, 164, 0.32), inset 0 2px 3px rgba(255, 255, 255, 0.45) !important;
+    color: #ffffff !important;
+}
+
+/* Tabs & Segmented Pills */
+.tabs, .diff-chips, .seg {
+    background: linear-gradient(180deg, #e6ecfc 0%, #dbe4fb 100%) !important;
+    border: 1.5px solid #cbd7f7 !important;
+    border-radius: 999px !important;
+    padding: 5px !important;
+    box-shadow: inset 0 2px 4px rgba(25, 63, 164, 0.08) !important;
+}
+.tab, .diff-chips .chip { border-radius: 999px !important; }
+.tab.active, .diff-chips .chip.active {
+    background: linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 16px rgba(25, 63, 164, 0.32), inset 0 1px 2px rgba(255, 255, 255, 0.45) !important;
+}
+
+/* Tables */
+.appt-table th, .ans-table th, .crit-table th, table th {
+    background: linear-gradient(180deg, #ecf1fd 0%, #dfe7fc 100%) !important;
+    color: #0b1c4d !important;
+    border-bottom: 2px solid #b6c8f9 !important;
+}
+
+/* Floating Bottom Action Bars */
+.action-bar, .bottom-bar {
+    width: min(1060px, 94%) !important;
+    margin: 0 auto !important;
+    bottom: 12px !important;
+    border-radius: 999px !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 20px 50px rgba(11, 28, 77, 0.18), 0 0 0 1.5px rgba(26, 68, 181, 0.35) !important;
+}
+
+/* 8. FLOATING 3D ROYAL COBALT FOOTER ISLAND */
+footer, .footer {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 40px auto 24px !important;
+    border-radius: 34px !important;
+    background:
+        radial-gradient(circle at 85% 20%, rgba(68, 114, 242, 0.25) 0%, transparent 45%),
+        linear-gradient(135deg, #0b1c4d 0%, #143185 48%, #193fa4 100%) !important;
+    border: 2.5px solid rgba(255, 255, 255, 0.80) !important;
+    box-shadow: 0 26px 60px -12px rgba(11, 28, 77, 0.36),
+                inset 0 2px 4px rgba(96, 140, 255, 0.35) !important;
+    color: #dbe4fc !important;
+    padding-inline: 28px !important;
+    overflow: hidden !important;
+}
+footer .footer-col a, .footer .footer-col a { color: #b6c8f9 !important; }
+footer .footer-col a:hover, .footer .footer-col a:hover { color: #ffffff !important; }
+
+@media(max-width:640px) {
+    header.nav { top: 8px !important; width: 96% !important; border-radius: 24px !important; }
+    .page-hero, .hero:not(:has(.hero-grid)), .mini-hero, .hero-card, header.page-header, .pay-header {
+        width: 96% !important;
+        border-radius: 24px !important;
+        padding: 24px 16px !important;
+        margin: 12px auto 18px !important;
+    }
+    .hero-grid {
+        width: 96% !important;
+        border-radius: 26px !important;
+        padding: 28px 18px !important;
+    }
+    .action-bar, .bottom-bar {
+        width: 96% !important;
+        border-radius: 24px !important;
+        bottom: 8px !important;
+    }
+    footer, .footer {
+        width: 96% !important;
+        border-radius: 26px !important;
+        padding-inline: 18px !important;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/* === BESPOKE 6-VIEWS ROYAL COBALT 3D NEURO-GLASS STUDIO START === */
+
+/* ==========================================================================
+   CALM & COHESIVE LIGHT SKY-BLUE ARCHITECTURE FOR #dxProgress & #dxPanels
+   ========================================================================== */
+#dxProgress.dx-progress {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f6ff 100%) !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 999px !important;
+    padding: 9px 18px !important;
+    gap: 10px !important;
+    box-shadow: 0 14px 34px rgba(25, 63, 164, 0.12), 0 0 0 1.5px #c5d6fa !important;
+}
+#dxProgress .dx-pstep {
+    background: #f8faff !important;
+    border: 1.5px solid #cbd7f7 !important;
+    color: #455a94 !important;
+    padding: 8px 18px !important;
+    font-size: 13px !important;
+    border-radius: 999px !important;
+}
+#dxProgress .dx-pstep.on {
+    background: linear-gradient(135deg, #193fa4 0%, #2563eb 100%) !important;
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 18px rgba(25, 63, 164, 0.28) !important;
+}
+#dxProgress .dx-pstep.on b { background: #ffffff !important; color: #193fa4 !important; }
+#dxProgress .dx-pstep.done {
+    background: #ecfdf5 !important;
+    border-color: #86efac !important;
+    color: #065f46 !important;
+}
+#dxProgress .dx-pstep.done b { background: #16a34a !important; color: #ffffff !important; }
+
+/* Main Stage Container (#dxPanels .dx-panel) */
+#dxPanels .dx-panel {
+    background: linear-gradient(160deg, #ffffff 0%, #f4f8ff 100%) !important;
+    border: 2.5px solid #ffffff !important;
+    border-radius: 34px !important;
+    padding: 32px 30px !important;
+    box-shadow: 0 24px 58px -12px rgba(25, 63, 164, 0.14),
+                0 0 0 1.5px #c5d6fa,
+                inset 0 2px 6px #ffffff !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+#dxPanels .dx-panel::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important; right: 0 !important; left: 0 !important;
+    height: 5px !important;
+    background: linear-gradient(90deg, #193fa4 0%, #2563eb 50%, #38bdf8 100%) !important;
+}
+#dxPanels .dx-panel h2 {
+    font-size: 24px !important;
+    font-weight: 900 !important;
+    color: #0b1c4d !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin-bottom: 6px !important;
+}
+#dxPanels .dx-panel h2::before {
+    content: '🩺' !important;
+    width: 44px !important; height: 44px !important;
+    border-radius: 14px !important;
+    background: linear-gradient(135deg, #e0edff 0%, #dbeafe 100%) !important;
+    border: 1.5px solid #93c5fd !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 20px !important;
+}
+#dxPanels .dx-sub {
+    color: #455a94 !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    margin-bottom: 20px !important;
+}
+
+/* Recognized Criteria Cloud (.dx-reco & .dx-chip) */
+#dxPanels .dx-reco {
+    background: linear-gradient(135deg, #f8faff 0%, #eef5ff 100%) !important;
+    border: 1.5px dashed #93c5fd !important;
+    border-radius: 22px !important;
+    padding: 15px 18px !important;
+    gap: 9px !important;
+    margin-bottom: 22px !important;
+}
+#dxPanels .dx-chip {
+    background: #ffffff !important;
+    border: 1.5px solid #bfd4fb !important;
+    color: #193fa4 !important;
+    font-size: 12.5px !important;
+    font-weight: 800 !important;
+    padding: 6px 14px !important;
+    border-radius: 999px !important;
+    box-shadow: 0 3px 8px rgba(25, 63, 164, 0.06) !important;
+}
+
+/* ==========================================================================
+   VIEW 1: الاضطرابات الأكثر احتمالاً — 3D DOME CARDS IN CALM LIGHT BLUE
+   ========================================================================== */
+#dxPanels .hypo-grid {
+    grid-template-columns: repeat(auto-fit, minmax(285px, 1fr)) !important;
+    gap: 20px !important;
+    margin-bottom: 24px !important;
+}
+#dxPanels .hypo-card {
+    background: linear-gradient(180deg, #f4f8ff 0%, #ffffff 48%, #f8faff 100%) !important;
+    border: 2px solid #bfd4fb !important;
+    border-radius: 28px !important;
+    padding: 0 0 20px 0 !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    box-shadow: 0 16px 38px -10px rgba(25, 63, 164, 0.12) !important;
+    transition: all 0.3s ease !important;
+}
+#dxPanels .hypo-card:hover {
+    transform: translateY(-6px) !important;
+    border-color: #2563eb !important;
+    box-shadow: 0 22px 46px -10px rgba(25, 63, 164, 0.20) !important;
+}
+#dxPanels .hypo-card::before {
+    content: '' !important;
+    width: 100% !important;
+    height: 70px !important;
+    display: block !important;
+    background: linear-gradient(135deg, #193fa4 0%, #2563eb 60%, #3b82f6 100%) !important;
+    border-radius: 0 0 50% 50% / 0 0 26px 26px !important;
+    margin-bottom: -34px !important;
+}
+#dxPanels .hypo-card .hc-ico {
+    width: 68px !important; height: 68px !important;
+    border-radius: 22px !important;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+    border: 3px solid #ffffff !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 32px !important;
+    position: relative !important;
+    z-index: 2 !important;
+    margin-bottom: 10px !important;
+    box-shadow: 0 10px 24px rgba(25, 63, 164, 0.18) !important;
+}
+#dxPanels .hypo-card .hc-code {
+    top: 14px !important;
+    left: 16px !important;
+    z-index: 3 !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #193fa4 !important;
+    border: 1.5px solid #ffffff !important;
+    border-radius: 999px !important;
+    padding: 4px 12px !important;
+    font-size: 11.5px !important;
+    font-weight: 900 !important;
+}
+#dxPanels .hypo-card h3 {
+    font-size: 18px !important;
+    font-weight: 900 !important;
+    color: #0b1c4d !important;
+    padding: 0 18px !important;
+    margin: 4px 0 3px !important;
+}
+#dxPanels .hypo-card .hc-en {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    color: #64748b !important;
+    text-align: center !important;
+    padding: 0 16px !important;
+}
+#dxPanels .hypo-card .hc-cat {
+    margin-top: 10px !important;
+    padding: 5px 15px !important;
+    border-radius: 999px !important;
+    font-size: 11.5px !important;
+    font-weight: 800 !important;
+    background: #e0edff !important;
+    color: #193fa4 !important;
+    border: 1px solid #93c5fd !important;
+}
+.hc-evidence-box {
+    width: calc(100% - 32px) !important;
+    margin: 14px 16px 0 !important;
+    padding: 12px 14px !important;
+    border-radius: 16px !important;
+    background: #f8faff !important;
+    border: 1.5px dashed #bfd4fb !important;
+    text-align: right !important;
+}
+.hc-ev-head {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    font-size: 11.5px !important;
+    font-weight: 900 !important;
+    color: #193fa4 !important;
+    margin-bottom: 8px !important;
+}
+.hc-ev-pills { display: flex !important; flex-wrap: wrap !important; gap: 5px !important; }
+.hc-ev-pill {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    padding: 3px 9px !important;
+    border-radius: 8px !important;
+    background: #ffffff !important;
+    color: #1e3a8a !important;
+    border: 1px solid #dbeafe !important;
+}
+
+/* ==========================================================================
+   VIEW 2: أسئلة التشخيص الفارقي — 2-COLUMN CALM LIGHT-BLUE BENTO GRID
+   ========================================================================== */
+.dx-live-progress-bar {
+    background: linear-gradient(135deg, #f0f6ff 0%, #e6f0ff 100%) !important;
+    border: 1.5px solid #93c5fd !important;
+    border-radius: 22px !important;
+    padding: 15px 20px !important;
+    margin-bottom: 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+}
+.dx-live-top {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+    font-size: 13.5px !important;
+    font-weight: 900 !important;
+    color: #0b1c4d !important;
+}
+.dx-live-top b { color: #193fa4 !important; }
+.dx-quick-fill-btn {
+    background: linear-gradient(135deg, #193fa4 0%, #2563eb 100%) !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 999px !important;
+    padding: 7px 16px !important;
+    font-family: inherit !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    cursor: pointer !important;
+}
+.dx-live-track {
+    width: 100% !important;
+    height: 9px !important;
+    border-radius: 999px !important;
+    background: #dbeafe !important;
+    overflow: hidden !important;
+}
+.dx-live-fill {
+    height: 100% !important;
+    border-radius: 999px !important;
+    background: linear-gradient(90deg, #193fa4, #2563eb, #10b981) !important;
+    transition: width 0.35s ease !important;
+}
+
+@media (min-width: 901px) {
+    #dxPanels .q-list {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 16px !important;
+    }
+}
+#dxPanels .q-item:last-child:nth-child(odd) {
+    grid-column: 1 / -1 !important;
+}
+#dxPanels .q-item {
+    background: linear-gradient(155deg, #f8faff 0%, #eef5ff 100%) !important;
+    border: 1.5px solid #bfd4fb !important;
+    border-radius: 24px !important;
+    padding: 18px 20px !important;
+    box-shadow: 0 10px 24px rgba(25, 63, 164, 0.06), inset 0 2px 4px #ffffff !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+#dxPanels .q-item.is-answered {
+    background: linear-gradient(155deg, #f0fdf4 0%, #ecfdf5 100%) !important;
+    border-color: #6ee7b7 !important;
+}
+#dxPanels .q-head {
+    background: #ffffff !important;
+    border-radius: 15px !important;
+    padding: 11px 14px !important;
+    margin-bottom: 10px !important;
+    border: 1px solid #dbeafe !important;
+    align-items: center !important;
+}
+#dxPanels .q-title {
+    font-size: 14px !important;
+    font-weight: 900 !important;
+    color: #0b1c4d !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+#dxPanels .q-title::before {
+    content: '؟' !important;
+    width: 30px !important; height: 30px !important;
+    border-radius: 9px !important;
+    background: linear-gradient(135deg, #193fa4, #2563eb) !important;
+    color: #ffffff !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 14px !important;
+    font-weight: 900 !important;
+    flex-shrink: 0 !important;
+}
+#dxPanels .q-item.is-answered .q-title::before {
+    content: '✓' !important;
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+}
+#dxPanels .q-badge {
+    background: #e0edff !important;
+    color: #193fa4 !important;
+    border: 1px solid #93c5fd !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    padding: 4px 10px !important;
+    border-radius: 999px !important;
+}
+#dxPanels .q-opt {
+    background: #ffffff !important;
+    border: 1.5px solid #cbd7f7 !important;
+    border-radius: 12px !important;
+    color: #1e3a8a !important;
+    font-size: 12.5px !important;
+    font-weight: 800 !important;
+    padding: 8px 13px !important;
+}
+#dxPanels .q-opt.on {
+    background: linear-gradient(135deg, #193fa4 0%, #2563eb 100%) !important;
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+}
+#dxPanels .q-free { margin-top: auto !important; padding-top: 10px !important; }
+#dxPanels .q-free input {
+    background: #ffffff !important;
+    border: 1.5px solid #bfd4fb !important;
+    border-radius: 12px !important;
+    color: #0b1c4d !important;
+}
+#dxPanels .q-free button {
+    background: linear-gradient(135deg, #193fa4, #2563eb) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 0 18px !important;
+}
+
+/* ==========================================================================
+   VIEW 3: النتيجة التشخيصية — CALM LIGHT SKY & MINT TROPHY + 2-COLUMN GRID
+   ========================================================================== */
+#dxPanels .final-card {
+    background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%) !important;
+    border: 2px solid #86efac !important;
+    border-radius: 28px !important;
+    padding: 26px 28px !important;
+    margin-bottom: 22px !important;
+    box-shadow: 0 16px 38px -10px rgba(16, 185, 129, 0.12) !important;
+}
+#dxPanels .final-card .fc-ico {
+    width: 72px !important; height: 72px !important;
+    border-radius: 22px !important;
+    background: linear-gradient(135deg, #e0edff 0%, #dcfce7 100%) !important;
+    border: 2.5px solid #ffffff !important;
+    font-size: 34px !important;
+    box-shadow: 0 10px 24px rgba(25, 63, 164, 0.14) !important;
+}
+#dxPanels .final-card h3 { font-size: 22px !important; font-weight: 900 !important; color: #0b1c4d !important; }
+#dxPanels .final-card .fc-en { font-size: 12.5px !important; font-weight: 700 !important; color: #455a94 !important; }
+#dxPanels .final-card .fc-tag {
+    background: #ffffff !important;
+    border: 1.5px solid #93c5fd !important;
+    color: #193fa4 !important;
+    padding: 5px 14px !important;
+    border-radius: 999px !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+}
+
+#dxPanels .dx-list {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+    gap: 14px !important;
+    margin-bottom: 20px !important;
+}
+#dxPanels .dx-li {
+    background: linear-gradient(145deg, #f8faff 0%, #eef5ff 100%) !important;
+    border: 1.5px solid #bfd4fb !important;
+    border-top: 4px solid #2563eb !important;
+    border-radius: 20px !important;
+    padding: 15px 18px !important;
+    color: #0b1c4d !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    align-items: flex-start !important;
+}
+#dxPanels .dx-li:has(.ok) {
+    background: linear-gradient(145deg, #f0fdf4 0%, #ecfdf5 100%) !important;
+    border-color: #86efac !important;
+    border-top-color: #10b981 !important;
+}
+#dxPanels .dx-li .ok {
+    width: 28px !important; height: 28px !important;
+    border-radius: 9px !important;
+    background: #16a34a !important;
+    color: #ffffff !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+}
+#dxPanels .dx-li .x {
+    width: 28px !important; height: 28px !important;
+    border-radius: 9px !important;
+    background: #e11d48 !important;
+    color: #ffffff !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+}
+#dxPanels .dx-btn.ghost {
+    background: #eef4ff !important;
+    border: 1.5px solid #bfd4fb !important;
+    border-radius: 999px !important;
+    color: #193fa4 !important;
+    font-weight: 800 !important;
+}
+
+@media(max-width: 900px) {
+    #dxPanels .q-list { grid-template-columns: 1fr !important; }
+}
+
+/* === BESPOKE 6-VIEWS ROYAL COBALT 3D NEURO-GLASS STUDIO END === */
+
+/* ==========================================================================
+   UNIFIED INTERLOCKED BARS + FULL-WIDTH AUTH PORTAL
+   - Top bar (header.nav): Crisp 3D White/Ice Royal Glass (distinct from the dark blue hero bar below!)
+   - Stepper (.progress-nav) + Hero (.page-hero): Interlocked Dark Royal Blue Blueprint-Grid (#193fa4 -> #1a41ad -> #1a44b5)
+   ========================================================================== */
+header.nav {
+    position: sticky !important;
+    top: 10px !important;
+    z-index: 200 !important;
+    width: 97% !important;
+    max-width: none !important;
+    margin: 10px auto 6px !important;
+    border-radius: 24px 24px 12px 12px !important;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, rgba(238, 245, 255, 0.96) 100%) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 2.5px solid #ffffff !important;
+    box-shadow: 0 14px 34px -10px rgba(25, 63, 164, 0.18),
+                0 0 0 1.5px rgba(25, 63, 164, 0.22),
+                inset 0 2px 4px #ffffff !important;
+    padding: 0 14px !important;
+}
+header.nav .nav-inner,
+header.nav .container.nav-inner {
+    height: 74px !important;
+    padding-inline: 24px !important;
+    width: 100% !important;
+    max-width: none !important;
+}
+header.nav .brand-logo {
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 8px 20px rgba(25, 63, 164, 0.30),
+                0 0 0 3px rgba(25, 63, 164, 0.16) !important;
+}
+header.nav .brand-name {
+    background: linear-gradient(135deg, #0b1c4d 0%, #193fa4 55%, #2563eb 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    filter: none !important;
+}
+header.nav .brand-sub {
+    color: #455a94 !important;
+}
+header.nav .nav-links {
+    background: linear-gradient(180deg, #edf3ff 0%, #dfeafd 100%) !important;
+    border: 1.5px solid #c5d5f8 !important;
+    padding: 5px 8px !important;
+    border-radius: 999px !important;
+    gap: 6px !important;
+    box-shadow: inset 0 2px 4px rgba(25, 63, 164, 0.08), 0 1px 0 #ffffff !important;
+}
+header.nav .nav-links a {
+    color: #152f78 !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+    padding: 7px 16px !important;
+    border-radius: 999px !important;
+    text-shadow: none !important;
+}
+header.nav .nav-links a:hover {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 14px rgba(25, 63, 164, 0.28) !important;
+}
+header.nav .nav-cta, header.nav .btn-primary.nav-cta {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border-radius: 999px !important;
+    padding: 10px 26px !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 8px 20px rgba(25, 63, 164, 0.32),
+                inset 0 2px 3px rgba(255, 255, 255, 0.35) !important;
+}
+header.nav .nav-cta:hover {
+    background: linear-gradient(135deg, #143388 0%, #193fa4 100%) !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) scale(1.02) !important;
+}
+
+/* Middle Interlocked Stepper Bar (.progress-nav & .steps-bar) — Docked directly onto .page-hero in Dark Royal Blue Blueprint */
+nav.progress-nav, .progress-nav, .steps-bar {
+    position: relative !important;
+    top: auto !important;
+    width: 97% !important;
+    max-width: none !important;
+    margin: 0 auto !important;
+    border-radius: 24px 24px 0 0 !important;
+    background-color: #183b9e !important;
+    background-image:
+        radial-gradient(circle at 15% 50%, rgba(68, 114, 242, 0.35) 0%, transparent 45%),
+        radial-gradient(circle at 85% 50%, rgba(11, 28, 77, 0.40) 0%, transparent 45%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, #163692 0%, #193fa4 50%, #163692 100%) !important;
+    background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px, 100% 100% !important;
+    padding: 12px 24px !important;
+    border-top: 2.5px solid rgba(255, 255, 255, 0.90) !important;
+    border-left: 2.5px solid rgba(255, 255, 255, 0.90) !important;
+    border-right: 2.5px solid rgba(255, 255, 255, 0.90) !important;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+    box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.28) !important;
+}
+.progress-nav .nav-steps {
+    max-width: 100% !important;
+    width: 100% !important;
+    justify-content: center !important;
+    gap: 12px !important;
+}
+.progress-nav .step, .steps-bar .step-pill {
+    color: #dbeafe !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+    border-radius: 999px !important;
+}
+.progress-nav .step.completed {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.18) !important;
+    border-color: rgba(255, 255, 255, 0.52) !important;
+}
+.progress-nav .step .step-icon,
+.progress-nav .step.completed .step-icon {
+    background: rgba(255, 255, 255, 0.24) !important;
+    color: #ffffff !important;
+}
+.progress-nav .step.active, .steps-bar .step-pill.active {
+    background: #ffffff !important;
+    color: #193fa4 !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 8px 24px rgba(11, 28, 77, 0.40) !important;
+}
+.progress-nav .step.active .step-icon {
+    background: linear-gradient(135deg, #193fa4, #1a44b5) !important;
+    color: #ffffff !important;
+}
+.progress-nav .step-connector, .steps-bar .step-connector {
+    background: rgba(255, 255, 255, 0.35) !important;
+    width: 34px !important;
+}
+
+/* Hero Banner (.page-hero, header.page-header, .hero-card, .mini-hero, .hero) */
+.page-hero, .hero:not(:has(.hero-grid)), .mini-hero, .hero-card, header.page-header {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 0 auto 24px !important;
+    border-radius: 14px 14px 30px 30px !important;
+    border: 2.5px solid rgba(255, 255, 255, 0.90) !important;
+    box-shadow: 0 24px 52px -12px rgba(25, 63, 164, 0.42),
+                inset 0 -4px 12px rgba(11, 28, 77, 0.40) !important;
+}
+
+/* When .page-hero / header.page-header / .hero-card immediately follows .progress-nav, fuse them seamlessly! */
+.progress-nav + .page-hero,
+.progress-nav + header.page-header,
+.progress-nav + .hero-card,
+.progress-nav + .mini-hero,
+.steps-bar + .page-hero {
+    border-radius: 0 0 30px 30px !important;
+    border-top: none !important;
+}
+
+/* For payment.html where .pay-header is inside .payment-wrap */
+.payment-wrap {
+    max-width: none !important;
+    width: 100% !important;
+    padding-top: 0 !important;
+}
+.pay-header {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 0 auto 24px !important;
+    border-radius: 14px 14px 30px 30px !important;
+}
+.pay-grid {
+    max-width: 1140px !important;
+    margin: 0 auto !important;
+}
+
+/* ==========================================================================
+   FULL-WIDTH 2-COLUMN CLINICAL AUTH PORTAL FOR LOGIN.HTML & REGISTER.HTML
+   ========================================================================== */
+.auth-wrap {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 6px auto 28px !important;
+    padding: 0 !important;
+    display: grid !important;
+    grid-template-columns: 1.05fr 0.95fr !important;
+    gap: 22px !important;
+    align-items: stretch !important;
+    min-height: calc(100vh - 120px) !important;
+}
+.auth-showcase {
+    background-color: #1a41ad !important;
+    background-image:
+        radial-gradient(circle at 12% 20%, rgba(68, 114, 242, 0.42) 0%, transparent 40%),
+        radial-gradient(circle at 88% 80%, rgba(11, 28, 77, 0.48) 0%, transparent 48%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(135deg, #15358e 0%, #193fa4 50%, #1a44b5 100%) !important;
+    background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px, 100% 100% !important;
+    border: 2.5px solid rgba(255, 255, 255, 0.92) !important;
+    border-radius: 30px !important;
+    padding: 42px 40px !important;
+    color: #ffffff !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    gap: 28px !important;
+    box-shadow: 0 24px 54px -12px rgba(25, 63, 164, 0.40),
+                inset 0 3px 6px rgba(255, 255, 255, 0.40) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+.as-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: rgba(255, 255, 255, 0.16) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+    color: #ffffff !important;
+    padding: 7px 18px !important;
+    border-radius: 999px !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    margin-bottom: 20px !important;
+}
+.as-brand-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 18px !important;
+}
+.as-logo {
+    width: 74px !important;
+    height: 74px !important;
+    border-radius: 22px !important;
+    object-fit: cover !important;
+    border: 3px solid #ffffff !important;
+    box-shadow: 0 12px 28px rgba(11, 28, 77, 0.40) !important;
+    flex-shrink: 0 !important;
+}
+.as-brand-row h2 {
+    font-size: clamp(24px, 2.5vw, 32px) !important;
+    font-weight: 900 !important;
+    color: #ffffff !important;
+    margin-bottom: 6px !important;
+}
+.as-brand-row p {
+    font-size: 15px !important;
+    color: #dbeafe !important;
+    line-height: 1.75 !important;
+    font-weight: 600 !important;
+}
+.as-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+}
+.as-item {
+    background: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.30) !important;
+    border-radius: 22px !important;
+    padding: 18px 18px !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 14px !important;
+    transition: transform 0.25s ease, background 0.25s ease !important;
+}
+.as-item:hover {
+    transform: translateY(-3px) !important;
+    background: rgba(255, 255, 255, 0.18) !important;
+}
+.as-ico {
+    width: 46px !important;
+    height: 46px !important;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.22) !important;
+    border: 1px solid rgba(255, 255, 255, 0.45) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 22px !important;
+    flex-shrink: 0 !important;
+}
+.as-item b {
+    display: block !important;
+    font-size: 15.5px !important;
+    font-weight: 900 !important;
+    color: #ffffff !important;
+    margin-bottom: 4px !important;
+}
+.as-item span {
+    display: block !important;
+    font-size: 13px !important;
+    color: #dbeafe !important;
+    line-height: 1.65 !important;
+    font-weight: 600 !important;
+}
+.as-foot {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 14px !important;
+    flex-wrap: wrap !important;
+    padding: 14px 20px !important;
+    background: rgba(11, 28, 77, 0.32) !important;
+    border: 1px solid rgba(255, 255, 255, 0.24) !important;
+    border-radius: 18px !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+    color: #e0f2fe !important;
+}
+.auth-card {
+    width: 100% !important;
+    max-width: none !important;
+    border-radius: 30px !important;
+    padding: 42px 44px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+@media (max-width: 1024px) {
+    .auth-wrap {
+        grid-template-columns: 1fr !important;
+    }
+    .as-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+
+/* Circular Logo Harmony */
+.brain-emoji,
+header.nav .brand-logo,
+.brand-logo,
+.footer-brand img,
+.id-brand-logo {
+    border-radius: 50% !important;
+    object-fit: cover !important;
+}
+
+
+/* ==========================================================================
+   NATIVE MOBILE APP EXPERIENCE (@media max-width: 768px ONLY)
+   Desktop (> 768px) remains 100% untouched!
+   ========================================================================== */
+.mobile-app-tabbar {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+    body {
+        padding-bottom: 88px !important;
+    }
+    body:has(.action-bar),
+    body:has(.bottom-bar) {
+        padding-bottom: 175px !important;
+    }
+
+    .container {
+        width: 95% !important;
+        padding-inline: 0 !important;
+    }
+
+    /* 1. Compact Native App Top Bar (header.nav) */
+    header.nav {
+        position: sticky !important;
+        top: 6px !important;
+        width: 95% !important;
+        margin: 6px auto 6px !important;
+        border-radius: 20px !important;
+        padding: 0 10px !important;
+        box-shadow: 0 10px 26px -6px rgba(25, 63, 164, 0.18),
+                    0 0 0 1.5px rgba(25, 63, 164, 0.20) !important;
+    }
+    header.nav .nav-inner,
+    header.nav .container.nav-inner {
+        height: 58px !important;
+        padding-inline: 6px !important;
+        gap: 8px !important;
+    }
+    header.nav .brand {
+        gap: 9px !important;
+    }
+    header.nav .brand-logo {
+        width: 38px !important;
+        height: 38px !important;
+        border-radius: 50% !important;
+    }
+    header.nav .brand-name {
+        font-size: 16.5px !important;
+        letter-spacing: 0 !important;
+    }
+    header.nav .brand-sub {
+        font-size: 9.5px !important;
+        margin-top: 1px !important;
+    }
+    header.nav .nav-links {
+        display: none !important;
+    }
+    header.nav .nav-cta,
+    header.nav .btn-primary.nav-cta {
+        padding: 7px 14px !important;
+        font-size: 12px !important;
+        border-radius: 999px !important;
+        white-space: nowrap !important;
+    }
+
+    /* 2. Native Bottom App Tab Bar (.mobile-app-tabbar) */
+    .mobile-app-tabbar {
+        display: grid !important;
+        grid-template-columns: repeat(5, 1fr) !important;
+        align-items: center !important;
+        position: fixed !important;
+        bottom: 8px !important;
+        left: 2.5% !important;
+        right: 2.5% !important;
+        height: 62px !important;
+        background: rgba(255, 255, 255, 0.96) !important;
+        backdrop-filter: blur(24px) saturate(180%) !important;
+        -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+        border: 2px solid #ffffff !important;
+        border-radius: 22px !important;
+        box-shadow: 0 14px 36px rgba(11, 28, 77, 0.24),
+                    0 0 0 1.5px rgba(25, 63, 164, 0.22),
+                    inset 0 2px 4px #ffffff !important;
+        z-index: 9990 !important;
+        padding: 4px 6px !important;
+        gap: 4px !important;
+    }
+    .mobile-app-tabbar .mat-item {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 2px !important;
+        height: 100% !important;
+        border-radius: 16px !important;
+        text-decoration: none !important;
+        color: #455a94 !important;
+        font-size: 10px !important;
+        font-weight: 800 !important;
+        transition: all 0.22s cubic-bezier(.34,1.56,.64,1) !important;
+    }
+    .mobile-app-tabbar .mat-ico {
+        font-size: 18px !important;
+        line-height: 1.1 !important;
+        transition: transform 0.22s ease !important;
+    }
+    .mobile-app-tabbar .mat-item.active {
+        background: linear-gradient(135deg, #193fa4 0%, #1a41ad 55%, #2563eb 100%) !important;
+        color: #ffffff !important;
+        box-shadow: 0 6px 16px rgba(25, 63, 164, 0.32) !important;
+    }
+    .mobile-app-tabbar .mat-item.active .mat-ico {
+        transform: translateY(-1px) scale(1.06) !important;
+    }
+
+    /* 3. Mobile App Stepper Bar (.progress-nav & .steps-bar) */
+    nav.progress-nav, .progress-nav, .steps-bar {
+        width: 95% !important;
+        padding: 8px 10px !important;
+        border-radius: 18px 18px 0 0 !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    .progress-nav .nav-steps {
+        justify-content: flex-start !important;
+        width: max-content !important;
+        margin: 0 auto !important;
+        gap: 6px !important;
+        padding: 0 4px !important;
+    }
+    .progress-nav .step, .steps-bar .step-pill {
+        padding: 6px 12px !important;
+        font-size: 11.5px !important;
+        gap: 5px !important;
+    }
+    .progress-nav .step span:not(.step-icon) {
+        display: inline !important;
+    }
+    .progress-nav .step .step-icon {
+        width: 22px !important;
+        height: 22px !important;
+        font-size: 10.5px !important;
+    }
+    .progress-nav .step-connector, .steps-bar .step-connector {
+        width: 10px !important;
+    }
+
+    /* 4. Mobile App Hero Banners (.page-hero, header.page-header, .hero-card, .mini-hero, .pay-header) */
+    .page-hero, .hero:not(:has(.hero-grid)), .mini-hero, .hero-card, header.page-header, .pay-header {
+        width: 95% !important;
+        padding: 18px 16px !important;
+        margin: 0 auto 14px !important;
+        border-radius: 16px 16px 24px 24px !important;
+    }
+    .progress-nav + .page-hero,
+    .progress-nav + header.page-header,
+    .progress-nav + .hero-card,
+    .progress-nav + .mini-hero {
+        border-radius: 0 0 24px 24px !important;
+    }
+    .page-hero h1, .hero:not(:has(.hero-grid)) h1, .mini-hero h1, .hero:not(:has(.hero-grid)) .hero-title, .header-title, .hero-left h1, .hero-name, .pay-header h1 {
+        font-size: 20px !important;
+        line-height: 1.35 !important;
+        margin-bottom: 6px !important;
+    }
+    .page-hero p, .hero:not(:has(.hero-grid)) p, .mini-hero p, .hero:not(:has(.hero-grid)) .hero-subtitle, .hero-left p, .pay-header p {
+        font-size: 12.5px !important;
+        line-height: 1.65 !important;
+        margin-bottom: 8px !important;
+    }
+    .breadcrumb {
+        font-size: 11px !important;
+        padding: 4px 12px !important;
+        margin-bottom: 8px !important;
+    }
+    .back-btn, .patients-list-btn, .hero-pill, .header-badge {
+        font-size: 11.5px !important;
+        padding: 6px 14px !important;
+    }
+    header.page-header .header-inner {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 8px !important;
+    }
+
+    /* 5. Landing Page (index.html) App Layout */
+    .hero:has(.hero-grid) {
+        padding: 2px 0 14px !important;
+    }
+    .hero-grid {
+        width: 95% !important;
+        padding: 22px 16px !important;
+        border-radius: 24px !important;
+        gap: 18px !important;
+        grid-template-columns: 1fr !important;
+        text-align: center !important;
+    }
+    .hero:has(.hero-grid) .pill {
+        font-size: 11.5px !important;
+        padding: 8px 14px !important;
+        line-height: 1.55 !important;
+        margin-bottom: 14px !important;
+        border-radius: 16px !important;
+    }
+    h1.hero-title {
+        font-size: 24px !important;
+        line-height: 1.35 !important;
+        margin-bottom: 16px !important;
+    }
+    .hero-btns {
+        flex-direction: column !important;
+        gap: 10px !important;
+        margin-bottom: 4px !important;
+    }
+    .hero-btns .btn {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 13px 20px !important;
+        font-size: 15px !important;
+    }
+    .brain-wrap {
+        width: 150px !important;
+        height: 150px !important;
+        margin: 0 auto !important;
+    }
+    .marquee-band {
+        width: 95% !important;
+        padding: 14px 12px !important;
+        border-radius: 22px !important;
+        margin: 0 auto 18px !important;
+    }
+    .band-inner {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
+    .band-item {
+        padding: 9px 10px !important;
+        font-size: 11.5px !important;
+        border-radius: 16px !important;
+        justify-content: flex-start !important;
+    }
+    .band-item:last-child {
+        grid-column: 1 / -1 !important;
+        justify-content: center !important;
+    }
+    .band-item .bi {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 16px !important;
+    }
+    section.block {
+        padding: 18px 0 !important;
+    }
+    .sec-head {
+        padding: 18px 16px !important;
+        border-radius: 22px !important;
+        margin-bottom: 16px !important;
+    }
+    .sec-head h2 {
+        font-size: 21px !important;
+    }
+    .sec-head p {
+        font-size: 13px !important;
+    }
+    .feat-grid, .steps-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+    .feat-card, .step-card {
+        padding: 20px 16px !important;
+        border-radius: 22px !important;
+    }
+    .cta-box {
+        padding: 26px 16px !important;
+        border-radius: 24px !important;
+    }
+    .cta-box h2 {
+        font-size: 20px !important;
+    }
+    .cta-box p {
+        font-size: 13.5px !important;
+        margin-bottom: 18px !important;
+    }
+    .cta-box .btn-white {
+        width: 100% !important;
+        padding: 14px 20px !important;
+        font-size: 15px !important;
+    }
+    footer, .footer {
+        width: 95% !important;
+        border-radius: 24px !important;
+        padding-inline: 16px !important;
+        margin: 20px auto 10px !important;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        padding: 24px 0 18px !important;
+        text-align: center !important;
+    }
+    .footer-brand {
+        justify-content: center !important;
+    }
+
+    /* 6. Tools & Scales Cards (tools.html & tools-severity-scale.html) */
+    .tools-grid, .scales-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+    .tool-card, .scale-card {
+        border-radius: 22px !important;
+        min-height: auto !important;
+    }
+    .custom-head {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        padding: 14px 16px !important;
+        border-radius: 20px !important;
+    }
+    .scale-search {
+        width: 100% !important;
+    }
+
+    /* 7. Patient Files & Yellow Folders (patient-files.html, patient-file.html, patient.html) */
+    .toolbar {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        padding: 14px !important;
+        border-radius: 20px !important;
+    }
+    .toolbar .tabs {
+        width: 100% !important;
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    .toolbar .tab {
+        text-align: center !important;
+        justify-content: center !important;
+        padding: 8px 6px !important;
+        font-size: 12px !important;
+    }
+    .files-grid {
+        grid-template-columns: 1fr !important;
+        gap: 28px !important;
+        padding-top: 22px !important;
+    }
+    .file-card {
+        padding: 20px 14px 14px !important;
+        border-radius: 10px 22px 22px 22px !important;
+    }
+    .file-card .fc-actions {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
+    .file-card .fbtn.open {
+        grid-column: 1 / -1 !important;
+        padding: 11px !important;
+        font-size: 14px !important;
+    }
+    .file-shell {
+        width: 95% !important;
+        margin: 34px auto 20px !important;
+        padding: 22px 12px 18px !important;
+        border-radius: 12px 24px 24px 24px !important;
+    }
+    .file-shell .card {
+        padding: 16px 14px !important;
+        border-radius: 20px !important;
+    }
+    .file-shell .info-grid,
+    .file-shell .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 8px !important;
+    }
+    .horiz-layout {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+    .form-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    /* 8. Scale Builder, Interview Questions, Diagnosis, Results, Test, Appointments, Profile, Payment */
+    .builder-studio,
+    .dx-split,
+    #dxPanels .dx-cards-grid,
+    #dxPanels .dx-q-grid,
+    #dxPanels .dx-res-grid,
+    #resContent .res-grid-2,
+    .charts-grid,
+    .pay-grid,
+    .profile-section,
+    .pricing-grid,
+    .trust-grid,
+    .auth-wrap {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+    .card, .section-card, .write-card, .overview-card, .quick-card, .form-card, .auth-card, .dx-panel, .pay-form {
+        padding: 18px 14px !important;
+        border-radius: 22px !important;
+    }
+    input, select, textarea {
+        font-size: 15px !important;
+    }
+
+    /* Test & Custom-Test Hero Progress + Floating Bottom Bar above Mobile Tab Bar */
+    .hero-card {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 12px !important;
+        padding: 16px 14px !important;
+    }
+    .action-bar, .bottom-bar {
+        width: 95% !important;
+        bottom: 76px !important;
+        border-radius: 20px !important;
+        padding: 10px 12px !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+    .action-bar .act-btn,
+    .bottom-bar button,
+    .bottom-bar .btn {
+        flex: 1 1 calc(50% - 6px) !important;
+        font-size: 12px !important;
+        padding: 10px 10px !important;
+        justify-content: center !important;
+    }
+    /* 9. Results Page (results.html) & Differential Diagnosis Panels (diagnosis.html) Mobile Harmony */
+    .steps-bar + .page-hero {
+        border-radius: 0 0 24px 24px !important;
+        border-top: none !important;
+    }
+    .steps-bar .container {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        width: max-content !important;
+        min-width: 100% !important;
+        gap: 6px !important;
+        padding-inline: 4px !important;
+        margin: 0 auto !important;
+    }
+    .steps-bar .step-pill {
+        padding: 5px 11px !important;
+        font-size: 11px !important;
+        gap: 5px !important;
+        flex-shrink: 0 !important;
+    }
+    .steps-bar .step-pill .step-ico {
+        width: 22px !important;
+        height: 22px !important;
+        font-size: 11px !important;
+    }
+    .steps-bar .step-connector {
+        width: 10px !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Hero Stats in results.html: Sleek 3-Column Mobile App Bar */
+    .page-hero .hero-stats,
+    .hero-stats {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 8px !important;
+        width: 100% !important;
+        margin-top: 10px !important;
+        align-items: stretch !important;
+    }
+    .page-hero .hero-stat,
+    .hero-stat {
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: none !important;
+        padding: 10px 6px !important;
+        border-radius: 16px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .hero-stat .hs-value {
+        font-size: 15px !important;
+        line-height: 1.25 !important;
+        word-break: break-word !important;
+    }
+    .hero-stat .hs-label {
+        font-size: 10px !important;
+        margin-top: 3px !important;
+        line-height: 1.3 !important;
+    }
+
+    /* Main Content & 2-Column Collapse in results.html */
+    .main-content {
+        padding: 16px 0 36px !important;
+    }
+    #resContent .two-col,
+    .two-col {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+        width: 100% !important;
+    }
+    #resContent .col-main,
+    .col-main {
+        width: 100% !important;
+        order: 1 !important;
+    }
+    #resContent .col-side,
+    .col-side {
+        width: 100% !important;
+        order: 2 !important;
+    }
+
+    /* Primary Diagnosis Card (.main-diag) in results.html */
+    #resContent .main-diag,
+    .main-diag {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 20px 16px !important;
+        gap: 14px !important;
+        border-radius: 24px !important;
+        margin-bottom: 14px !important;
+        width: 100% !important;
+    }
+    #resContent .main-diag .md-circle,
+    .main-diag .md-circle {
+        width: 88px !important;
+        height: 88px !important;
+        border-width: 3.5px !important;
+        margin: 0 auto !important;
+    }
+    #resContent .main-diag .md-circle b,
+    .main-diag .md-circle b {
+        font-size: 24px !important;
+        line-height: 1.1 !important;
+    }
+    #resContent .main-diag .md-circle small,
+    .main-diag .md-circle small {
+        font-size: 11px !important;
+    }
+    #resContent .main-diag .md-text,
+    .main-diag .md-text {
+        min-width: 0 !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+    #resContent .main-diag .md-text h2,
+    .main-diag .md-text h2 {
+        font-size: 18px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 6px !important;
+        word-break: break-word !important;
+    }
+    #resContent .main-diag .md-text p,
+    .main-diag .md-text p {
+        font-size: 12.5px !important;
+        line-height: 1.65 !important;
+    }
+    #resContent .main-diag .md-badge,
+    .main-diag .md-badge {
+        margin-top: 10px !important;
+        padding: 6px 14px !important;
+        font-size: 11.5px !important;
+        border-radius: 999px !important;
+        display: inline-block !important;
+        max-width: 100% !important;
+    }
+
+    /* Section Cards & Differential Section in results.html */
+    #resContent .section-card,
+    #resContent .diff-section {
+        padding: 16px 14px !important;
+        border-radius: 22px !important;
+        margin-bottom: 14px !important;
+        width: 100% !important;
+    }
+    #resContent .section-header,
+    #resContent .diff-section h3 {
+        gap: 10px !important;
+        margin-bottom: 14px !important;
+        padding-bottom: 12px !important;
+        font-size: 15.5px !important;
+    }
+    #resContent .section-icon.blue,
+    #resContent .section-icon.purple,
+    #resContent .section-icon.green,
+    #resContent .section-icon.orange,
+    #resContent .diff-section h3 .section-icon {
+        width: 38px !important;
+        height: 38px !important;
+        border-radius: 12px !important;
+        font-size: 17px !important;
+        flex-shrink: 0 !important;
+    }
+    #resContent .section-title {
+        font-size: 15.5px !important;
+        line-height: 1.35 !important;
+    }
+    #resContent .section-subtitle {
+        font-size: 11.5px !important;
+        line-height: 1.45 !important;
+    }
+    #resContent .diag-row {
+        padding: 14px 12px !important;
+        border-radius: 18px !important;
+        margin-bottom: 12px !important;
+    }
+    #resContent .diag-row .d-top,
+    #resContent .diff-item .d-top {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        align-items: center !important;
+    }
+    #resContent .diag-row .d-name,
+    #resContent .diff-item .d-name {
+        font-size: 13.5px !important;
+        line-height: 1.45 !important;
+        min-width: 0 !important;
+        flex: 1 1 auto !important;
+    }
+    #resContent .diag-row .d-per {
+        font-size: 11.5px !important;
+        padding: 3px 10px !important;
+        flex-shrink: 0 !important;
+    }
+    #resContent .kw-box {
+        gap: 6px !important;
+        margin-top: 10px !important;
+    }
+    #resContent .kw-chip {
+        font-size: 11px !important;
+        padding: 4px 10px !important;
+    }
+
+    /* Excluded Disorders Grid (#diffList) & Scale Selector (.sel-list) in results.html */
+    #resContent #diffList {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+    #resContent .diff-item {
+        padding: 14px 12px !important;
+        border-radius: 16px !important;
+    }
+    #resContent .other-note {
+        padding: 12px 14px !important;
+        font-size: 12px !important;
+        line-height: 1.65 !important;
+        border-radius: 14px !important;
+    }
+    #resContent .sel-list {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+        margin-bottom: 14px !important;
+    }
+    #resContent .sel-opt {
+        padding: 12px 14px !important;
+        font-size: 13px !important;
+        border-radius: 14px !important;
+        width: 100% !important;
+    }
+    #resContent .btn-test {
+        padding: 13px 18px !important;
+        font-size: 14.5px !important;
+        border-radius: 16px !important;
+        width: 100% !important;
+    }
+
+    /* Patient Dossier Sidebar Card (.col-side) in results.html */
+    #resContent .col-side .section-card {
+        padding: 0 14px 16px !important;
+    }
+    #resContent .col-side .section-header {
+        margin: 0 -14px 14px !important;
+        padding: 14px !important;
+    }
+    #resContent .patient-card .p-top {
+        padding: 14px 12px !important;
+        border-radius: 16px !important;
+        gap: 10px !important;
+    }
+    #resContent .patient-card .p-avatar {
+        width: 52px !important;
+        height: 52px !important;
+        font-size: 20px !important;
+        border-radius: 16px !important;
+    }
+    #resContent .action-row {
+        flex-direction: column !important;
+        gap: 10px !important;
+        margin-bottom: 14px !important;
+    }
+    #resContent .action-btn {
+        width: 100% !important;
+        min-width: 0 !important;
+        padding: 13px 16px !important;
+        font-size: 13.5px !important;
+    }
+
+    /* Differential Diagnosis Page (diagnosis.html) & Analysis Result Panels (#dxProgress + #dxPanels) */
+    .content-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+    .write-sub {
+        padding-right: 0 !important;
+        font-size: 12px !important;
+    }
+    .counter-row {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+    #dxProgress.dx-progress {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+        padding: 8px !important;
+        border-radius: 18px !important;
+        width: 100% !important;
+        margin: 0 auto 12px !important;
+    }
+    #dxProgress .dx-pstep {
+        padding: 7px 10px !important;
+        font-size: 11.5px !important;
+        justify-content: flex-start !important;
+        width: 100% !important;
+    }
+    #dxPanels .dx-panel {
+        padding: 18px 14px !important;
+        border-radius: 22px !important;
+        margin-top: 8px !important;
+    }
+    #dxPanels .dx-panel h2 {
+        font-size: 17.5px !important;
+        gap: 8px !important;
+        line-height: 1.35 !important;
+    }
+    #dxPanels .dx-panel h2::before {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 17px !important;
+        border-radius: 11px !important;
+        flex-shrink: 0 !important;
+    }
+    #dxPanels .dx-sub {
+        font-size: 12px !important;
+        line-height: 1.65 !important;
+        margin-bottom: 14px !important;
+    }
+    #dxPanels .dx-reco {
+        padding: 10px 12px !important;
+        gap: 6px !important;
+        border-radius: 16px !important;
+        margin-bottom: 16px !important;
+    }
+    #dxPanels .dx-chip {
+        font-size: 11px !important;
+        padding: 5px 10px !important;
+        white-space: normal !important;
+        line-height: 1.45 !important;
+    }
+    #dxPanels .hypo-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+        margin-bottom: 18px !important;
+    }
+    #dxPanels .hypo-card {
+        border-radius: 22px !important;
+        padding-bottom: 14px !important;
+    }
+    #dxPanels .hypo-card::before {
+        height: 58px !important;
+        margin-bottom: -28px !important;
+    }
+    #dxPanels .hypo-card .hc-ico {
+        width: 56px !important;
+        height: 56px !important;
+        font-size: 26px !important;
+        border-radius: 18px !important;
+    }
+    #dxPanels .hypo-card h3 {
+        font-size: 16px !important;
+        padding: 0 12px !important;
+    }
+    .hc-evidence-box {
+        width: calc(100% - 24px) !important;
+        margin: 10px 12px 0 !important;
+        padding: 10px 12px !important;
+        border-radius: 14px !important;
+    }
+    .dx-live-progress-bar {
+        padding: 12px 14px !important;
+        border-radius: 16px !important;
+        margin-bottom: 14px !important;
+    }
+    .dx-live-top {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        text-align: center !important;
+        gap: 8px !important;
+        font-size: 12px !important;
+    }
+    .dx-quick-fill-btn {
+        width: 100% !important;
+        padding: 8px 12px !important;
+    }
+    #dxPanels .q-list {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+    #dxPanels .q-item {
+        padding: 14px 12px !important;
+        border-radius: 18px !important;
+    }
+    #dxPanels .q-head {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 6px !important;
+        padding: 10px 12px !important;
+    }
+    #dxPanels .q-title {
+        font-size: 13px !important;
+        line-height: 1.5 !important;
+    }
+    #dxPanels .q-opts {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 6px !important;
+        width: 100% !important;
+    }
+    #dxPanels .q-opt {
+        width: 100% !important;
+        text-align: right !important;
+        padding: 9px 12px !important;
+        font-size: 12px !important;
+    }
+    #dxPanels .q-free {
+        flex-direction: column !important;
+        gap: 6px !important;
+        width: 100% !important;
+    }
+    #dxPanels .q-free input {
+        width: 100% !important;
+        padding: 10px 12px !important;
+        font-size: 13px !important;
+    }
+    #dxPanels .q-free button {
+        width: 100% !important;
+        padding: 10px 14px !important;
+        font-size: 12.5px !important;
+    }
+    #dxPanels .final-card {
+        padding: 18px 14px !important;
+        border-radius: 22px !important;
+        margin-bottom: 16px !important;
+        text-align: center !important;
+    }
+    #dxPanels .final-card .fc-top {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 10px !important;
+    }
+    #dxPanels .final-card .fc-ico {
+        width: 60px !important;
+        height: 60px !important;
+        font-size: 28px !important;
+        margin: 0 auto !important;
+    }
+    #dxPanels .final-card h3 {
+        font-size: 17.5px !important;
+        line-height: 1.4 !important;
+    }
+    #dxPanels .final-card .fc-en {
+        text-align: center !important;
+        font-size: 11.5px !important;
+        margin-top: 2px !important;
+    }
+    #dxPanels .final-card .fc-meta {
+        justify-content: center !important;
+        gap: 6px !important;
+        margin-top: 10px !important;
+    }
+    #dxPanels .final-card .fc-tag {
+        font-size: 11px !important;
+        padding: 4px 10px !important;
+    }
+    #dxPanels .dx-list {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+        margin-bottom: 14px !important;
+    }
+    #dxPanels .dx-li {
+        padding: 12px 14px !important;
+        border-radius: 16px !important;
+        font-size: 12px !important;
+        line-height: 1.65 !important;
+    }
+    #dxPanels .dx-actions {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 8px !important;
+        padding-top: 14px !important;
+    }
+    #dxPanels .dx-btn {
+        width: 100% !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 13px 16px !important;
+        font-size: 13.5px !important;
+    }
+
+    /* Interview Questions & Scale Builder Mobile Refinements */
+    .section > .card {
+        padding: 18px 14px !important;
+        border-radius: 22px !important;
+    }
+    .section .q-list {
+        grid-template-columns: 1fr !important;
+        padding: 12px !important;
+        gap: 10px !important;
+    }
+    .builder-wrap .card.manage-bar,
+    .builder-wrap .card.panel {
+        padding: 18px 14px !important;
+        border-radius: 22px !important;
+    }
+
+}
+
+</style>
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ===== شريط التنقل ===== -->
+    <header class="nav">
+        <div class="nav-inner">
+            <a class="brand" href="index.html">
+                <img class="brand-logo" src="logo.jpg" alt="DIAGNO-ASSIST">
+                <span class="brand-text">
+                    <span class="brand-name">DIAGNO-ASSIST</span>
+                    <span class="brand-sub" data-i18n="brand_sub">للأخصائيين النفسيين</span>
+                </span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html"><span class="ico">🏠</span> <span data-i18n="nav_home">الرئيسية</span></a>
+                <a href="index.html#how"><span class="ico">🔬</span> <span data-i18n="nav_how">كيف يعمل</span></a>
+                <a href="index.html#features"><span class="ico">🩺</span> <span data-i18n="nav_features">المميزات</span></a>
+                <a href="pricing.html"><span class="ico">💰</span> <span data-i18n="nav_pricing">الأسعار</span></a>
+            </nav>
+            <button class="nav-cta" id="authBtn">تسجيل الدخول</button>
+        </div>
+    </header>
+
+    <nav class="progress-nav">
+        <div class="nav-steps">
+            <a class="step completed" href="patient.html">
+                <span class="step-icon">✓</span>
+                <span>التجهيز</span>
+            </a>
+            <div class="step-connector"></div>
+            <a class="step completed" href="patient.html">
+                <span class="step-icon">👤</span>
+                <span>ملف المريض</span>
+            </a>
+            <div class="step-connector"></div>
+            <a class="step active" href="diagnosis.html">
+                <span class="step-icon">📊</span>
+                <span>التشخيص الفارقي</span>
+            </a>
+            <div class="step-connector"></div>
+            <a class="step" href="test.html">
+                <span class="step-icon">🔍</span>
+                <span>المقياس</span>
+            </a>
+            <div class="step-connector"></div>
+            <a class="step" href="charts.html">
+                <span class="step-icon">📈</span>
+                <span>التقرير</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- ===== البطل الأزرق + خطوات ===== -->
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="hero-title"><span data-i18n="diagnosis_title">التشخيص</span> <span class="grad" data-i18n="diagnosis_title_grad">الفارقي</span></h1>
+            <p class="hero-subtitle" data-i18n="diagnosis_subtitle">أدخل أعراض المريض لاستخراج الاضطرابات الأكثر احتمالاً — دون ترتيب أو نسب</p>
+        </div>
+    </section>
+
+    <!-- ===== المحتوى الرئيسي ===== -->
+    <section class="main-content">
+        <div class="container">
+            <div class="content-grid">
+
+                <!-- العمود الأيمن: كتابة الأعراض -->
+                <div class="write-card reveal" id="diagForm">
+                    <div class="write-header">
+                        <div class="write-icon">🩺</div>
+                        <h2 data-i18n="diagnosis_form_title">كتابة الأعراض</h2>
+                    </div>
+                    <div class="write-sub" data-i18n="diagnosis_form_sub">اكتب الأعراض بالمصطلحات النفسية العلمية بدقة</div>
+
+                    <textarea id="symptoms" class="symptoms-area" data-i18n-placeholder="diagnosis_form_ph" placeholder="أدخل ما لا يقل عن 15 عرضًا بمصطلحات ذات علاقة بعلم النفس..."></textarea>
+
+                    <div class="counter-row">
+                        <span class="counter-hint" data-i18n="diagnosis_counter_hint">تختفي الملاحظة تلقائيًا عند بدء الكتابة</span>
+                        <div id="countPill" class="count-pill">
+                            <span id="countText">0 / 15 عرض</span>
+                            <div class="count-bar"><div class="count-fill" id="countFill" style="width:0%"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="suggest-section">
+                        <div class="suggest-label" data-i18n="diagnosis_suggest_label">💡 اقتراحات جاهزة</div>
+                        <div class="suggest-grid">
+                            <span class="chip">فقدان مزاج</span>
+                            <span class="chip">تجنب</span>
+                            <span class="chip">استرجاع مؤلم</span>
+                            <span class="chip">فرط يقظة</span>
+                            <span class="chip">عزلة اجتماعية</span>
+                            <span class="chip">اضطراب نوم</span>
+                            <span class="chip">فقدان مزاج</span>
+                        </div>
+                    </div>
+
+                    <button class="btn-analyze" id="analyzeBtn">
+                        <span class="analyze-ico">🔍</span>
+                        <span data-i18n="diagnosis_analyze_btn">تحليل الأعراض</span>
+                    </button>
+                </div>
+
+                <!-- العمود الأيسر -->
+                <div class="side-stack">
+                    <!-- نظرة عامة على الحالة -->
+                    <div class="overview-card reveal">
+                        <div class="overview-title">
+                            <div class="ot-icon">📊</div>
+                            <span data-i18n="diagnosis_overview">نظرة عامة على الحالة</span>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-circle">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="stat-num">3</div>
+                                <div class="stat-label" data-i18n="diagnosis_total_sessions">إجمالي الجلسات</div>
+                            </div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-circle">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                                    <line x1="9" y1="12" x2="15" y2="12"></line>
+                                    <line x1="9" y1="16" x2="15" y2="16"></line>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="stat-num">2</div>
+                                <div class="stat-label" data-i18n="diagnosis_available_tests">الاختبارات المتاحة</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- تجربة سريعة -->
+                    <div class="quick-card reveal">
+                        <div class="quick-title">
+                            <div class="qt-icon">⚡</div>
+                            <span data-i18n="diagnosis_quick_title">تجربة سريعة</span>
+                        </div>
+                        <p class="quick-desc" data-i18n="diagnosis_quick_desc">جرب النظام بملء بيانات تجريبية افتراضية لاضطراب ما بعد الصدمة أو الاكتئاب الشديد.</p>
+                        <button class="btn-demo btn-demo-green" id="demoPtsd">
+                            <span class="demo-ico">⚡</span>
+                            <span data-i18n="diagnosis_demo_ptsd">تجربة سريعة: أعراض PTSD</span>
+                        </button>
+                        <button class="btn-demo btn-demo-blue" id="demoMdd">
+                            <span class="demo-ico">⚡</span>
+                            <span data-i18n="diagnosis_demo_mdd">تجربة سريعة: أعراض الاكتئاب</span>
+                        </button>
+                        <button class="btn-demo btn-demo-purple" id="demoTrial">
+                            <span class="demo-ico">🧪</span>
+                            <span>تجربة</span>
+                        </button>
+                        <div class="trial-box" id="trialBox" hidden>
+                            <div class="trial-hint">اختر اضطرابًا — سيُملأ حقل الأعراض بستة أعراض لهذا الاضطراب:</div>
+                            <div class="trial-list" id="trialList"></div>
+                        </div>
+                        <p class="quick-footer" data-i18n="diagnosis_quick_footer">سيتم ملء حقل الأعراض تلقائيًا بمجموعة من الأعراض التجريبية لاختبار النظام.</p>
+                    </div>
+                </div>
+
+                <div class="dx-progress" id="dxProgress" hidden>
+                    <div class="dx-pstep on" data-s="1"><b>1</b> الأعراض</div>
+                    <div class="dx-pstep" data-s="2"><b>2</b> الفرضيات</div>
+                    <div class="dx-pstep" data-s="3"><b>3</b> التشخيص الفارقي</div>
+                    <div class="dx-pstep" data-s="4"><b>4</b> النتيجة</div>
+                </div>
+
+                <div id="dxPanels"></div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== طبقة التحليل ===== -->
+    <div class="analyzing-overlay" id="analyzingOverlay">
+        <div class="an-spinner">🔍</div>
+        <div class="an-title" data-i18n="diagnosis_analyzing">جارٍ تحليل الأعراض...</div>
+        <div class="an-sub" id="anSub">مطابقة الأعراض مع محكات قاعدة معارف DSM-5-TR المحلية</div>
+        <div class="an-progress-wrap">
+            <div class="an-progress-bar">
+                <div class="an-progress-fill" id="anBar"></div>
+            </div>
+        </div>
+        <div class="an-steps">
+            <div class="an-step active" id="step1">
+                <span class="step-dot">1</span>
+                <span data-i18n="diagnosis_step1">تحليل المعايير والمطابقات...</span>
+            </div>
+            <div class="an-step" id="step2">
+                <span class="step-dot">2</span>
+                <span data-i18n="diagnosis_step2">فحص حضور الكلمات المفتاحية...</span>
+            </div>
+            <div class="an-step" id="step3">
+                <span class="step-dot">3</span>
+                <span data-i18n="diagnosis_step3">مقارنة المحكات مع قاعدة معارف DSM-5-TR...</span>
+            </div>
+            <div class="an-step" id="step4">
+                <span class="step-dot">4</span>
+                <span data-i18n="diagnosis_step4">إعداد نتيجة التحليل النهائية...</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="translations.js?v=20261030"></script>
+    <script src="i18n.js?v=20261030"></script>
+    <script src="dsm-db.js"></script>
+    <script src="differential-engine.js"></script>
+    <script>
+        const area = document.getElementById('symptoms');
+        const pill = document.getElementById('countPill');
+        const countText = document.getElementById('countText');
+        const countFill = document.getElementById('countFill');
+
+        function normalize(t) { return (t || '').replace(/[\u064B-\u0652\u0670]/g, ''); }
+
+        function countSymptoms() {
+            const text = area.value.trim();
+            if (!text) {
+                countText.textContent = '0 كلمة';
+                pill.className = 'count-pill';
+                countFill.style.width = '0%';
+                return;
+            }
+            const words = text.split(/[\s،,؛;\n]+/).filter(w => w.length > 0);
+            const n = words.length;
+            const pct = Math.min((n / 15) * 100, 100);
+            countText.textContent = n + ' كلمة';
+            countFill.style.width = pct + '%';
+            pill.className = n >= 5 ? 'count-pill ok' : 'count-pill warn';
+        }
+        area.addEventListener('input', countSymptoms);
+
+        /* ============================================================
+         * التشخيص الفارقي — يعمل محلياً بالكامل (dsm-db.js + differential-engine.js)
+         * المسار: الأعراض ← الفرضيات ← الأسئلة الفارقية ← النتيجة الواحدة
+         * ========================================================== */
+        var Engine = window.DifferentialEngine;
+        var panels = document.getElementById('dxPanels');
+        var progress = document.getElementById('dxProgress');
+        var contentGrid = document.getElementById('diagForm').parentNode;
+        var sideStack = document.querySelector('.side-stack');
+        var AP = JSON.parse(localStorage.getItem('diagActivePatient') || 'null');
+        function pk(base) { return AP ? base + '_' + AP.id : base; }
+        function esc(s) {
+            return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        var state = { text: '', recognized: [], candidates: [], questions: [], answers: {}, fit: {} };
+
+        function scrollToCards() {
+            var top = contentGrid.getBoundingClientRect().top + window.pageYOffset - 90;
+            window.scrollTo({ top: top < 0 ? 0 : top, behavior: 'smooth' });
+        }
+
+        function setStep(step) {
+            progress.hidden = step <= 1;
+            Array.prototype.forEach.call(progress.querySelectorAll('.dx-pstep'), function (el) {
+                var s = Number(el.getAttribute('data-s'));
+                el.classList.toggle('on', s === step);
+                el.classList.toggle('done', s < step);
+            });
+            scrollToCards();
+        }
+
+        function showInput(show) {
+            document.getElementById('diagForm').style.display = show ? '' : 'none';
+            if (sideStack) sideStack.style.display = show ? '' : 'none';
+            if (show) { panels.innerHTML = ''; progress.hidden = true; }
+        }
+
+        /* ---------------- 1) تحليل الأعراض ---------------- */
+        document.getElementById('analyzeBtn').addEventListener('click', function () {
+            if (!Engine) {
+                alert('تعذر تحميل قاعدة معارف DSM-5-TR. تأكد من وجود الملفين dsm-db.js و differential-engine.js.');
+                return;
+            }
+            var text = area.value.trim();
+            var words = text.split(/[\s،,؛;.\n]+/).filter(function (w) { return w.length > 1; });
+            if (words.length < 3) {
+                alert('اكتب وصفاً للأعراض أولاً (ثلاث كلمات على الأقل) بصيغة علمية أو وصفية أو عامية.');
+                area.focus();
+                return;
+            }
+
+            var res = Engine.analyzeSymptoms(text);
+            state = {
+                text: text,
+                recognized: res.recognized,
+                candidates: res.candidates,
+                questions: [],
+                answers: {},
+                fit: res.fit || {}
+            };
+
+            var overlay = document.getElementById('analyzingOverlay');
+            var steps = [1, 2, 3, 4].map(function (i) { return document.getElementById('step' + i); });
+            overlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            var s = 0;
+            var timer = setInterval(function () {
+                steps.forEach(function (st) { st.classList.remove('active'); });
+                s = Math.min(s + 1, steps.length - 1);
+                steps[s].classList.add('active');
+            }, 2500);
+
+            setTimeout(function () {
+                clearInterval(timer);
+                overlay.classList.remove('show');
+                document.body.style.overflow = '';
+                steps.forEach(function (st) { st.classList.remove('active'); });
+                steps[0].classList.add('active');
+                if (!state.candidates.length) renderNoMatch();
+                else renderHypotheses();
+            }, 10000);
+        });
+
+        function renderNoMatch() {
+            showInput(false);
+            setStep(2);
+            panels.innerHTML =
+                '<div class="dx-panel">' +
+                '<h2>لم تُطابق الأعراض أي اضطراب في قاعدة المعارف</h2>' +
+                '<p class="dx-sub">لم يتعرف النظام على محكات تشخيصية كافية. أعد صياغة الأعراض بجمل وصفية أوضح، أو أضف تفاصيل عن المدة، والعمر عند البداية، والبيئات التي تظهر فيها الأعراض، وأثرها على الأداء.</p>' +
+                '<div class="dx-reco">' +
+                '<span class="dx-chip">مثال: «هلاوس سمعية وأوهام اضطهادية منذ سنة وشهرين»</span>' +
+                '<span class="dx-chip">مثال: «حزن مستمر وفقدان اهتمام وأرق منذ ثلاثة أشهر»</span>' +
+                '<span class="dx-chip">مثال: «نوبات هلع مع خفقان وخوف من الموت»</span>' +
+                '</div>' +
+                '<div class="dx-actions"><button class="dx-btn ghost" id="dxBack1">↩ العودة إلى الأعراض</button></div>' +
+                '</div>';
+            document.getElementById('dxBack1').onclick = function () { showInput(true); };
+        }
+
+        /* ---------------- 2) الفرضيات الأكثر احتمالاً ---------------- */
+        function renderHypotheses() {
+            showInput(false);
+            setStep(2);
+            var many = state.candidates.length > 1;
+            var html = '<div class="dx-panel">' +
+                '<h2>الاضطرابات الأكثر احتمالاً</h2>' +
+                '<p class="dx-sub">' + (many
+                    ? 'هذه الاضطرابات مطروحة كاحتمالات متكافئة دون ترتيب أو درجة أو نسبة. انتقل إلى التشخيص الفارقي للفصل بينها.'
+                    : 'لم تُسند الأعراض سوى فرضية واحدة بهذا المستوى من التفصيل. أضف تفاصيل أكثر (المدة، العمر عند البداية، السياق) لفتح مقارنة فارقية.') +
+                '</p>';
+
+            if (state.recognized.length) {
+                html += '<div class="dx-reco">' + state.recognized.slice(0, 10).map(function (l) {
+                    return '<span class="dx-chip">✓ ' + esc(l) + '</span>';
+                }).join('') + '</div>';
+            }
+
+            html += '<div class="hypo-grid">' + state.candidates.map(function (c) {
+                return '<div class="hypo-card">' +
+                    '<span class="hc-code">' + esc(c.code) + '</span>' +
+                    '<div class="hc-ico">' + esc(c.ico) + '</div>' +
+                    '<h3>' + esc(c.ar) + '</h3>' +
+                    '<div class="hc-en">' + esc(c.en) + '</div>' +
+                    '<span class="hc-cat">' + esc(c.catAr) + '</span>' +
+                    '</div>';
+            }).join('') + '</div>';
+
+            html += '<div class="dx-actions">' +
+                '<button class="dx-btn" id="dxToDiff">' + (many ? '⚖️ التشخيص الفارقي' : '✅ متابعة إلى النتيجة') + '</button>' +
+                '<button class="dx-btn ghost" id="dxEditSymptoms">✏️ تعديل الأعراض</button>' +
+                '</div></div>';
+
+            panels.innerHTML = html;
+            document.getElementById('dxEditSymptoms').onclick = function () { showInput(true); };
+            document.getElementById('dxToDiff').onclick = function () {
+                if (!many) return showFinal();
+                state.questions = Engine.buildQuestions(state.candidates.map(function (c) { return c.id; }));
+                if (!state.questions.length) return showFinal();
+                renderQuestions();
+            };
+        }
+
+        /* ---------------- 3) الأسئلة الفارقية الديناميكية ---------------- */
+        function renderQuestions() {
+            setStep(3);
+            var html = '<div class="dx-panel">' +
+                '<h2>أسئلة التشخيص الفارقي</h2>' +
+                '<p class="dx-sub">هذه الأسئلة مولّدة من الفروق بين الفرضيات المعروضة فقط، بهدف حسم اضطراب واحد. أجب بالخيارات أو اكتب الإجابة بحرية ثم اضغط «تثبيت».</p>' +
+                '<div id="dxQWarn" class="dx-warn" style="display:none"></div>' +
+                '<div class="q-list">' + state.questions.map(function (q) {
+                    return '<div class="q-item" data-key="' + esc(q.key) + '">' +
+                        '<div class="q-head"><span class="q-title">' + esc(q.q) + '</span>' +
+                        '<span class="q-badge">' + esc(q.label) + '</span></div>' +
+                        (q.hint ? '<div class="q-hint">' + esc(q.hint) + '</div>' : '') +
+                        '<div class="q-opts">' + q.opts.map(function (o) {
+                            return '<button type="button" class="q-opt" data-v="' + esc(o.v) + '">' + esc(o.l) + '</button>';
+                        }).join('') + '</div>' +
+                        '<div class="q-free"><input type="text" data-free="' + esc(q.key) + '" placeholder="أو اكتب الإجابة بحرية… مثل: منذ ثلاثة أشهر">' +
+                        '<button type="button" data-parse="' + esc(q.key) + '">تثبيت</button></div>' +
+                        '<div class="q-status" id="qs_' + esc(q.key) + '"></div>' +
+                        '</div>';
+                }).join('') + '</div>' +
+                '<div class="dx-actions">' +
+                '<button class="dx-btn" id="dxShowResult">📋 إظهار النتيجة</button>' +
+                '<button class="dx-btn ghost" id="dxBackHypo">↩ الفرضيات</button>' +
+                '</div></div>';
+            panels.innerHTML = html;
+
+            panels.querySelectorAll('.q-item').forEach(function (item) {
+                var key = item.getAttribute('data-key');
+                item.querySelectorAll('.q-opt').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        item.querySelectorAll('.q-opt').forEach(function (b) { b.classList.remove('on'); });
+                        btn.classList.add('on');
+                        state.answers[key] = btn.getAttribute('data-v');
+                        var st = document.getElementById('qs_' + key);
+                        if (st) st.textContent = 'تم اختيار: ' + btn.textContent;
+                    });
+                });
+            });
+
+            panels.querySelectorAll('[data-parse]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var key = btn.getAttribute('data-parse');
+                    var input = panels.querySelector('[data-free="' + key + '"]');
+                    var txt = (input && input.value || '').trim();
+                    var st = document.getElementById('qs_' + key);
+                    if (!txt) { if (st) st.textContent = ''; return; }
+                    var hit = Engine.interpretFreeText(key, txt);
+                    if (!hit) {
+                        if (st) { st.style.color = '#b45309'; st.textContent = 'لم أتعرف على الإجابة — اختر أحد الخيارات أو أعد الصياغة.'; }
+                        return;
+                    }
+                    state.answers[key] = hit.v;
+                    var item = btn.closest('.q-item');
+                    item.querySelectorAll('.q-opt').forEach(function (b) {
+                        b.classList.toggle('on', b.getAttribute('data-v') === hit.v);
+                    });
+                    if (st) { st.style.color = '#0f766e'; st.textContent = 'تم فهم الإجابة: ' + hit.l; }
+                });
+            });
+
+            panels.querySelectorAll('[data-free]').forEach(function (input) {
+                input.addEventListener('keydown', function (e) {
+                    if (e.key !== 'Enter') return;
+                    e.preventDefault();
+                    var key = input.getAttribute('data-free');
+                    var b = panels.querySelector('[data-parse="' + key + '"]');
+                    if (b) b.click();
+                });
+            });
+
+            document.getElementById('dxBackHypo').onclick = function () { renderHypotheses(); };
+
+            document.getElementById('dxShowResult').onclick = function () {
+                var missing = state.questions.filter(function (q) { return !state.answers[q.key]; });
+                var warn = document.getElementById('dxQWarn');
+                if (missing.length) {
+                    warn.style.display = 'block';
+                    warn.textContent = 'بقيت ' + missing.length + ' من ' + state.questions.length +
+                        ' أسئلة دون إجابة. أجب عنها جميعاً (اختر «لا أعرف» عند عدم توفر المعلومة) ليصدر الحسم التشخيصي.';
+                    var first = panels.querySelector('.q-item[data-key="' + missing[0].key + '"]');
+                    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+                showFinal();
+            };
+        }
+
+        /* ---------------- 4) النتيجة النهائية ---------------- */
+        function winnerLabels(text, id) {
+            var ex = Engine.explain(text);
+            for (var i = 0; i < ex.length; i++) {
+                if (ex[i].id === id) return { labels: ex[i].hits.map(function (h) { return h.label; }), total: null };
+            }
+            return { labels: [], total: null };
+        }
+
+        function showFinal() {
+            setStep(4);
+            var ids = state.candidates.map(function (c) { return c.id; });
+            var res = Engine.resolve(ids, state.answers, state.fit);
+            var w = res.winner;
+            if (!w) { renderNoMatch(); return; }
+
+            var d = Engine.getDisorder(w.id);
+            var lab = winnerLabels(state.text, w.id);
+            var date = new Date().toLocaleString('ar');
+
+            var html = '<div class="dx-panel">' +
+                '<h2>النتيجة التشخيصية</h2>' +
+                '<p class="dx-sub">' + (state.questions.length
+                    ? 'بعد تطبيق إجابات الأسئلة الفارقية على محكات الفرضيات، لم يبقَ سوى اضطراب واحد مطابق.'
+                    : 'لم تُطرح أسئلة فارقية لعدم ظهور فرضية منافسة مدعومة بالأعراض — هذا هو الاضطراب الوحيد المطابق للمحكات. أضف تفاصيل أكثر لفتح مقارنة فارقية.') + '</p>' +
+                '<div class="final-card"><div class="fc-top">' +
+                '<div class="fc-ico">' + esc(w.ico) + '</div>' +
+                '<div><h3>' + esc(w.ar) + '</h3>' +
+                '<div class="fc-en">' + esc(w.en) + '</div>' +
+                '<div class="fc-meta"><span class="fc-tag">' + esc(w.code) + '</span>' +
+                '<span class="fc-tag">' + esc(w.catAr) + '</span>' +
+                '<span class="fc-tag">✓ تشخيص واحد محسوم</span></div></div></div></div>';
+
+            if (res.decisions.length) {
+                html += '<div class="dx-sec-title">الإجابات التي رجّحت هذا الاضطراب</div><div class="dx-list">' +
+                    res.decisions.map(function (x) {
+                        return '<div class="dx-li"><span class="ok">✓</span><div><b>' + esc(x.label) + ':</b> ' + esc(x.answer) + '</div></div>';
+                    }).join('') + '</div>';
+            }
+
+            if (res.excluded.length) {
+                html += '<div class="dx-sec-title">لماذا استُبعدت الفرضيات الأخرى</div><div class="dx-list">' +
+                    res.excluded.map(function (x) {
+                        return '<div class="dx-li"><span class="x">✕</span><div><b>' + esc(x.ar) + ':</b> ' + esc(x.reason) + '</div></div>';
+                    }).join('') + '</div>';
+            }
+
+            if (lab.labels.length) {
+                html += '<div class="dx-sec-title">المحكات المتعرف عليها في الأعراض</div><div class="dx-reco">' +
+                    lab.labels.map(function (l) { return '<span class="dx-chip">✓ ' + esc(l) + '</span>'; }).join('') + '</div>';
+            }
+
+            html += '<div class="dx-actions">' +
+                '<button class="dx-btn" id="dxOpenResults">📄 صفحة النتائج والتقرير</button>' +
+                '<button class="dx-btn ghost" id="dxAgain">↩ تعديل الأعراض وإعادة التحليل</button>' +
+                '</div></div>';
+
+            panels.innerHTML = html;
+
+            var payload = {
+                winner: {
+                    id: w.id, name: w.ar, ico: w.ico, code: w.code, cat: w.cat, catAr: w.catAr,
+                    en: w.en, labels: lab.labels, matched: lab.labels.length, total: (d && d.c.length) || lab.labels.length,
+                    pct: Math.round(lab.labels.length / Math.max(1, (d && d.c.length) || lab.labels.length) * 100)
+                },
+                other: res.excluded[0] ? {
+                    id: res.excluded[0].id, name: res.excluded[0].ar, ico: res.excluded[0].ico,
+                    code: res.excluded[0].code, pct: 0, matched: 0, total: 0
+                } : null,
+                text: state.text,
+                date: date,
+                recognized: state.recognized,
+                differential: {
+                    candidates: state.candidates,
+                    questions: state.questions,
+                    answers: state.answers,
+                    decisions: res.decisions,
+                    excluded: res.excluded
+                }
+            };
+            try { localStorage.setItem(pk('diagResult'), JSON.stringify(payload)); } catch (e) { }
+
+            document.getElementById('dxOpenResults').onclick = function () { location.href = 'results.html?v=20261103'; };
+            document.getElementById('dxAgain').onclick = function () { showInput(true); };
+        }
+
+        document.querySelectorAll('.suggest-grid .chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                area.value += (area.value.trim() ? '، ' : '') + chip.textContent;
+                countSymptoms();
+            });
+        });
+
+        const DEMO_TEXTS = {
+            ptsd:'استرجاع متكرر ومؤلم للحدث الصادم دون رغبة، كوابيس مزعجة ومتكررة مرتبطة بالحدث، ذكريات مفاجئة تعيد إحياء الصدمة، شعور وكأن الحدث يحدث الآن مجددًا، ضيق نفسي شديد عند التعرض لأي مذكّر بالصدمة، تجنّب الأماكن أو الأشخاص المرتبطين بالحدث، تجنّب الأفكار والمشاعر المذكّرة بالصدمة، صعوبة في تذكر تفاصيل مهمة من الحدث، أفكار سلبية مستمرة عن الذات أو العالم، لوم النفس أو الآخرين على ما حدث، انخفاض الاهتمام بالأنشطة التي كانت ممتعة، الشعور بالانفصال والغربة عن الآخرين، عدم القدرة على الشعور بمشاعر إيجابية، اضطراب النوم وصعوبة الدخول أو الاستمرار فيه، نوبات غضب وتهيّج مفرط، صعوبة التركيز، فرط اليقظة والترقب الدائم للخطر، استجابة جفل مفرطة والانتفاض من الأصوات المفاجئة، سلوك متهور أو مدمر للذات، خدر عاطفي، فقدان الأمل ونظرة سلبية للمستقبل، الحساسية الزائدة للمثيرات البيئية، الخوف من تكرار الصدمة، الانسحاب الاجتماعي والعزلة',
+            mdd:'مزاج منخفض معظم اليوم كل يوم تقريبًا، انخفاض واضح في الاهتمام أو الاستمتاع في كل الأنشطة، فقدان وزن بارز أو زيادة مع انخفاض أو ارتفاع الشهية، أرق أو فرط نوم كل يوم تقريبًا، هياج نفسي حركي أو خمول، تعب أو فقدان الطاقة كل يوم تقريبًا، أحاسيس بانعدام القيمة أو شعور مفرط بالذنب، انخفاض القدرة على التفكير أو التركيز أو عدم الحسم، أفكار متكررة عن الموت أو تفكير انتحاري'
+        };
+
+        document.getElementById('demoPtsd').addEventListener('click', () => { area.value = DEMO_TEXTS.ptsd; countSymptoms(); area.focus(); });
+        document.getElementById('demoMdd').addEventListener('click', () => { area.value = DEMO_TEXTS.mdd; countSymptoms(); area.focus(); });
+
+        /* ===== زر «تجربة»: اختيار اضطراب يملأ حقل الأعراض بستة أعراض منه ===== */
+        function sixSymptomsOf(d) {
+            const labels = [], kws = [];
+            (d.c || []).forEach(c => {
+                const parts = String(c).split('::');
+                const label = (parts[0] || '').trim();
+                if (label) labels.push(label);
+                if (parts[1]) parts[1].split('|').forEach(k => { k = k.trim(); if (k) kws.push(k); });
+            });
+            const out = labels.slice(0, 6);
+            for (let i = 0; out.length < 6 && i < kws.length; i++) out.push(kws[i]);
+            return out.join('، ');
+        }
+
+        (function () {
+            const trialBtn = document.getElementById('demoTrial');
+            const trialBox = document.getElementById('trialBox');
+            const trialList = document.getElementById('trialList');
+            if (!trialBtn || !trialBox || !trialList) return;
+            let built = false;
+
+            trialBtn.addEventListener('click', () => {
+                if (!built) {
+                    const db = window.DSM_DB;
+                    const list = (db && db.disorders) ? db.disorders : [];
+                    trialList.innerHTML = list.map(d =>
+                        '<button type="button" class="trial-chip" data-id="' + d.id + '">' + (d.ico || '🔹') + ' ' + d.ar + '</button>'
+                    ).join('');
+                    built = true;
+                }
+                trialBox.hidden = !trialBox.hidden;
+            });
+
+            trialList.addEventListener('click', e => {
+                const b = e.target && e.target.closest ? e.target.closest('.trial-chip') : null;
+                if (!b) return;
+                const db = window.DSM_DB;
+                const id = b.getAttribute('data-id');
+                const d = db && db.disorders ? db.disorders.filter(x => x.id === id)[0] : null;
+                if (!d) return;
+                area.value = sixSymptomsOf(d);
+                countSymptoms();
+                trialBox.hidden = true;
+                area.focus();
+                if (area.scrollIntoView) area.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        })();
+    </script>
+    <script>
+        (function() {
+            var btn = document.getElementById('authBtn');
+            if (!btn) return;
+            var u = JSON.parse(localStorage.getItem('diagUser') || 'null');
+            if (u) {
+                btn.textContent = (u.isAdmin ? '👨‍💼 ' : '👤 ') + (u.isAdmin ? 'المدير' : u.name);
+                btn.onclick = function() { location.href = 'profile.html'; };
+            } else {
+                btn.onclick = function() { location.href = 'login.html'; };
+            }
+        })();
+
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+        }, { threshold: .12 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    </script>
+    <div id="i18n-toast" class="i18n-toast"></div>
+    <style>.i18n-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:#193fa4;color:#fff;padding:12px 28px;border-radius:12px;font-weight:700;font-size:14px;z-index:99999;transition:transform .4s cubic-bezier(.68,-.55,.27,1.55),opacity .4s;opacity:0;font-family:'Readex Pro','Tajawal','Cairo',sans-serif}.i18n-toast.show{transform:translateX(-50%) translateY(0);opacity:1}</style>
+
+
+
+
+
+
+
+
+
+<!-- === BESPOKE 6-VIEWS INTERACTIVE STUDIO SCRIPT START === -->
+
+<script>
+(function() {
+    var panels = document.getElementById('dxPanels');
+    if (!panels) return;
+
+    function enhanceDxPanels() {
+        var panel = panels.querySelector('.dx-panel');
+        if (!panel) return;
+
+        /* 1. Hypotheses Cards: Embed matched criteria pills inside each card */
+        var hypoCards = panel.querySelectorAll('.hypo-card');
+        if (hypoCards.length && window.DifferentialEngine && typeof state !== 'undefined') {
+            var explained = {};
+            try {
+                (window.DifferentialEngine.explain(state.text || '') || []).forEach(function(r) {
+                    explained[r.id] = r.hits || [];
+                });
+            } catch(e) {}
+
+            hypoCards.forEach(function(card, idx) {
+                if (card.querySelector('.hc-evidence-box')) return;
+                var c = (state.candidates && state.candidates[idx]) || null;
+                var hits = (c && explained[c.id]) ? explained[c.id] : [];
+                var box = document.createElement('div');
+                box.className = 'hc-evidence-box';
+                var pillsHtml = hits.slice(0, 4).map(function(h) {
+                    return '<span class="hc-ev-pill">✓ ' + h.label + '</span>';
+                }).join('');
+                if (!pillsHtml) pillsHtml = '<span class="hc-ev-pill">✓ دلائل سريرية مطابقة</span>';
+                box.innerHTML =
+                    '<div class="hc-ev-head"><span>🔎 المحكات المرصودة</span><span>' + hits.length + ' محكات</span></div>' +
+                    '<div class="hc-ev-pills">' + pillsHtml + '</div>';
+                card.appendChild(box);
+            });
+        }
+
+        /* 2. Differential Questions: Live Progress Bar & Quick Unknown Fill */
+        var qList = panel.querySelector('.q-list');
+        if (qList && !panel.querySelector('#dxLiveProgress')) {
+            var qItems = qList.querySelectorAll('.q-item');
+            var liveBar = document.createElement('div');
+            liveBar.id = 'dxLiveProgress';
+            liveBar.className = 'dx-live-progress-bar';
+            liveBar.innerHTML =
+                '<div class="dx-live-top">' +
+                    '<span id="dxLiveCount">🧭 مصفوفة القرار الفارقي: <b>0 / ' + qItems.length + '</b> محاور محسومة</span>' +
+                    '<button type="button" class="dx-quick-fill-btn" id="dxQuickUnknown">⚡ تحديد «غير معروف» للمتبقي</button>' +
+                '</div>' +
+                '<div class="dx-live-track"><div class="dx-live-fill" id="dxLiveFill" style="width:0%"></div></div>';
+            panel.insertBefore(liveBar, qList);
+
+            function syncQProgress() {
+                var answered = 0;
+                qItems.forEach(function(item) {
+                    var hasOn = !!item.querySelector('.q-opt.on');
+                    item.classList.toggle('is-answered', hasOn);
+                    if (hasOn) answered++;
+                });
+                var pct = Math.round((answered / Math.max(1, qItems.length)) * 100);
+                var cntEl = document.getElementById('dxLiveCount');
+                var fillEl = document.getElementById('dxLiveFill');
+                if (cntEl) cntEl.innerHTML = '🧭 مصفوفة القرار الفارقي: <b>' + answered + ' / ' + qItems.length + '</b> محاور محسومة (' + pct + '%)';
+                if (fillEl) fillEl.style.width = pct + '%';
+            }
+
+            qList.addEventListener('click', function() { setTimeout(syncQProgress, 30); });
+            var qBtn = document.getElementById('dxQuickUnknown');
+            if (qBtn) {
+                qBtn.onclick = function() {
+                    qItems.forEach(function(item) {
+                        if (!item.querySelector('.q-opt.on')) {
+                            var unk = item.querySelector('.q-opt[data-v="unknown"]');
+                            if (unk) unk.click();
+                        }
+                    });
+                    syncQProgress();
+                };
+            }
+            syncQProgress();
+        }
+    }
+
+    var obs = new MutationObserver(function() { enhanceDxPanels(); });
+    obs.observe(panels, { childList: true });
+})();
+</script>
+
+<!-- === BESPOKE 6-VIEWS INTERACTIVE STUDIO SCRIPT END === -->
+</body>
+</html>

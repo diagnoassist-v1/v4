@@ -1,0 +1,2743 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#193fa4">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>الدفع | DIAGNO-ASSIST</title>
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Readex Pro','Tajawal','Cairo',sans-serif;background:linear-gradient(135deg,#0b1c4d 0%,#193fa4 50%,#193fa4 100%);color:#1e293b;min-height:100vh;overflow-x:hidden}
+        
+        /* Navbar */
+        header.nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(16px);background:linear-gradient(120deg,#0b1c4d,#193fa4 45%,#193fa4);border-bottom:1px solid rgba(255,255,255,.14);box-shadow:0 12px 36px rgba(11, 28, 77,.35)}
+        header.nav .brand-name{background:linear-gradient(120deg,#fff,#b6c8f9);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        header.nav .brand-sub{color:#bfd0fa}
+        header.nav .nav-links a{color:#d6e4ff}
+        header.nav .nav-links a::after{background:linear-gradient(90deg,#3b6cf5,#2b5be0)}
+        header.nav .nav-links a:hover{color:#fff}
+        .nav-inner{display:flex;align-items:center;justify-content:space-between;height:96px;gap:24px;width:auto;max-width:none;padding-inline:3%}
+        .brand{display:flex;align-items:center;gap:16px;text-decoration:none;flex-shrink:0}
+        .brand-logo{width:64px;height:64px;border-radius:20px;object-fit:cover;box-shadow:0 10px 26px rgba(26, 65, 173,.30),0 0 0 4px rgba(26, 65, 173,.08)}
+        .brand-text{line-height:1.15}
+        .brand-name{display:block;font-size:27px;font-weight:900;letter-spacing:.5px;background:linear-gradient(120deg,#193fa4,#1a41ad 55%,#1a44b5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .brand-sub{display:block;font-size:13.5px;font-weight:700;letter-spacing:.3px;margin-top:3px}
+        .nav-links{display:flex;gap:34px;align-items:center}
+        .nav-links a{text-decoration:none;font-weight:700;font-size:15.5px;position:relative;padding:6px 0;transition:color .25s}
+        .nav-links a::after{content:"";position:absolute;bottom:-2px;right:0;width:0;height:3px;border-radius:3px;transition:width .3s}
+        .nav-links a:hover::after{width:100%}
+        .nav-links a .ico{font-size:17px}
+        .nav-cta{padding:12px 28px;font-size:15px;border-radius:14px;background:linear-gradient(135deg,#1a41ad,#2b5be0);color:#fff;border:none;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 8px 24px rgba(26, 65, 173,.35);transition:all .25s}
+        .nav-cta:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(26, 65, 173,.45)}
+        @media(max-width:800px){.nav-links{display:none}.nav-inner{padding-inline:4%}}
+
+        /* Main Container */
+        .payment-wrap{max-width:1100px;margin:0 auto;padding:40px 20px 60px}
+        
+        /* Header Section */
+        .pay-header{text-align:center;margin-bottom:40px;animation:fadeInUp .6s ease}
+        .pay-header h1{font-size:2.2rem;font-weight:900;color:#fff;margin-bottom:8px;text-shadow:0 4px 20px rgba(0,0,0,.3)}
+        .pay-header p{font-size:1rem;color:rgba(255,255,255,.7);font-weight:600}
+        .pay-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;padding:8px 20px;border-radius:30px;font-size:.85rem;font-weight:700;margin-top:12px;box-shadow:0 4px 16px rgba(245,158,11,.4)}
+        
+        /* Content Grid */
+        .pay-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+        
+        /* Golden Card */
+        .card-3d{perspective:1000px;animation:fadeInUp .8s ease .2s both}
+        .card-golden{background:linear-gradient(135deg,#0b1c4d 0%,#11286b 30%,#193fa4 60%,#0b1c4d 100%);border-radius:24px;padding:32px 28px;color:#fff;min-height:240px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;box-shadow:0 25px 60px rgba(0,0,0,.5),0 0 0 1px rgba(255,215,0,.2),inset 0 1px 0 rgba(255,255,255,.1);transform:rotateY(-5deg) rotateX(2deg);transition:transform .4s ease}
+        .card-golden:hover{transform:rotateY(0) rotateX(0) scale(1.02)}
+        .card-golden::before{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,215,0,.15) 0%,transparent 70%);top:-100px;right:-100px;animation:shimmer 3s ease-in-out infinite}
+        .card-golden::after{content:"";position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(43, 91, 224,.1) 0%,transparent 70%);bottom:-80px;left:-60px}
+        @keyframes shimmer{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
+        
+        .card-top{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+        .card-chip{width:52px;height:38px;background:linear-gradient(135deg,#f5d47a 0%,#c99b3f 50%,#f5d47a 100%);border-radius:8px;position:relative;box-shadow:0 4px 12px rgba(201,155,63,.4)}
+        .card-chip::before{content:"";position:absolute;inset:4px;border:1.5px solid rgba(0,0,0,.2);border-radius:4px}
+        .card-chip::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70%;height:1px;background:rgba(0,0,0,.15)}
+        .card-brand{text-align:left}
+        .card-brand-name{font-size:16px;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#f5d47a,#ffd700,#f5d47a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .card-brand-sub{font-size:9px;color:#a0855a;font-weight:600;letter-spacing:1px}
+        
+        .card-number{font-size:1.5rem;letter-spacing:6px;font-weight:700;font-family:'Consolas',monospace;text-shadow:0 2px 10px rgba(0,0,0,.5);direction:ltr;text-align:left;position:relative;z-index:1;padding:20px 0;border-bottom:1px solid rgba(255,215,0,.15)}
+        
+        .card-bottom{display:flex;align-items:flex-end;justify-content:space-between;position:relative;z-index:1;padding-top:16px}
+        .card-holder-label{font-size:8px;color:#a0855a;letter-spacing:1px;margin-bottom:4px;text-transform:uppercase}
+        .card-holder-name{font-size:16px;font-weight:800;letter-spacing:2px;background:linear-gradient(135deg,#f5d47a,#ffd700);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .card-exp{text-align:left}
+        .card-exp-label{font-size:8px;color:#a0855a;letter-spacing:1px;text-transform:uppercase}
+        .card-exp-date{font-size:18px;font-weight:800;color:#f5d47a;direction:ltr;letter-spacing:2px;margin-top:2px}
+        
+        .card-network{position:absolute;bottom:20px;left:20px;display:flex;gap:-10px;z-index:1}
+        .card-network .circle{width:40px;height:40px;border-radius:50%;opacity:.3}
+        .card-network .circle:first-child{background:#eb001b}
+        .card-network .circle:last-child{background:#f79e1b;margin-left:-15px}
+        
+        /* Amount Box */
+        .amount-section{background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:20px;margin-top:20px;position:relative;z-index:1}
+        .amount-row{display:flex;align-items:center;justify-content:space-between}
+        .amount-label{font-size:.9rem;color:rgba(255,255,255,.7);font-weight:600}
+        .amount-value{font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#f5d47a,#ffd700);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .amount-period{font-size:.8rem;color:#a0855a;font-weight:600;margin-top:4px;text-align:left}
+        .amount-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,215,0,.3),transparent);margin:12px 0}
+        .amount-total{display:flex;justify-content:space-between;align-items:center}
+        .amount-total-label{font-size:.85rem;color:rgba(255,255,255,.6)}
+        .amount-total-value{font-size:1.1rem;font-weight:800;color:#fff}
+        
+        /* Payment Form */
+        .pay-form{background:#fff;border-radius:24px;padding:36px;box-shadow:0 20px 50px rgba(0,0,0,.15);animation:fadeInUp .8s ease .4s both}
+        .pay-form h2{font-size:1.3rem;font-weight:800;color:#1e293b;margin-bottom:24px;display:flex;align-items:center;gap:10px}
+        .pay-form h2 .icon{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#1a41ad,#2b5be0);display:flex;align-items:center;justify-content:center;font-size:18px}
+        
+        .field{margin-bottom:18px}
+        .field label{display:block;font-size:.85rem;font-weight:700;color:#475569;margin-bottom:8px}
+        .field input{width:100%;border:2px solid #e2e8f0;border-radius:14px;padding:14px 16px;font-size:1rem;color:#1e293b;background:#f8fafc;direction:ltr;text-align:left;outline:none;transition:all .3s;font-family:'Readex Pro','Tajawal','Cairo',sans-serif;font-weight:600}
+        .field input:focus{border-color:#1a41ad;box-shadow:0 0 0 4px rgba(26, 65, 173,.1);background:#fff}
+        .field input::placeholder{color:#94a3b8;font-weight:500}
+        
+        .pay-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+        
+        .btn-pay{width:100%;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border:none;padding:16px;border-radius:14px;font-weight:900;font-size:1.1rem;cursor:pointer;transition:all .3s;font-family:'Readex Pro','Tajawal','Cairo',sans-serif;box-shadow:0 8px 24px rgba(245,158,11,.4);display:flex;align-items:center;justify-content:center;gap:10px;margin-top:8px}
+        .btn-pay:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(245,158,11,.5)}
+        .btn-pay:active{transform:translateY(-1px)}
+        
+        .secure-note{display:flex;align-items:center;gap:8px;justify-content:center;font-size:.8rem;color:#94a3b8;margin-top:16px}
+        .secure-note svg{width:16px;height:16px;color:#22c55e}
+        
+        /* Features */
+        .pay-features{margin-top:24px;padding:20px;background:#f0fdf4;border-radius:14px;border:1px solid #bbf7d0}
+        .pay-features h4{font-size:.9rem;font-weight:700;color:#166534;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+        .pay-features ul{list-style:none}
+        .pay-features li{font-size:.85rem;color:#15803d;padding:6px 0;display:flex;align-items:center;gap:8px}
+        .pay-features li::before{content:"✓";width:20px;height:20px;border-radius:50%;background:#22c55e;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        
+        /* Modal */
+        .modal{display:none;position:fixed;inset:0;background:rgba(11, 28, 77,.8);backdrop-filter:blur(8px);z-index:1000;align-items:center;justify-content:center;padding:20px}
+        .modal.show{display:flex}
+        .modal-box{background:#fff;border-radius:24px;padding:48px 36px;text-align:center;max-width:440px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.3);animation:scaleIn .4s ease}
+        .modal-check{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;font-size:48px;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;box-shadow:0 12px 32px rgba(34,197,94,.4)}
+        .modal-box h2{font-size:1.5rem;font-weight:900;color:#1e293b;margin-bottom:10px}
+        .modal-box p{color:#64748b;font-size:.95rem;line-height:1.8;margin-bottom:28px}
+        .btn-ok{background:linear-gradient(135deg,#1a41ad,#2b5be0);color:#fff;border:none;padding:14px 48px;border-radius:14px;font-weight:800;font-size:1rem;cursor:pointer;font-family:'Readex Pro','Tajawal','Cairo',sans-serif;box-shadow:0 8px 24px rgba(26, 65, 173,.35);transition:all .3s}
+        .btn-ok:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(26, 65, 173,.45)}
+        
+        /* Toast */
+        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(160px);background:linear-gradient(135deg,#0b1c4d,#193fa4);color:#fff;padding:16px 28px;border-radius:16px;font-weight:700;font-size:.9rem;z-index:1100;display:flex;align-items:center;gap:10px;transition:transform .5s cubic-bezier(.68,-.55,.27,1.55);box-shadow:0 12px 32px rgba(0,0,0,.3);border-right:4px solid #f5d47a}
+        .toast.show{transform:translateX(-50%) translateY(0)}
+        
+        /* Footer */
+        footer{background:#0b1c4d;color:#bfd0fa;margin-top:40px}
+        .footer-grid{max-width:1100px;width:94%;margin:0 auto;padding:48px 0 30px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px}
+        .footer-col h4{color:#fff;font-size:16px;font-weight:800;margin-bottom:18px}
+        .footer-col a{display:block;color:#b3a4d9;text-decoration:none;font-size:14px;margin-bottom:11px;transition:color .3s}
+        .footer-col a:hover{color:#fff}
+        .footer-brand{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+        .footer-brand img{width:44px;height:44px;border-radius:12px;object-fit:cover}
+        .footer-brand .fname{color:#fff;font-weight:800;letter-spacing:1px}
+        .footer-brand .fsub{display:block;font-size:11px;color:#b3a4d9;margin-top:2px}
+        .footer-col p{font-size:14px;line-height:1.9;color:#bfd0fa}
+        .footer-bottom{border-top:1px solid rgba(255,255,255,.1);text-align:center;padding:20px;color:#6478ad;font-size:13px}
+        @media(max-width:900px){.pay-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr;padding:30px 0}.card-golden{transform:none}}
+        @media(max-width:500px){.footer-grid{grid-template-columns:1fr}}
+        
+        /* Animations */
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes scaleIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+    @media(max-width:430px){
+  .nav-inner{height:auto;min-height:60px;gap:8px;padding-inline:2%}
+  .brand-logo{width:36px;height:36px;border-radius:10px}
+  .brand-name{font-size:16px}
+  .brand-sub{font-size:9px}
+  .brand{gap:6px}
+  .nav-cta{padding:7px 12px;font-size:11px;border-radius:8px}
+  .card-golden{padding:18px 14px;border-radius:16px}
+  .card-number{font-size:1rem;letter-spacing:2px;padding:12px 0}
+  .card-holder-name{font-size:12px;letter-spacing:1px}
+  .card-exp-date{font-size:14px}
+  .card-top{gap:6px}
+  .card-chip{width:36px;height:28px}
+  .card-golden{transform:none}
+  .card-3d{perspective:none}
+  .pay-form{padding:20px 14px;border-radius:16px}
+  .pay-form h2{font-size:1rem;margin-bottom:14px}
+  .pay-form h2 .icon{width:30px;height:30px;font-size:14px}
+  .field input{padding:9px 10px;font-size:.85rem}
+  .btn-pay{padding:10px;font-size:.95rem}
+  .pay-row{gap:8px}
+  .field label{font-size:.75rem}
+  .pay-header h1{font-size:1.3rem}
+  .pay-header p{font-size:.8rem}
+  .pay-badge{font-size:.72rem;padding:5px 12px}
+  .payment-wrap{padding:16px 12px 36px}
+  .modal{padding:10px}
+  .modal-box{padding:28px 16px;max-width:100%}
+  .modal-check{width:72px;height:72px;font-size:32px}
+  .modal-box h2{font-size:1.1rem}
+  .modal-box p{font-size:.82rem}
+  .btn-ok{padding:10px 28px;font-size:.85rem}
+  .footer-grid{gap:18px;padding:26px 0 18px}
+}
+    
+/* ==========================================================================
+   DIAGNO-ASSIST — 3D NEURO-GLASS & ORBITAL STUDIO (ROYAL COBALT #1a41ad EDITION)
+   Anchored in exact swatch colors: #193fa4 -> #1a41ad -> #1a44b5
+   ========================================================================== */
+:root {
+    --cobalt-core: #1a41ad;
+    --cobalt-left: #193fa4;
+    --cobalt-right: #1a44b5;
+    --cobalt-bright: #2b5be0;
+    --cobalt-deep: #122d7a;
+    --cobalt-navy: #0b1c4d;
+    --cobalt-ice: #edf1fc;
+    --cobalt-border: #c5d3f7;
+    --blue: #1a41ad !important;
+    --blue-deep: #193fa4 !important;
+    --blue-mid: #1a44b5 !important;
+    --blue-light: #2b5be0 !important;
+    --blue-pale: #e3eafd !important;
+    --primary: #1a41ad !important;
+    --primary-dark: #193fa4 !important;
+    --primary-light: #2b5be0 !important;
+    --sky: #1a44b5 !important;
+    --teal: #1a41ad !important;
+    --teal-deep: #193fa4 !important;
+    --teal-soft: #eef2fe !important;
+    --rose: #1a41ad !important;
+    --rose-deep: #193fa4 !important;
+    --rose-soft: #eef2fe !important;
+    --navy: #11286b !important;
+    --navy-dark: #0b1c4d !important;
+    --dark: #0b1c4d !important;
+    --dark-mid: #11286b !important;
+    --ink: #0b1c4d !important;
+    --text: #11286b !important;
+    --text-dark: #0b1c4d !important;
+    --text-mid: #283e7a !important;
+    --text-light: #455a94 !important;
+    --text-lighter: #6478ad !important;
+    --muted: #455a94 !important;
+    --slate: #1f346e !important;
+    --slate-light: #455a94 !important;
+    --line: #cbd7f7 !important;
+    --border: #cbd7f7 !important;
+    --bg: #e0f2fe !important;
+    --grad-start: #122d7a !important;
+    --grad-mid: #193fa4 !important;
+    --grad-end: #1a44b5 !important;
+    --card-radius: 28px !important;
+    --radius: 28px !important;
+}
+
+@keyframes neuroReveal {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal, .fade-up, .plan, .pay-header, .card-3d, .pay-form {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: neuroReveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+}
+
+/* 1. ARCHITECTURAL BLUEPRINT GRID & LIGHT SKY-BLUE CANVAS */
+body {
+    font-family: 'Tajawal', 'Readex Pro', 'Cairo', sans-serif !important;
+    background-color: #e0f2fe !important;
+    background-image:
+        radial-gradient(circle at 10% 12%, rgba(56, 189, 248, 0.20) 0%, transparent 38%),
+        radial-gradient(circle at 90% 18%, rgba(14, 165, 233, 0.15) 0%, transparent 42%),
+        radial-gradient(circle at 50% 90%, rgba(125, 211, 252, 0.25) 0%, transparent 45%),
+        linear-gradient(to right, rgba(14, 165, 233, 0.075) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(14, 165, 233, 0.075) 1px, transparent 1px),
+        linear-gradient(160deg, #f0f9ff 0%, #dff2fe 52%, #e6f6ff 100%) !important;
+    background-size: 100% 100%, 100% 100%, 100% 100%, 32px 32px, 32px 32px, 100% 100% !important;
+    background-attachment: fixed !important;
+    color: #0b1c4d !important;
+    position: relative;
+}
+
+.bg-fx { background: transparent !important; }
+
+h1, h2, h3, h4, .brand-name, .hero-title, .header-title, .card-title, .section-title, .modal-title {
+    font-family: 'Readex Pro', 'Tajawal', 'Cairo', sans-serif !important;
+    letter-spacing: -0.2px;
+}
+
+.bg-blob.blob-1, .orb-1 { background: #7dd3fc !important; opacity: 0.28 !important; }
+.bg-blob.blob-2, .orb-2 { background: #38bdf8 !important; opacity: 0.20 !important; }
+.orb-3 { background: #bae6fd !important; opacity: 0.30 !important; }
+
+/* 2. FLOATING 3D LOGO-INSPIRED CYAN-AZURE CAPSULE NAVBAR (#34bae6 -> #219ad5 -> #0b69b4) */
+header.nav {
+    position: sticky !important;
+    top: 12px !important;
+    z-index: 200 !important;
+    width: 97% !important;
+    max-width: none !important;
+    margin: 12px auto 0 !important;
+    border-radius: 999px !important;
+    background-color: #219ad5 !important;
+    background-image:
+        radial-gradient(circle at 14% 22%, rgba(52, 186, 230, 0.65) 0%, transparent 45%),
+        radial-gradient(circle at 86% 80%, rgba(9, 103, 175, 0.65) 0%, transparent 50%),
+        linear-gradient(125deg, #0967af 0%, #0b69b4 30%, #219ad5 66%, #34bae6 100%) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 2.5px solid rgba(255, 255, 255, 0.94) !important;
+    box-shadow: 0 20px 46px -10px rgba(9, 103, 175, 0.40),
+                0 0 0 1.5px rgba(33, 154, 213, 0.48),
+                inset 0 2px 5px rgba(255, 255, 255, 0.55),
+                inset 0 -3px 8px rgba(9, 103, 175, 0.42) !important;
+    padding: 0 10px !important;
+}
+header.nav .nav-inner,
+header.nav .container.nav-inner {
+    height: 74px !important;
+    padding-inline: 24px !important;
+    width: 100% !important;
+    max-width: none !important;
+}
+header.nav .brand-logo {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 16px !important;
+    object-fit: cover;
+    border: 2.5px solid #ffffff !important;
+    box-shadow: 0 8px 20px rgba(7, 82, 142, 0.42),
+                0 0 0 3px rgba(255, 255, 255, 0.30) !important;
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1) !important;
+}
+header.nav .brand:hover .brand-logo {
+    transform: scale(1.07) rotate(-4deg) !important;
+}
+header.nav .brand-name {
+    font-size: 22px !important;
+    font-weight: 900 !important;
+    background: linear-gradient(180deg, #ffffff 0%, #e0f7ff 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    filter: drop-shadow(0 2px 6px rgba(7, 82, 142, 0.32)) !important;
+}
+header.nav .brand-sub {
+    color: #e6f8ff !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+}
+header.nav .nav-links {
+    background: rgba(255, 255, 255, 0.18) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.48) !important;
+    padding: 5px 7px !important;
+    border-radius: 999px !important;
+    gap: 6px !important;
+    box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.38), 0 6px 16px rgba(7, 82, 142, 0.20) !important;
+}
+header.nav .nav-links a {
+    color: #ffffff !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+    padding: 7px 16px !important;
+    border-radius: 999px !important;
+    text-shadow: 0 1px 3px rgba(7, 82, 142, 0.32) !important;
+    transition: all 0.25s cubic-bezier(.34,1.56,.64,1) !important;
+}
+header.nav .nav-links a::after { display: none !important; }
+header.nav .nav-links a:hover {
+    background: #ffffff !important;
+    color: #0967af !important;
+    text-shadow: none !important;
+    box-shadow: 0 6px 16px rgba(7, 82, 142, 0.28) !important;
+    transform: translateY(-1px);
+}
+header.nav .nav-cta, header.nav .btn-primary.nav-cta {
+    background: linear-gradient(180deg, #ffffff 0%, #ecf9ff 100%) !important;
+    color: #0967af !important;
+    border-radius: 999px !important;
+    padding: 10px 24px !important;
+    font-size: 14px !important;
+    font-weight: 900 !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 8px 22px rgba(7, 82, 142, 0.35),
+                0 0 0 3px rgba(255, 255, 255, 0.28),
+                inset 0 2px 3px #ffffff !important;
+}
+header.nav .nav-cta:hover {
+    background: #ffffff !important;
+    color: #0b69b4 !important;
+    transform: translateY(-2px) scale(1.03) !important;
+    box-shadow: 0 12px 28px rgba(7, 82, 142, 0.45),
+                0 0 0 4px rgba(255, 255, 255, 0.38) !important;
+}
+
+/* 3. COMPACT 3D ORBITAL ROYAL COBALT HERO ISLAND (FOR INTERIOR PAGES) */
+.page-hero, .hero:not(:has(.hero-grid)), .mini-hero, .hero-card, header.page-header, .pay-header {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 16px auto 24px !important;
+    border-radius: 32px !important;
+    padding: 28px 32px !important;
+    background-color: #1a41ad !important;
+    background-image:
+        radial-gradient(circle at 12% 20%, rgba(68, 114, 242, 0.42) 0%, transparent 40%),
+        radial-gradient(circle at 88% 80%, rgba(11, 28, 77, 0.48) 0%, transparent 48%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px, 100% 100% !important;
+    border: 2.5px solid rgba(255, 255, 255, 0.90) !important;
+    box-shadow: 0 24px 52px -12px rgba(25, 63, 164, 0.42),
+                0 0 0 1.5px rgba(26, 68, 181, 0.45),
+                inset 0 3px 6px rgba(255, 255, 255, 0.45),
+                inset 0 -4px 12px rgba(11, 28, 77, 0.40) !important;
+    color: #ffffff !important;
+    position: relative !important;
+    top: auto !important;
+    overflow: hidden !important;
+}
+.page-hero .container,
+header.page-header .container,
+header.page-header .header-inner,
+.hero .hero-inner,
+.mini-hero .container {
+    width: 100% !important;
+    max-width: none !important;
+}
+/* Orbital 3D Rings inside Hero Island */
+.page-hero::before, .hero:not(:has(.hero-grid))::before, .mini-hero::before, header.page-header::before, .pay-header::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -65px !important;
+    right: -55px !important;
+    width: 230px !important;
+    height: 230px !important;
+    border-radius: 50% !important;
+    border: 2px dashed rgba(255, 255, 255, 0.28) !important;
+    background: radial-gradient(circle, rgba(96, 140, 255, 0.26) 0%, transparent 68%) !important;
+    box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.18), 0 0 0 24px rgba(255, 255, 255, 0.04) !important;
+    pointer-events: none !important;
+}
+.page-hero::after, .hero:not(:has(.hero-grid))::after, .mini-hero::after, header.page-header::after, .pay-header::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: -75px !important;
+    left: -45px !important;
+    width: 210px !important;
+    height: 210px !important;
+    border-radius: 50% !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.16) 0%, transparent 70%) !important;
+    box-shadow: 0 0 0 20px rgba(96, 140, 255, 0.08) !important;
+    pointer-events: none !important;
+}
+.page-hero h1, .hero:not(:has(.hero-grid)) h1, .mini-hero h1, .hero:not(:has(.hero-grid)) .hero-title, .header-title, .hero-left h1, .hero-name, .pay-header h1 {
+    color: #ffffff !important;
+    text-shadow: 0 4px 16px rgba(11, 28, 77, 0.40) !important;
+    font-weight: 900 !important;
+    position: relative;
+    z-index: 2;
+}
+.page-hero h1 .grad, .hero:not(:has(.hero-grid)) h1 .gradient-text {
+    background: linear-gradient(180deg, #ffffff 0%, #c7d7fe 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+.page-hero p, .hero:not(:has(.hero-grid)) p, .mini-hero p, .hero:not(:has(.hero-grid)) .hero-subtitle, .hero-left p, .hero-role, .hero-since, .pay-header p {
+    color: rgba(255, 255, 255, 0.92) !important;
+    font-weight: 600 !important;
+    margin-bottom: 10px !important;
+    position: relative;
+    z-index: 2;
+}
+.breadcrumb {
+    display: inline-flex !important;
+    background: rgba(11, 28, 77, 0.32) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+    padding: 5px 16px !important;
+    border-radius: 999px !important;
+    color: #ffffff !important;
+    margin-bottom: 10px !important;
+}
+.breadcrumb a { color: #dbe4fc !important; font-weight: 800 !important; }
+.breadcrumb a:hover { color: #ffffff !important; text-decoration: underline !important; }
+.back-btn, .patients-list-btn, .hero-pill, .header-badge, .hero-chip, .hero-tag, .hero-stat, .pay-badge {
+    background: rgba(255, 255, 255, 0.20) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.60) !important;
+    color: #ffffff !important;
+    border-radius: 999px !important;
+    box-shadow: 0 6px 18px rgba(11, 28, 77, 0.20), inset 0 1px 2px rgba(255, 255, 255, 0.45) !important;
+    position: relative;
+    z-index: 2;
+}
+.hero-stat { border-radius: 20px !important; }
+.back-btn:hover, .patients-list-btn:hover {
+    background: #ffffff !important;
+    color: #193fa4 !important;
+    border-color: #ffffff !important;
+    transform: translateY(-2px) !important;
+}
+
+/* ==========================================================================
+   BESPOKE REDESIGN FOR INDEX.HTML (ROYAL COBALT #1a41ad EDITION)
+   ========================================================================== */
+.hero:has(.hero-grid) {
+    padding: 24px 0 36px !important;
+}
+.hero-grid {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 0 auto !important;
+    background:
+        radial-gradient(circle at 18% 20%, rgba(26, 68, 181, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(25, 63, 164, 0.10) 0%, transparent 50%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(242, 246, 255, 0.93) 100%) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 3px solid #ffffff !important;
+    border-radius: 40px !important;
+    padding: 52px 56px !important;
+    box-shadow: 0 28px 68px -14px rgba(25, 63, 164, 0.18),
+                0 0 0 1.5px rgba(26, 68, 181, 0.32),
+                inset 0 3px 8px #ffffff !important;
+    position: relative !important;
+}
+.hero:has(.hero-grid) .pill {
+    background: linear-gradient(180deg, #f0f4fe 0%, #dfe8fc 100%) !important;
+    border: 1.5px solid #93aff5 !important;
+    color: #193fa4 !important;
+    box-shadow: 0 6px 16px rgba(25, 63, 164, 0.10), inset 0 1px 0 #ffffff !important;
+}
+.hero:has(.hero-grid) h1.hero-title {
+    color: #0b1c4d !important;
+    text-shadow: none !important;
+}
+.hero:has(.hero-grid) .grad, .sec-head .grad {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #2b5be0 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+.brain-wrap {
+    background:
+        radial-gradient(circle at 30% 25%, #2b5be0 0%, #1a44b5 38%, #1a41ad 72%, #193fa4 100%) !important;
+    border: 4px solid #ffffff !important;
+    box-shadow: 0 34px 72px rgba(25, 63, 164, 0.38),
+                0 0 0 12px rgba(255, 255, 255, 0.75),
+                0 0 0 14px rgba(26, 68, 181, 0.30),
+                inset 0 4px 12px rgba(255, 255, 255, 0.50) !important;
+}
+.float-card {
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 22px !important;
+    box-shadow: 0 18px 42px -8px rgba(25, 63, 164, 0.20),
+                0 0 0 1.5px #bfd0fa,
+                inset 0 2px 3px #ffffff !important;
+}
+.float-card .fc-ico {
+    background: linear-gradient(135deg, #e3eafd, #bfd0fa) !important;
+    border: 1.5px solid #ffffff !important;
+    box-shadow: 0 4px 12px rgba(25, 63, 164, 0.14) !important;
+}
+/* Floating 3D Orbital Trust Band (.marquee-band) */
+.marquee-band {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 4px auto 28px !important;
+    border-radius: 34px !important;
+    padding: 24px 24px !important;
+    background-color: #1a41ad !important;
+    background-image:
+        radial-gradient(circle at 15% 20%, rgba(68, 114, 242, 0.42) 0%, transparent 42%),
+        radial-gradient(circle at 85% 80%, rgba(11, 28, 77, 0.45) 0%, transparent 48%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    background-size: 100% 100%, 100% 100%, 26px 26px, 26px 26px, 100% 100% !important;
+    border: 2.5px solid #ffffff !important;
+    box-shadow: 0 24px 54px -12px rgba(25, 63, 164, 0.38),
+                0 0 0 1.5px rgba(26, 68, 181, 0.45),
+                inset 0 2px 5px rgba(255, 255, 255, 0.45) !important;
+}
+.marquee-band::after { display: none !important; }
+.band-item {
+    background: rgba(255, 255, 255, 0.16) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.52) !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 24px rgba(11, 28, 77, 0.22), inset 0 1px 2px rgba(255, 255, 255, 0.40) !important;
+}
+.band-item .bi {
+    background: rgba(255, 255, 255, 0.22) !important;
+    border: 1px solid rgba(255, 255, 255, 0.48) !important;
+}
+@media(min-width: 1021px) {
+    .band-inner { flex-wrap: nowrap !important; gap: 12px !important; }
+    .band-item { padding: 11px 20px !important; font-size: 14px !important; white-space: nowrap !important; }
+}
+
+section.block { padding: 56px 0 !important; }
+.sec-tag {
+    background: linear-gradient(180deg, #f0f4fe 0%, #dfe8fc 100%) !important;
+    border: 1.5px solid #93aff5 !important;
+    color: #193fa4 !important;
+    padding: 6px 20px !important;
+    border-radius: 999px !important;
+    box-shadow: 0 4px 12px rgba(25, 63, 164, 0.10), inset 0 1px 0 #ffffff !important;
+}
+.feat-card, .step-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(244, 247, 255, 0.96) 100%) !important;
+    border: 2.5px solid #ffffff !important;
+    border-radius: 30px !important;
+    box-shadow: 0 20px 46px -12px rgba(25, 63, 164, 0.15),
+                0 0 0 1.5px #c5d3f7,
+                inset 0 3px 6px #ffffff !important;
+}
+.feat-card::before {
+    height: 6px !important;
+    background: linear-gradient(90deg, #193fa4, #1a41ad, #2b5be0) !important;
+    transform: scaleX(1) !important;
+}
+.feat-card:hover, .step-card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 28px 58px -12px rgba(25, 63, 164, 0.28),
+                0 0 0 2.5px #1a44b5,
+                inset 0 3px 6px #ffffff !important;
+}
+.feat-ico {
+    width: 66px !important;
+    height: 66px !important;
+    border-radius: 20px !important;
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border: 2.5px solid #ffffff !important;
+    box-shadow: 0 12px 26px rgba(25, 63, 164, 0.32),
+                0 0 0 3px rgba(26, 68, 181, 0.22),
+                inset 0 2px 3px rgba(255, 255, 255, 0.40) !important;
+}
+.step-num {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 22px rgba(25, 63, 164, 0.34) !important;
+}
+.step-ico {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 18px !important;
+    background: linear-gradient(135deg, #eef2fe 0%, #dbe4fc 100%) !important;
+    border: 1.5px solid #bfd0fa !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 28px !important;
+}
+.cta-box {
+    background-color: #1a41ad !important;
+    background-image:
+        radial-gradient(circle at 15% 20%, rgba(68, 114, 242, 0.45) 0%, transparent 42%),
+        radial-gradient(circle at 85% 80%, rgba(11, 28, 77, 0.48) 0%, transparent 48%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px, 100% 100% !important;
+    border: 3px solid #ffffff !important;
+    border-radius: 36px !important;
+    box-shadow: 0 28px 64px -12px rgba(25, 63, 164, 0.42),
+                0 0 0 1.5px rgba(26, 68, 181, 0.45),
+                inset 0 3px 6px rgba(255, 255, 255, 0.45) !important;
+}
+.cta-box p { color: rgba(255, 255, 255, 0.92) !important; }
+.btn-white {
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    color: #193fa4 !important;
+    border: 2px solid #bfd0fa !important;
+    box-shadow: 0 14px 32px rgba(11, 28, 77, 0.28), inset 0 2px 3px #ffffff !important;
+}
+
+/* Steps Bar in results.html */
+.steps-bar {
+    width: min(1040px, 92%) !important;
+    margin: 12px auto 4px !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(22px) saturate(180%) !important;
+    padding: 9px 16px !important;
+    border-radius: 999px !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 14px 36px -8px rgba(25, 63, 164, 0.16), 0 0 0 1.5px rgba(26, 68, 181, 0.30) !important;
+}
+.steps-bar .step-pill {
+    color: #284285 !important;
+    background: linear-gradient(180deg, #f4f7fe 0%, #e6ecfc 100%) !important;
+    border: 1.5px solid #cbd7f7 !important;
+    border-radius: 999px !important;
+}
+.steps-bar .step-pill.active {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+    box-shadow: 0 8px 20px rgba(25, 63, 164, 0.38) !important;
+}
+.steps-bar .step-connector { background: #cbd7f7 !important; }
+
+/* 4. 3D SCULPTED WHITE BENTO CARDS */
+.card, .section-card, .write-card, .overview-card, .quick-card, .form-card, .auth-card, .dx-panel, .axis-block, .file-card, .case-card, .stage, .panel, .block:not(section), .ref-card, .metric, .question-card, .plan, .trust-card, .faq-item, .stat, .reassess-card, .pay-form, .amount-section {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(246, 249, 255, 0.96) 100%) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 28px !important;
+    box-shadow: 0 18px 42px -10px rgba(25, 63, 164, 0.13),
+                0 4px 12px rgba(25, 63, 164, 0.06),
+                0 0 0 1.5px rgba(191, 208, 250, 0.85),
+                inset 0 2px 4px #ffffff !important;
+    transition: all 0.3s cubic-bezier(.34,1.56,.64,1) !important;
+}
+.card:hover, .section-card:hover, .file-card:hover, .case-card:hover, .axis-block:hover, .plan:hover, .trust-card:hover, .pay-form:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 24px 50px -10px rgba(25, 63, 164, 0.22),
+                0 0 0 2px #1a44b5,
+                inset 0 2px 4px #ffffff !important;
+}
+
+/* ==========================================================================
+   BESPOKE REDESIGN FOR PROFILE.HTML (ROYAL COBALT 2-COLUMN BENTO)
+   ========================================================================== */
+.profile-section {
+    max-width: 1180px !important;
+    margin: 0 auto 48px !important;
+    padding: 0 20px !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 24px !important;
+    align-items: stretch !important;
+}
+.profile-section .card {
+    margin-bottom: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+.profile-section .card:nth-child(5) {
+    grid-column: 1 / -1 !important;
+}
+.profile-section .card-header {
+    margin: 12px 12px 0 !important;
+    padding: 16px 20px !important;
+    border-radius: 20px !important;
+    background: linear-gradient(135deg, #eef2fe 0%, #dbe4fc 100%) !important;
+    border: 1.5px solid #bfd0fa !important;
+    box-shadow: inset 0 1px 0 #ffffff !important;
+}
+.profile-section .card-header .icon {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 16px !important;
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 18px rgba(25, 63, 164, 0.30), inset 0 2px 2px rgba(255, 255, 255, 0.45) !important;
+}
+.profile-section .card-header .icon svg {
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+}
+.profile-section .card-title {
+    color: #0b1c4d !important;
+    font-size: 1.12rem !important;
+    font-weight: 900 !important;
+}
+.profile-section .card-subtitle { color: #455a94 !important; }
+.profile-section .card-body {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 22px 24px 24px !important;
+}
+.profile-section .card-body > .btn { margin-top: auto !important; }
+.avatar {
+    width: 112px !important;
+    height: 112px !important;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(43, 91, 224, 0.35)) !important;
+    border: 4px solid #ffffff !important;
+    box-shadow: 0 14px 34px rgba(11, 28, 77, 0.36), 0 0 0 6px rgba(255, 255, 255, 0.18) !important;
+}
+.avatar-upload {
+    background: linear-gradient(135deg, #2b5be0, #193fa4) !important;
+    border: 2.5px solid #ffffff !important;
+}
+.lang-option {
+    background: linear-gradient(180deg, #f5f8ff 0%, #e8eeff 100%) !important;
+    border: 1.5px solid #cbd7f7 !important;
+    border-radius: 18px !important;
+    box-shadow: inset 0 1px 0 #ffffff !important;
+}
+.lang-option.active {
+    background: linear-gradient(135deg, #e3eafd 0%, #bfd0fa 100%) !important;
+    border: 2px solid #193fa4 !important;
+    box-shadow: 0 10px 24px rgba(25, 63, 164, 0.18), inset 0 1px 0 #ffffff !important;
+}
+.lang-option.active::after {
+    background: linear-gradient(135deg, #193fa4, #2b5be0) !important;
+}
+@media(max-width: 860px) {
+    .profile-section { grid-template-columns: 1fr !important; }
+    .profile-section .card:nth-child(5) { grid-column: auto !important; }
+}
+
+/* ==========================================================================
+   BESPOKE REDESIGN FOR PAYMENT.HTML (ROYAL COBALT EDAHABIA)
+   ========================================================================== */
+.payment-wrap {
+    max-width: 1240px !important;
+    margin: 0 auto !important;
+    padding: 4px 20px 48px !important;
+}
+.pay-header {
+    width: 100% !important;
+    margin: 14px auto 28px !important;
+}
+.pay-grid {
+    max-width: 1180px !important;
+    margin: 0 auto !important;
+    gap: 28px !important;
+}
+.card-golden {
+    background-color: #193fa4 !important;
+    background-image:
+        radial-gradient(circle at 82% 18%, rgba(245, 212, 122, 0.28) 0%, transparent 45%),
+        radial-gradient(circle at 15% 85%, rgba(68, 114, 242, 0.35) 0%, transparent 50%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(135deg, #0b1c4d 0%, #193fa4 48%, #1a41ad 80%, #1a44b5 100%) !important;
+    background-size: 100% 100%, 100% 100%, 24px 24px, 24px 24px, 100% 100% !important;
+    border-radius: 28px !important;
+    border: 2.5px solid rgba(245, 212, 122, 0.65) !important;
+    box-shadow: 0 26px 56px -12px rgba(11, 28, 77, 0.45),
+                0 0 0 4px rgba(255, 255, 255, 0.8),
+                inset 0 2px 5px rgba(255, 255, 255, 0.35) !important;
+    transform: none !important;
+}
+.card-golden:hover {
+    transform: translateY(-5px) scale(1.01) !important;
+}
+.amount-section {
+    padding: 24px 26px !important;
+    margin-top: 22px !important;
+}
+.amount-label, .amount-total-label {
+    color: #455a94 !important;
+    font-weight: 800 !important;
+}
+.amount-value {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #2b5be0 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+.amount-total-value {
+    color: #0b1c4d !important;
+    font-size: 1.35rem !important;
+    font-weight: 900 !important;
+}
+.amount-period {
+    color: #193fa4 !important;
+    font-weight: 700 !important;
+}
+.amount-divider {
+    background: linear-gradient(90deg, transparent, #bfd0fa, transparent) !important;
+}
+.pay-form h2 {
+    background: linear-gradient(135deg, #eef2fe 0%, #dbe4fc 100%) !important;
+    border: 1.5px solid #bfd0fa !important;
+    padding: 14px 18px !important;
+    border-radius: 20px !important;
+    color: #0b1c4d !important;
+    margin-bottom: 22px !important;
+}
+.pay-form h2 .icon {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border-radius: 14px !important;
+    box-shadow: 0 6px 14px rgba(25, 63, 164, 0.30) !important;
+}
+.btn-pay {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border-radius: 999px !important;
+    border: 2px solid rgba(255, 255, 255, 0.85) !important;
+    box-shadow: 0 12px 28px rgba(25, 63, 164, 0.38),
+                inset 0 2px 3px rgba(255, 255, 255, 0.50) !important;
+}
+.btn-pay:hover {
+    transform: translateY(-2px) scale(1.01) !important;
+    box-shadow: 0 16px 36px rgba(25, 63, 164, 0.48) !important;
+}
+.pay-features {
+    background: linear-gradient(180deg, #f2f5fe 0%, #e6ecfc 100%) !important;
+    border: 1.5px solid #bfd0fa !important;
+    border-radius: 20px !important;
+}
+.pay-features h4 { color: #0b1c4d !important; }
+.pay-features li { color: #1f346e !important; font-weight: 700 !important; }
+.pay-features li::before {
+    background: linear-gradient(135deg, #193fa4, #2b5be0) !important;
+}
+
+/* Summary Card & Form Card Header Contrast in patient.html / patient-severity.html */
+.summary-card, .main-diag {
+    background:
+        radial-gradient(circle at 18% 15%, rgba(68, 114, 242, 0.38) 0%, transparent 45%),
+        linear-gradient(150deg, #122d7a 0%, #193fa4 45%, #1a41ad 78%, #1a44b5 100%) !important;
+    border: 2.5px solid #ffffff !important;
+    border-radius: 28px !important;
+    box-shadow: 0 22px 50px -10px rgba(25, 63, 164, 0.38),
+                0 0 0 1.5px rgba(26, 68, 181, 0.42),
+                inset 0 2px 4px rgba(255, 255, 255, 0.40) !important;
+    color: #ffffff !important;
+}
+.form-card-header {
+    background: linear-gradient(135deg, #eef2fe 0%, #dbe4fc 100%) !important;
+    border-bottom: 1.5px solid #bfd0fa !important;
+    padding: 18px 24px !important;
+}
+.form-card-header .pfh-avatar {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 55%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 16px rgba(25, 63, 164, 0.32) !important;
+}
+.form-card-header .pfh-name { color: #0b1c4d !important; }
+.form-card-header .pfh-sub { color: #455a94 !important; }
+.form-card-header .pfh-file-num {
+    background: #ffffff !important;
+    color: #193fa4 !important;
+    border: 1.5px solid #93aff5 !important;
+    box-shadow: 0 2px 8px rgba(25, 63, 164, 0.10) !important;
+}
+.pm-head {
+    background: linear-gradient(135deg, #122d7a 0%, #193fa4 55%, #1a44b5 100%) !important;
+}
+
+/* 5. CREATIVE BENTO REDESIGN FOR TOOLS.HTML & TOOLS-SEVERITY-SCALE.HTML */
+.pricing-section, .faq-section, .trust-section {
+    background: transparent !important;
+}
+.tools-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    max-width: 1240px !important;
+    gap: 22px !important;
+}
+.tool-card.teal {
+    grid-column: 2 / 3 !important;
+    max-width: none !important;
+}
+@media(max-width: 1020px) {
+    .tools-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    .tool-card.teal { grid-column: 1 / -1 !important; max-width: 480px !important; }
+}
+@media(max-width: 640px) {
+    .tools-grid { grid-template-columns: 1fr !important; }
+    .tool-card.teal { grid-column: auto !important; max-width: none !important; }
+}
+
+.tool-card, .scale-card {
+    background: linear-gradient(180deg, #ffffff 0%, #f6f9ff 100%) !important;
+    border: 2.5px solid #ffffff !important;
+    border-radius: 30px !important;
+    box-shadow: 0 20px 46px -12px rgba(25, 63, 164, 0.16),
+                0 0 0 1.5px #c5d3f7,
+                inset 0 3px 6px #ffffff !important;
+    overflow: hidden !important;
+}
+.tool-card:hover, .scale-card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 28px 60px -12px rgba(25, 63, 164, 0.28),
+                0 0 0 2.5px #1a44b5,
+                inset 0 3px 6px #ffffff !important;
+}
+.tool-card .tool-card-bg, .scale-card .scale-card-bg {
+    background:
+        radial-gradient(circle at 50% 0%, rgba(26, 68, 181, 0.12) 0%, transparent 65%),
+        linear-gradient(180deg, #ffffff 0%, #f2f6ff 100%) !important;
+}
+/* Floating 3D Inset Capsule Banner in exact swatch color (#193fa4 -> #1a41ad -> #1a44b5) */
+.tool-card .tool-card-wave, .scale-card .scale-card-wave {
+    clip-path: none !important;
+    height: 82px !important;
+    top: 12px !important;
+    left: 12px !important;
+    right: 12px !important;
+    border-radius: 22px !important;
+    background-color: #1a41ad !important;
+    background-image:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.30) 0%, transparent 50%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    background-size: 100% 100%, 20px 20px, 20px 20px, 100% 100% !important;
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.45),
+                0 8px 20px rgba(25, 63, 164, 0.22) !important;
+    opacity: 1 !important;
+}
+.tool-card .tool-icon {
+    width: 82px !important;
+    height: 82px !important;
+    margin-top: 14px !important;
+    border-radius: 24px !important;
+    background: linear-gradient(145deg, #ffffff 0%, #eef2fe 100%) !important;
+    border: 3px solid #ffffff !important;
+    box-shadow: 0 14px 28px rgba(25, 63, 164, 0.24),
+                0 0 0 4px rgba(26, 68, 181, 0.22),
+                inset 0 2px 4px #ffffff !important;
+}
+.tool-card:hover .tool-icon {
+    transform: scale(1.08) rotate(-4deg) !important;
+}
+.tool-card h3, .scale-card h3 {
+    color: #0b1c4d !important;
+}
+.tool-card .tool-card-line, .scale-card .scale-card-line {
+    background: linear-gradient(90deg, #2b5be0, #193fa4) !important;
+    height: 4px !important;
+    width: 48px !important;
+    border-radius: 99px !important;
+}
+.tool-card .tool-step {
+    background: linear-gradient(180deg, #f8faff 0%, #eef2fe 100%) !important;
+    border: 1.5px solid #cbd7f7 !important;
+    border-radius: 14px !important;
+    color: #11286b !important;
+    box-shadow: inset 0 1px 0 #ffffff !important;
+}
+.tool-card .tool-step-icon {
+    background: linear-gradient(135deg, #2b5be0, #193fa4) !important;
+    color: #ffffff !important;
+    border-radius: 9px !important;
+    box-shadow: 0 4px 10px rgba(25, 63, 164, 0.25) !important;
+}
+.tool-card .tool-btn, .scale-card .scale-btn, .builder-cta {
+    background: linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border-radius: 999px !important;
+    border: 2px solid rgba(255, 255, 255, 0.85) !important;
+    box-shadow: 0 10px 24px rgba(25, 63, 164, 0.34),
+                inset 0 2px 3px rgba(255, 255, 255, 0.45) !important;
+}
+.scale-card .scale-clipboard {
+    margin-top: 12px !important;
+    border-color: #bfd0fa !important;
+    border-radius: 24px !important;
+    box-shadow: 0 16px 34px rgba(25, 63, 164, 0.20), inset 0 2px 3px #ffffff !important;
+}
+.scale-card .scale-clipboard::before {
+    background: linear-gradient(90deg, #2b5be0, #193fa4) !important;
+}
+.scale-card .scale-clipboard-icon, .scale-card .scale-card-circle {
+    background: linear-gradient(135deg, #2b5be0, #193fa4) !important;
+    box-shadow: 0 6px 16px rgba(25, 63, 164, 0.30) !important;
+}
+.scale-card .scale-card-circle {
+    top: 24px !important;
+    left: 24px !important;
+    width: 48px !important;
+    height: 48px !important;
+    border: 2px solid rgba(255, 255, 255, 0.65) !important;
+}
+.scale-card .scale-clipboard-line { background: #cbd7f7 !important; }
+.scale-card .scale-check { background: #1a41ad !important; }
+.scale-card .en-name, .scale-card .scale-card-dots { color: #193fa4 !important; }
+
+/* 6. PATIENT-FILE.HTML DOSSIER SHELL */
+.file-shell {
+    background: linear-gradient(180deg, #e6ecfc 0%, #d8e2fb 60%, #cad7f9 100%) !important;
+    border: 2.5px solid #ffffff !important;
+    border-radius: 18px 32px 32px 32px !important;
+    box-shadow: 0 26px 60px -12px rgba(25, 63, 164, 0.22),
+                0 0 0 1.5px #b6c8f9,
+                inset 0 3px 6px rgba(255, 255, 255, 0.9) !important;
+}
+.file-shell::before {
+    color: #ffffff !important;
+    background: linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    border: 2px solid #ffffff !important;
+    border-bottom: none !important;
+    border-radius: 18px 18px 0 0 !important;
+    box-shadow: 0 -6px 18px rgba(25, 63, 164, 0.28) !important;
+}
+.file-shell::after {
+    background: repeating-linear-gradient(90deg, #8aa7f5 0 10px, transparent 10px 20px) !important;
+}
+.file-shell .card {
+    background: linear-gradient(180deg, #ffffff 0%, #f8faff 100%) !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 12px 28px rgba(25, 63, 164, 0.10) !important;
+}
+.file-shell .card-title {
+    color: #0b1c4d !important;
+    border-bottom: 1.5px dashed #bfd0fa !important;
+}
+.file-shell .info-item, .file-shell .stat, .file-shell .sess, .file-shell .interview-item {
+    background: #f4f7fe !important;
+    border: 1.5px solid #cbd7f7 !important;
+}
+.file-shell .interview-item { border-inline-start: 4px solid #1a41ad !important; }
+.file-shell .info-item .k, .file-shell .stat .sl, .file-shell .sess-date, .file-shell .interview-date { color: #455a94 !important; }
+.file-shell .info-item .v, .file-shell .sess-scale, .file-shell .interview-title, .file-shell .field-label { color: #0b1c4d !important; }
+.file-shell .stat .sv { color: #193fa4 !important; }
+.file-shell .sess-num { background: linear-gradient(135deg, #2b5be0, #193fa4) !important; }
+.file-shell .btn-primary {
+    background: linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    box-shadow: 0 8px 22px rgba(25, 63, 164, 0.34) !important;
+}
+.file-shell .btn-soft, .file-shell .chip:not(.sev) {
+    background: #eaeffd !important;
+    color: #193fa4 !important;
+    border-color: #bfd0fa !important;
+}
+
+/* 7. TACTILE 3D INPUTS, BUTTONS, PILLS, & TABLES ACROSS ALL PAGES */
+input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="date"], input[type="tel"], input[type="time"], select, textarea, .form-input, .search-input, .sort-select, .symptoms-area, .notes-area, .scale-search, .pay-form .field input {
+    background: linear-gradient(180deg, #f4f7fe 0%, #ffffff 100%) !important;
+    border: 1.5px solid #c5d3f7 !important;
+    border-radius: 16px !important;
+    color: #0b1c4d !important;
+    box-shadow: inset 0 2px 5px rgba(25, 63, 164, 0.06), 0 1px 0 #ffffff !important;
+    font-family: 'Tajawal', 'Readex Pro', 'Cairo', sans-serif !important;
+}
+input:focus, select:focus, textarea:focus, .form-input:focus, .search-input:focus, .sort-select:focus, .symptoms-area:focus, .notes-area:focus, .scale-search:focus, .pay-form .field input:focus {
+    background: #ffffff !important;
+    border-color: #1a44b5 !important;
+    box-shadow: 0 8px 22px rgba(26, 65, 173, 0.16), 0 0 0 4px rgba(26, 68, 181, 0.18) !important;
+    outline: none !important;
+}
+
+/* All Primary Buttons Unified in Exact Swatch Royal Cobalt (#193fa4 -> #1a41ad -> #1a44b5) */
+.btn-primary, .btn-primary2, .auth-btn, .btn-analyze, .btn-save-test, .act-btn.primary-solid, .act-btn.save, .dx-btn:not(.ghost), .fbtn.open, .btn-test, .action-btn.primary, .fill-modal-btn.primary, .btn-gen, .rem-btn.solid, .btn-main, .plan:not(.golden) .btn-buy, .cta-btn {
+    background: linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border-radius: 999px !important;
+    border: 2px solid rgba(255, 255, 255, 0.85) !important;
+    box-shadow: 0 10px 24px rgba(25, 63, 164, 0.36),
+                inset 0 2px 3px rgba(255, 255, 255, 0.45) !important;
+}
+.btn-primary:hover, .btn-primary2:hover, .auth-btn:hover, .btn-analyze:hover, .btn-save-test:hover, .act-btn.primary-solid:hover, .dx-btn:not(.ghost):hover, .fbtn.open:hover, .btn-test:hover, .btn-gen:hover, .rem-btn.solid:hover, .btn-main:hover, .plan:not(.golden) .btn-buy:hover {
+    transform: translateY(-2px) scale(1.01) !important;
+    box-shadow: 0 14px 32px rgba(25, 63, 164, 0.48),
+                inset 0 2px 4px rgba(255, 255, 255, 0.60) !important;
+}
+
+/* Tactile 3D Answer & Option Pills */
+.answers-row button, .q-opt, .sel-opt, .step-pill {
+    border-radius: 16px !important;
+    border: 1.5px solid #cbd7f7 !important;
+    background: linear-gradient(180deg, #ffffff 0%, #f2f5fe 100%) !important;
+    color: #152f78 !important;
+    box-shadow: 0 4px 10px rgba(25, 63, 164, 0.06), inset 0 1px 0 #ffffff !important;
+}
+.answers-row button:hover, .q-opt:hover, .sel-opt:hover {
+    border-color: #1a44b5 !important;
+    background: #ffffff !important;
+    color: #193fa4 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(26, 65, 173, 0.16) !important;
+}
+.answers-row button.sel, .q-opt.on, .sel-opt.sel, .step-pill.active {
+    background: linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 22px rgba(25, 63, 164, 0.36), inset 0 2px 3px rgba(255, 255, 255, 0.45) !important;
+}
+
+.question-card:has(button.sel), .question-card.answered {
+    border-color: #1a44b5 !important;
+    background: linear-gradient(180deg, #ffffff 0%, #f2f6ff 100%) !important;
+    box-shadow: 0 16px 38px rgba(25, 63, 164, 0.16), 0 0 0 2px #1a44b5 !important;
+}
+.tq-num, .fc-avatar, .score-circle, .auth-ico, .write-icon {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    box-shadow: 0 8px 20px rgba(25, 63, 164, 0.32), inset 0 2px 3px rgba(255, 255, 255, 0.45) !important;
+    color: #ffffff !important;
+}
+
+/* Tabs & Segmented Pills */
+.tabs, .diff-chips, .seg {
+    background: linear-gradient(180deg, #e6ecfc 0%, #dbe4fb 100%) !important;
+    border: 1.5px solid #cbd7f7 !important;
+    border-radius: 999px !important;
+    padding: 5px !important;
+    box-shadow: inset 0 2px 4px rgba(25, 63, 164, 0.08) !important;
+}
+.tab, .diff-chips .chip { border-radius: 999px !important; }
+.tab.active, .diff-chips .chip.active {
+    background: linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 16px rgba(25, 63, 164, 0.32), inset 0 1px 2px rgba(255, 255, 255, 0.45) !important;
+}
+
+/* Tables */
+.appt-table th, .ans-table th, .crit-table th, table th {
+    background: linear-gradient(180deg, #ecf1fd 0%, #dfe7fc 100%) !important;
+    color: #0b1c4d !important;
+    border-bottom: 2px solid #b6c8f9 !important;
+}
+
+/* Floating Bottom Action Bars */
+.action-bar, .bottom-bar {
+    width: min(1060px, 94%) !important;
+    margin: 0 auto !important;
+    bottom: 12px !important;
+    border-radius: 999px !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 20px 50px rgba(11, 28, 77, 0.18), 0 0 0 1.5px rgba(26, 68, 181, 0.35) !important;
+}
+
+/* 8. FLOATING 3D ROYAL COBALT FOOTER ISLAND */
+footer, .footer {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 40px auto 24px !important;
+    border-radius: 34px !important;
+    background:
+        radial-gradient(circle at 85% 20%, rgba(68, 114, 242, 0.25) 0%, transparent 45%),
+        linear-gradient(135deg, #0b1c4d 0%, #143185 48%, #193fa4 100%) !important;
+    border: 2.5px solid rgba(255, 255, 255, 0.80) !important;
+    box-shadow: 0 26px 60px -12px rgba(11, 28, 77, 0.36),
+                inset 0 2px 4px rgba(96, 140, 255, 0.35) !important;
+    color: #dbe4fc !important;
+    padding-inline: 28px !important;
+    overflow: hidden !important;
+}
+footer .footer-col a, .footer .footer-col a { color: #b6c8f9 !important; }
+footer .footer-col a:hover, .footer .footer-col a:hover { color: #ffffff !important; }
+
+@media(max-width:640px) {
+    header.nav { top: 8px !important; width: 96% !important; border-radius: 24px !important; }
+    .page-hero, .hero:not(:has(.hero-grid)), .mini-hero, .hero-card, header.page-header, .pay-header {
+        width: 96% !important;
+        border-radius: 24px !important;
+        padding: 24px 16px !important;
+        margin: 12px auto 18px !important;
+    }
+    .hero-grid {
+        width: 96% !important;
+        border-radius: 26px !important;
+        padding: 28px 18px !important;
+    }
+    .action-bar, .bottom-bar {
+        width: 96% !important;
+        border-radius: 24px !important;
+        bottom: 8px !important;
+    }
+    footer, .footer {
+        width: 96% !important;
+        border-radius: 26px !important;
+        padding-inline: 18px !important;
+    }
+}
+
+
+/* ==========================================================================
+   UNIFIED INTERLOCKED BARS + FULL-WIDTH AUTH PORTAL
+   - Top bar (header.nav): Crisp 3D White/Ice Royal Glass (distinct from the dark blue hero bar below!)
+   - Stepper (.progress-nav) + Hero (.page-hero): Interlocked Dark Royal Blue Blueprint-Grid (#193fa4 -> #1a41ad -> #1a44b5)
+   ========================================================================== */
+header.nav {
+    position: sticky !important;
+    top: 10px !important;
+    z-index: 200 !important;
+    width: 97% !important;
+    max-width: none !important;
+    margin: 10px auto 6px !important;
+    border-radius: 24px 24px 12px 12px !important;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, rgba(238, 245, 255, 0.96) 100%) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 2.5px solid #ffffff !important;
+    box-shadow: 0 14px 34px -10px rgba(25, 63, 164, 0.18),
+                0 0 0 1.5px rgba(25, 63, 164, 0.22),
+                inset 0 2px 4px #ffffff !important;
+    padding: 0 14px !important;
+}
+header.nav .nav-inner,
+header.nav .container.nav-inner {
+    height: 74px !important;
+    padding-inline: 24px !important;
+    width: 100% !important;
+    max-width: none !important;
+}
+header.nav .brand-logo {
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 8px 20px rgba(25, 63, 164, 0.30),
+                0 0 0 3px rgba(25, 63, 164, 0.16) !important;
+}
+header.nav .brand-name {
+    background: linear-gradient(135deg, #0b1c4d 0%, #193fa4 55%, #2563eb 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    filter: none !important;
+}
+header.nav .brand-sub {
+    color: #455a94 !important;
+}
+header.nav .nav-links {
+    background: linear-gradient(180deg, #edf3ff 0%, #dfeafd 100%) !important;
+    border: 1.5px solid #c5d5f8 !important;
+    padding: 5px 8px !important;
+    border-radius: 999px !important;
+    gap: 6px !important;
+    box-shadow: inset 0 2px 4px rgba(25, 63, 164, 0.08), 0 1px 0 #ffffff !important;
+}
+header.nav .nav-links a {
+    color: #152f78 !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+    padding: 7px 16px !important;
+    border-radius: 999px !important;
+    text-shadow: none !important;
+}
+header.nav .nav-links a:hover {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 14px rgba(25, 63, 164, 0.28) !important;
+}
+header.nav .nav-cta, header.nav .btn-primary.nav-cta {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border-radius: 999px !important;
+    padding: 10px 26px !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 8px 20px rgba(25, 63, 164, 0.32),
+                inset 0 2px 3px rgba(255, 255, 255, 0.35) !important;
+}
+header.nav .nav-cta:hover {
+    background: linear-gradient(135deg, #143388 0%, #193fa4 100%) !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) scale(1.02) !important;
+}
+
+/* Middle Interlocked Stepper Bar (.progress-nav & .steps-bar) — Docked directly onto .page-hero in Dark Royal Blue Blueprint */
+nav.progress-nav, .progress-nav, .steps-bar {
+    position: relative !important;
+    top: auto !important;
+    width: 97% !important;
+    max-width: none !important;
+    margin: 0 auto !important;
+    border-radius: 24px 24px 0 0 !important;
+    background-color: #183b9e !important;
+    background-image:
+        radial-gradient(circle at 15% 50%, rgba(68, 114, 242, 0.35) 0%, transparent 45%),
+        radial-gradient(circle at 85% 50%, rgba(11, 28, 77, 0.40) 0%, transparent 45%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, #163692 0%, #193fa4 50%, #163692 100%) !important;
+    background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px, 100% 100% !important;
+    padding: 12px 24px !important;
+    border-top: 2.5px solid rgba(255, 255, 255, 0.90) !important;
+    border-left: 2.5px solid rgba(255, 255, 255, 0.90) !important;
+    border-right: 2.5px solid rgba(255, 255, 255, 0.90) !important;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+    box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.28) !important;
+}
+.progress-nav .nav-steps {
+    max-width: 100% !important;
+    width: 100% !important;
+    justify-content: center !important;
+    gap: 12px !important;
+}
+.progress-nav .step, .steps-bar .step-pill {
+    color: #dbeafe !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+    border-radius: 999px !important;
+}
+.progress-nav .step.completed {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.18) !important;
+    border-color: rgba(255, 255, 255, 0.52) !important;
+}
+.progress-nav .step .step-icon,
+.progress-nav .step.completed .step-icon {
+    background: rgba(255, 255, 255, 0.24) !important;
+    color: #ffffff !important;
+}
+.progress-nav .step.active, .steps-bar .step-pill.active {
+    background: #ffffff !important;
+    color: #193fa4 !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 8px 24px rgba(11, 28, 77, 0.40) !important;
+}
+.progress-nav .step.active .step-icon {
+    background: linear-gradient(135deg, #193fa4, #1a44b5) !important;
+    color: #ffffff !important;
+}
+.progress-nav .step-connector, .steps-bar .step-connector {
+    background: rgba(255, 255, 255, 0.35) !important;
+    width: 34px !important;
+}
+
+/* Hero Banner (.page-hero, header.page-header, .hero-card, .mini-hero, .hero) */
+.page-hero, .hero:not(:has(.hero-grid)), .mini-hero, .hero-card, header.page-header {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 0 auto 24px !important;
+    border-radius: 14px 14px 30px 30px !important;
+    border: 2.5px solid rgba(255, 255, 255, 0.90) !important;
+    box-shadow: 0 24px 52px -12px rgba(25, 63, 164, 0.42),
+                inset 0 -4px 12px rgba(11, 28, 77, 0.40) !important;
+}
+
+/* When .page-hero / header.page-header / .hero-card immediately follows .progress-nav, fuse them seamlessly! */
+.progress-nav + .page-hero,
+.progress-nav + header.page-header,
+.progress-nav + .hero-card,
+.progress-nav + .mini-hero,
+.steps-bar + .page-hero {
+    border-radius: 0 0 30px 30px !important;
+    border-top: none !important;
+}
+
+/* For payment.html where .pay-header is inside .payment-wrap */
+.payment-wrap {
+    max-width: none !important;
+    width: 100% !important;
+    padding-top: 0 !important;
+}
+.pay-header {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 0 auto 24px !important;
+    border-radius: 14px 14px 30px 30px !important;
+}
+.pay-grid {
+    max-width: 1140px !important;
+    margin: 0 auto !important;
+}
+
+/* ==========================================================================
+   FULL-WIDTH 2-COLUMN CLINICAL AUTH PORTAL FOR LOGIN.HTML & REGISTER.HTML
+   ========================================================================== */
+.auth-wrap {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 6px auto 28px !important;
+    padding: 0 !important;
+    display: grid !important;
+    grid-template-columns: 1.05fr 0.95fr !important;
+    gap: 22px !important;
+    align-items: stretch !important;
+    min-height: calc(100vh - 120px) !important;
+}
+.auth-showcase {
+    background-color: #1a41ad !important;
+    background-image:
+        radial-gradient(circle at 12% 20%, rgba(68, 114, 242, 0.42) 0%, transparent 40%),
+        radial-gradient(circle at 88% 80%, rgba(11, 28, 77, 0.48) 0%, transparent 48%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(135deg, #15358e 0%, #193fa4 50%, #1a44b5 100%) !important;
+    background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px, 100% 100% !important;
+    border: 2.5px solid rgba(255, 255, 255, 0.92) !important;
+    border-radius: 30px !important;
+    padding: 42px 40px !important;
+    color: #ffffff !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    gap: 28px !important;
+    box-shadow: 0 24px 54px -12px rgba(25, 63, 164, 0.40),
+                inset 0 3px 6px rgba(255, 255, 255, 0.40) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+.as-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: rgba(255, 255, 255, 0.16) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+    color: #ffffff !important;
+    padding: 7px 18px !important;
+    border-radius: 999px !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    margin-bottom: 20px !important;
+}
+.as-brand-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 18px !important;
+}
+.as-logo {
+    width: 74px !important;
+    height: 74px !important;
+    border-radius: 22px !important;
+    object-fit: cover !important;
+    border: 3px solid #ffffff !important;
+    box-shadow: 0 12px 28px rgba(11, 28, 77, 0.40) !important;
+    flex-shrink: 0 !important;
+}
+.as-brand-row h2 {
+    font-size: clamp(24px, 2.5vw, 32px) !important;
+    font-weight: 900 !important;
+    color: #ffffff !important;
+    margin-bottom: 6px !important;
+}
+.as-brand-row p {
+    font-size: 15px !important;
+    color: #dbeafe !important;
+    line-height: 1.75 !important;
+    font-weight: 600 !important;
+}
+.as-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+}
+.as-item {
+    background: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.30) !important;
+    border-radius: 22px !important;
+    padding: 18px 18px !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 14px !important;
+    transition: transform 0.25s ease, background 0.25s ease !important;
+}
+.as-item:hover {
+    transform: translateY(-3px) !important;
+    background: rgba(255, 255, 255, 0.18) !important;
+}
+.as-ico {
+    width: 46px !important;
+    height: 46px !important;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.22) !important;
+    border: 1px solid rgba(255, 255, 255, 0.45) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 22px !important;
+    flex-shrink: 0 !important;
+}
+.as-item b {
+    display: block !important;
+    font-size: 15.5px !important;
+    font-weight: 900 !important;
+    color: #ffffff !important;
+    margin-bottom: 4px !important;
+}
+.as-item span {
+    display: block !important;
+    font-size: 13px !important;
+    color: #dbeafe !important;
+    line-height: 1.65 !important;
+    font-weight: 600 !important;
+}
+.as-foot {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 14px !important;
+    flex-wrap: wrap !important;
+    padding: 14px 20px !important;
+    background: rgba(11, 28, 77, 0.32) !important;
+    border: 1px solid rgba(255, 255, 255, 0.24) !important;
+    border-radius: 18px !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+    color: #e0f2fe !important;
+}
+.auth-card {
+    width: 100% !important;
+    max-width: none !important;
+    border-radius: 30px !important;
+    padding: 42px 44px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+@media (max-width: 1024px) {
+    .auth-wrap {
+        grid-template-columns: 1fr !important;
+    }
+    .as-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+
+/* Circular Logo Harmony */
+.brain-emoji,
+header.nav .brand-logo,
+.brand-logo,
+.footer-brand img,
+.id-brand-logo {
+    border-radius: 50% !important;
+    object-fit: cover !important;
+}
+
+
+/* ==========================================================================
+   NATIVE MOBILE APP EXPERIENCE (@media max-width: 768px ONLY)
+   Desktop (> 768px) remains 100% untouched!
+   ========================================================================== */
+.mobile-app-tabbar {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+    body {
+        padding-bottom: 88px !important;
+    }
+    body:has(.action-bar),
+    body:has(.bottom-bar) {
+        padding-bottom: 175px !important;
+    }
+
+    .container {
+        width: 95% !important;
+        padding-inline: 0 !important;
+    }
+
+    /* 1. Compact Native App Top Bar (header.nav) */
+    header.nav {
+        position: sticky !important;
+        top: 6px !important;
+        width: 95% !important;
+        margin: 6px auto 6px !important;
+        border-radius: 20px !important;
+        padding: 0 10px !important;
+        box-shadow: 0 10px 26px -6px rgba(25, 63, 164, 0.18),
+                    0 0 0 1.5px rgba(25, 63, 164, 0.20) !important;
+    }
+    header.nav .nav-inner,
+    header.nav .container.nav-inner {
+        height: 58px !important;
+        padding-inline: 6px !important;
+        gap: 8px !important;
+    }
+    header.nav .brand {
+        gap: 9px !important;
+    }
+    header.nav .brand-logo {
+        width: 38px !important;
+        height: 38px !important;
+        border-radius: 50% !important;
+    }
+    header.nav .brand-name {
+        font-size: 16.5px !important;
+        letter-spacing: 0 !important;
+    }
+    header.nav .brand-sub {
+        font-size: 9.5px !important;
+        margin-top: 1px !important;
+    }
+    header.nav .nav-links {
+        display: none !important;
+    }
+    header.nav .nav-cta,
+    header.nav .btn-primary.nav-cta {
+        padding: 7px 14px !important;
+        font-size: 12px !important;
+        border-radius: 999px !important;
+        white-space: nowrap !important;
+    }
+
+    /* 2. Native Bottom App Tab Bar (.mobile-app-tabbar) */
+    .mobile-app-tabbar {
+        display: grid !important;
+        grid-template-columns: repeat(5, 1fr) !important;
+        align-items: center !important;
+        position: fixed !important;
+        bottom: 8px !important;
+        left: 2.5% !important;
+        right: 2.5% !important;
+        height: 62px !important;
+        background: rgba(255, 255, 255, 0.96) !important;
+        backdrop-filter: blur(24px) saturate(180%) !important;
+        -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+        border: 2px solid #ffffff !important;
+        border-radius: 22px !important;
+        box-shadow: 0 14px 36px rgba(11, 28, 77, 0.24),
+                    0 0 0 1.5px rgba(25, 63, 164, 0.22),
+                    inset 0 2px 4px #ffffff !important;
+        z-index: 9990 !important;
+        padding: 4px 6px !important;
+        gap: 4px !important;
+    }
+    .mobile-app-tabbar .mat-item {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 2px !important;
+        height: 100% !important;
+        border-radius: 16px !important;
+        text-decoration: none !important;
+        color: #455a94 !important;
+        font-size: 10px !important;
+        font-weight: 800 !important;
+        transition: all 0.22s cubic-bezier(.34,1.56,.64,1) !important;
+    }
+    .mobile-app-tabbar .mat-ico {
+        font-size: 18px !important;
+        line-height: 1.1 !important;
+        transition: transform 0.22s ease !important;
+    }
+    .mobile-app-tabbar .mat-item.active {
+        background: linear-gradient(135deg, #193fa4 0%, #1a41ad 55%, #2563eb 100%) !important;
+        color: #ffffff !important;
+        box-shadow: 0 6px 16px rgba(25, 63, 164, 0.32) !important;
+    }
+    .mobile-app-tabbar .mat-item.active .mat-ico {
+        transform: translateY(-1px) scale(1.06) !important;
+    }
+
+    /* 3. Mobile App Stepper Bar (.progress-nav & .steps-bar) */
+    nav.progress-nav, .progress-nav, .steps-bar {
+        width: 95% !important;
+        padding: 8px 10px !important;
+        border-radius: 18px 18px 0 0 !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    .progress-nav .nav-steps {
+        justify-content: flex-start !important;
+        width: max-content !important;
+        margin: 0 auto !important;
+        gap: 6px !important;
+        padding: 0 4px !important;
+    }
+    .progress-nav .step, .steps-bar .step-pill {
+        padding: 6px 12px !important;
+        font-size: 11.5px !important;
+        gap: 5px !important;
+    }
+    .progress-nav .step span:not(.step-icon) {
+        display: inline !important;
+    }
+    .progress-nav .step .step-icon {
+        width: 22px !important;
+        height: 22px !important;
+        font-size: 10.5px !important;
+    }
+    .progress-nav .step-connector, .steps-bar .step-connector {
+        width: 10px !important;
+    }
+
+    /* 4. Mobile App Hero Banners (.page-hero, header.page-header, .hero-card, .mini-hero, .pay-header) */
+    .page-hero, .hero:not(:has(.hero-grid)), .mini-hero, .hero-card, header.page-header, .pay-header {
+        width: 95% !important;
+        padding: 18px 16px !important;
+        margin: 0 auto 14px !important;
+        border-radius: 16px 16px 24px 24px !important;
+    }
+    .progress-nav + .page-hero,
+    .progress-nav + header.page-header,
+    .progress-nav + .hero-card,
+    .progress-nav + .mini-hero {
+        border-radius: 0 0 24px 24px !important;
+    }
+    .page-hero h1, .hero:not(:has(.hero-grid)) h1, .mini-hero h1, .hero:not(:has(.hero-grid)) .hero-title, .header-title, .hero-left h1, .hero-name, .pay-header h1 {
+        font-size: 20px !important;
+        line-height: 1.35 !important;
+        margin-bottom: 6px !important;
+    }
+    .page-hero p, .hero:not(:has(.hero-grid)) p, .mini-hero p, .hero:not(:has(.hero-grid)) .hero-subtitle, .hero-left p, .pay-header p {
+        font-size: 12.5px !important;
+        line-height: 1.65 !important;
+        margin-bottom: 8px !important;
+    }
+    .breadcrumb {
+        font-size: 11px !important;
+        padding: 4px 12px !important;
+        margin-bottom: 8px !important;
+    }
+    .back-btn, .patients-list-btn, .hero-pill, .header-badge {
+        font-size: 11.5px !important;
+        padding: 6px 14px !important;
+    }
+    header.page-header .header-inner {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 8px !important;
+    }
+
+    /* 5. Landing Page (index.html) App Layout */
+    .hero:has(.hero-grid) {
+        padding: 2px 0 14px !important;
+    }
+    .hero-grid {
+        width: 95% !important;
+        padding: 22px 16px !important;
+        border-radius: 24px !important;
+        gap: 18px !important;
+        grid-template-columns: 1fr !important;
+        text-align: center !important;
+    }
+    .hero:has(.hero-grid) .pill {
+        font-size: 11.5px !important;
+        padding: 8px 14px !important;
+        line-height: 1.55 !important;
+        margin-bottom: 14px !important;
+        border-radius: 16px !important;
+    }
+    h1.hero-title {
+        font-size: 24px !important;
+        line-height: 1.35 !important;
+        margin-bottom: 16px !important;
+    }
+    .hero-btns {
+        flex-direction: column !important;
+        gap: 10px !important;
+        margin-bottom: 4px !important;
+    }
+    .hero-btns .btn {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 13px 20px !important;
+        font-size: 15px !important;
+    }
+    .brain-wrap {
+        width: 150px !important;
+        height: 150px !important;
+        margin: 0 auto !important;
+    }
+    .marquee-band {
+        width: 95% !important;
+        padding: 14px 12px !important;
+        border-radius: 22px !important;
+        margin: 0 auto 18px !important;
+    }
+    .band-inner {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
+    .band-item {
+        padding: 9px 10px !important;
+        font-size: 11.5px !important;
+        border-radius: 16px !important;
+        justify-content: flex-start !important;
+    }
+    .band-item:last-child {
+        grid-column: 1 / -1 !important;
+        justify-content: center !important;
+    }
+    .band-item .bi {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 16px !important;
+    }
+    section.block {
+        padding: 18px 0 !important;
+    }
+    .sec-head {
+        padding: 18px 16px !important;
+        border-radius: 22px !important;
+        margin-bottom: 16px !important;
+    }
+    .sec-head h2 {
+        font-size: 21px !important;
+    }
+    .sec-head p {
+        font-size: 13px !important;
+    }
+    .feat-grid, .steps-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+    .feat-card, .step-card {
+        padding: 20px 16px !important;
+        border-radius: 22px !important;
+    }
+    .cta-box {
+        padding: 26px 16px !important;
+        border-radius: 24px !important;
+    }
+    .cta-box h2 {
+        font-size: 20px !important;
+    }
+    .cta-box p {
+        font-size: 13.5px !important;
+        margin-bottom: 18px !important;
+    }
+    .cta-box .btn-white {
+        width: 100% !important;
+        padding: 14px 20px !important;
+        font-size: 15px !important;
+    }
+    footer, .footer {
+        width: 95% !important;
+        border-radius: 24px !important;
+        padding-inline: 16px !important;
+        margin: 20px auto 10px !important;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        padding: 24px 0 18px !important;
+        text-align: center !important;
+    }
+    .footer-brand {
+        justify-content: center !important;
+    }
+
+    /* 6. Tools & Scales Cards (tools.html & tools-severity-scale.html) */
+    .tools-grid, .scales-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+    .tool-card, .scale-card {
+        border-radius: 22px !important;
+        min-height: auto !important;
+    }
+    .custom-head {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        padding: 14px 16px !important;
+        border-radius: 20px !important;
+    }
+    .scale-search {
+        width: 100% !important;
+    }
+
+    /* 7. Patient Files & Yellow Folders (patient-files.html, patient-file.html, patient.html) */
+    .toolbar {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        padding: 14px !important;
+        border-radius: 20px !important;
+    }
+    .toolbar .tabs {
+        width: 100% !important;
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    .toolbar .tab {
+        text-align: center !important;
+        justify-content: center !important;
+        padding: 8px 6px !important;
+        font-size: 12px !important;
+    }
+    .files-grid {
+        grid-template-columns: 1fr !important;
+        gap: 28px !important;
+        padding-top: 22px !important;
+    }
+    .file-card {
+        padding: 20px 14px 14px !important;
+        border-radius: 10px 22px 22px 22px !important;
+    }
+    .file-card .fc-actions {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
+    .file-card .fbtn.open {
+        grid-column: 1 / -1 !important;
+        padding: 11px !important;
+        font-size: 14px !important;
+    }
+    .file-shell {
+        width: 95% !important;
+        margin: 34px auto 20px !important;
+        padding: 22px 12px 18px !important;
+        border-radius: 12px 24px 24px 24px !important;
+    }
+    .file-shell .card {
+        padding: 16px 14px !important;
+        border-radius: 20px !important;
+    }
+    .file-shell .info-grid,
+    .file-shell .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 8px !important;
+    }
+    .horiz-layout {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+    .form-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    /* 8. Scale Builder, Interview Questions, Diagnosis, Results, Test, Appointments, Profile, Payment */
+    .builder-studio,
+    .dx-split,
+    #dxPanels .dx-cards-grid,
+    #dxPanels .dx-q-grid,
+    #dxPanels .dx-res-grid,
+    #resContent .res-grid-2,
+    .charts-grid,
+    .pay-grid,
+    .profile-section,
+    .pricing-grid,
+    .trust-grid,
+    .auth-wrap {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+    .card, .section-card, .write-card, .overview-card, .quick-card, .form-card, .auth-card, .dx-panel, .pay-form {
+        padding: 18px 14px !important;
+        border-radius: 22px !important;
+    }
+    input, select, textarea {
+        font-size: 15px !important;
+    }
+
+    /* Test & Custom-Test Hero Progress + Floating Bottom Bar above Mobile Tab Bar */
+    .hero-card {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 12px !important;
+        padding: 16px 14px !important;
+    }
+    .action-bar, .bottom-bar {
+        width: 95% !important;
+        bottom: 76px !important;
+        border-radius: 20px !important;
+        padding: 10px 12px !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+    .action-bar .act-btn,
+    .bottom-bar button,
+    .bottom-bar .btn {
+        flex: 1 1 calc(50% - 6px) !important;
+        font-size: 12px !important;
+        padding: 10px 10px !important;
+        justify-content: center !important;
+    }
+    /* 9. Results Page (results.html) & Differential Diagnosis Panels (diagnosis.html) Mobile Harmony */
+    .steps-bar + .page-hero {
+        border-radius: 0 0 24px 24px !important;
+        border-top: none !important;
+    }
+    .steps-bar .container {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        width: max-content !important;
+        min-width: 100% !important;
+        gap: 6px !important;
+        padding-inline: 4px !important;
+        margin: 0 auto !important;
+    }
+    .steps-bar .step-pill {
+        padding: 5px 11px !important;
+        font-size: 11px !important;
+        gap: 5px !important;
+        flex-shrink: 0 !important;
+    }
+    .steps-bar .step-pill .step-ico {
+        width: 22px !important;
+        height: 22px !important;
+        font-size: 11px !important;
+    }
+    .steps-bar .step-connector {
+        width: 10px !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Hero Stats in results.html: Sleek 3-Column Mobile App Bar */
+    .page-hero .hero-stats,
+    .hero-stats {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 8px !important;
+        width: 100% !important;
+        margin-top: 10px !important;
+        align-items: stretch !important;
+    }
+    .page-hero .hero-stat,
+    .hero-stat {
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: none !important;
+        padding: 10px 6px !important;
+        border-radius: 16px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .hero-stat .hs-value {
+        font-size: 15px !important;
+        line-height: 1.25 !important;
+        word-break: break-word !important;
+    }
+    .hero-stat .hs-label {
+        font-size: 10px !important;
+        margin-top: 3px !important;
+        line-height: 1.3 !important;
+    }
+
+    /* Main Content & 2-Column Collapse in results.html */
+    .main-content {
+        padding: 16px 0 36px !important;
+    }
+    #resContent .two-col,
+    .two-col {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+        width: 100% !important;
+    }
+    #resContent .col-main,
+    .col-main {
+        width: 100% !important;
+        order: 1 !important;
+    }
+    #resContent .col-side,
+    .col-side {
+        width: 100% !important;
+        order: 2 !important;
+    }
+
+    /* Primary Diagnosis Card (.main-diag) in results.html */
+    #resContent .main-diag,
+    .main-diag {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 20px 16px !important;
+        gap: 14px !important;
+        border-radius: 24px !important;
+        margin-bottom: 14px !important;
+        width: 100% !important;
+    }
+    #resContent .main-diag .md-circle,
+    .main-diag .md-circle {
+        width: 88px !important;
+        height: 88px !important;
+        border-width: 3.5px !important;
+        margin: 0 auto !important;
+    }
+    #resContent .main-diag .md-circle b,
+    .main-diag .md-circle b {
+        font-size: 24px !important;
+        line-height: 1.1 !important;
+    }
+    #resContent .main-diag .md-circle small,
+    .main-diag .md-circle small {
+        font-size: 11px !important;
+    }
+    #resContent .main-diag .md-text,
+    .main-diag .md-text {
+        min-width: 0 !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+    #resContent .main-diag .md-text h2,
+    .main-diag .md-text h2 {
+        font-size: 18px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 6px !important;
+        word-break: break-word !important;
+    }
+    #resContent .main-diag .md-text p,
+    .main-diag .md-text p {
+        font-size: 12.5px !important;
+        line-height: 1.65 !important;
+    }
+    #resContent .main-diag .md-badge,
+    .main-diag .md-badge {
+        margin-top: 10px !important;
+        padding: 6px 14px !important;
+        font-size: 11.5px !important;
+        border-radius: 999px !important;
+        display: inline-block !important;
+        max-width: 100% !important;
+    }
+
+    /* Section Cards & Differential Section in results.html */
+    #resContent .section-card,
+    #resContent .diff-section {
+        padding: 16px 14px !important;
+        border-radius: 22px !important;
+        margin-bottom: 14px !important;
+        width: 100% !important;
+    }
+    #resContent .section-header,
+    #resContent .diff-section h3 {
+        gap: 10px !important;
+        margin-bottom: 14px !important;
+        padding-bottom: 12px !important;
+        font-size: 15.5px !important;
+    }
+    #resContent .section-icon.blue,
+    #resContent .section-icon.purple,
+    #resContent .section-icon.green,
+    #resContent .section-icon.orange,
+    #resContent .diff-section h3 .section-icon {
+        width: 38px !important;
+        height: 38px !important;
+        border-radius: 12px !important;
+        font-size: 17px !important;
+        flex-shrink: 0 !important;
+    }
+    #resContent .section-title {
+        font-size: 15.5px !important;
+        line-height: 1.35 !important;
+    }
+    #resContent .section-subtitle {
+        font-size: 11.5px !important;
+        line-height: 1.45 !important;
+    }
+    #resContent .diag-row {
+        padding: 14px 12px !important;
+        border-radius: 18px !important;
+        margin-bottom: 12px !important;
+    }
+    #resContent .diag-row .d-top,
+    #resContent .diff-item .d-top {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        align-items: center !important;
+    }
+    #resContent .diag-row .d-name,
+    #resContent .diff-item .d-name {
+        font-size: 13.5px !important;
+        line-height: 1.45 !important;
+        min-width: 0 !important;
+        flex: 1 1 auto !important;
+    }
+    #resContent .diag-row .d-per {
+        font-size: 11.5px !important;
+        padding: 3px 10px !important;
+        flex-shrink: 0 !important;
+    }
+    #resContent .kw-box {
+        gap: 6px !important;
+        margin-top: 10px !important;
+    }
+    #resContent .kw-chip {
+        font-size: 11px !important;
+        padding: 4px 10px !important;
+    }
+
+    /* Excluded Disorders Grid (#diffList) & Scale Selector (.sel-list) in results.html */
+    #resContent #diffList {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+    #resContent .diff-item {
+        padding: 14px 12px !important;
+        border-radius: 16px !important;
+    }
+    #resContent .other-note {
+        padding: 12px 14px !important;
+        font-size: 12px !important;
+        line-height: 1.65 !important;
+        border-radius: 14px !important;
+    }
+    #resContent .sel-list {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+        margin-bottom: 14px !important;
+    }
+    #resContent .sel-opt {
+        padding: 12px 14px !important;
+        font-size: 13px !important;
+        border-radius: 14px !important;
+        width: 100% !important;
+    }
+    #resContent .btn-test {
+        padding: 13px 18px !important;
+        font-size: 14.5px !important;
+        border-radius: 16px !important;
+        width: 100% !important;
+    }
+
+    /* Patient Dossier Sidebar Card (.col-side) in results.html */
+    #resContent .col-side .section-card {
+        padding: 0 14px 16px !important;
+    }
+    #resContent .col-side .section-header {
+        margin: 0 -14px 14px !important;
+        padding: 14px !important;
+    }
+    #resContent .patient-card .p-top {
+        padding: 14px 12px !important;
+        border-radius: 16px !important;
+        gap: 10px !important;
+    }
+    #resContent .patient-card .p-avatar {
+        width: 52px !important;
+        height: 52px !important;
+        font-size: 20px !important;
+        border-radius: 16px !important;
+    }
+    #resContent .action-row {
+        flex-direction: column !important;
+        gap: 10px !important;
+        margin-bottom: 14px !important;
+    }
+    #resContent .action-btn {
+        width: 100% !important;
+        min-width: 0 !important;
+        padding: 13px 16px !important;
+        font-size: 13.5px !important;
+    }
+
+    /* Differential Diagnosis Page (diagnosis.html) & Analysis Result Panels (#dxProgress + #dxPanels) */
+    .content-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+    .write-sub {
+        padding-right: 0 !important;
+        font-size: 12px !important;
+    }
+    .counter-row {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+    #dxProgress.dx-progress {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+        padding: 8px !important;
+        border-radius: 18px !important;
+        width: 100% !important;
+        margin: 0 auto 12px !important;
+    }
+    #dxProgress .dx-pstep {
+        padding: 7px 10px !important;
+        font-size: 11.5px !important;
+        justify-content: flex-start !important;
+        width: 100% !important;
+    }
+    #dxPanels .dx-panel {
+        padding: 18px 14px !important;
+        border-radius: 22px !important;
+        margin-top: 8px !important;
+    }
+    #dxPanels .dx-panel h2 {
+        font-size: 17.5px !important;
+        gap: 8px !important;
+        line-height: 1.35 !important;
+    }
+    #dxPanels .dx-panel h2::before {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 17px !important;
+        border-radius: 11px !important;
+        flex-shrink: 0 !important;
+    }
+    #dxPanels .dx-sub {
+        font-size: 12px !important;
+        line-height: 1.65 !important;
+        margin-bottom: 14px !important;
+    }
+    #dxPanels .dx-reco {
+        padding: 10px 12px !important;
+        gap: 6px !important;
+        border-radius: 16px !important;
+        margin-bottom: 16px !important;
+    }
+    #dxPanels .dx-chip {
+        font-size: 11px !important;
+        padding: 5px 10px !important;
+        white-space: normal !important;
+        line-height: 1.45 !important;
+    }
+    #dxPanels .hypo-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+        margin-bottom: 18px !important;
+    }
+    #dxPanels .hypo-card {
+        border-radius: 22px !important;
+        padding-bottom: 14px !important;
+    }
+    #dxPanels .hypo-card::before {
+        height: 58px !important;
+        margin-bottom: -28px !important;
+    }
+    #dxPanels .hypo-card .hc-ico {
+        width: 56px !important;
+        height: 56px !important;
+        font-size: 26px !important;
+        border-radius: 18px !important;
+    }
+    #dxPanels .hypo-card h3 {
+        font-size: 16px !important;
+        padding: 0 12px !important;
+    }
+    .hc-evidence-box {
+        width: calc(100% - 24px) !important;
+        margin: 10px 12px 0 !important;
+        padding: 10px 12px !important;
+        border-radius: 14px !important;
+    }
+    .dx-live-progress-bar {
+        padding: 12px 14px !important;
+        border-radius: 16px !important;
+        margin-bottom: 14px !important;
+    }
+    .dx-live-top {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        text-align: center !important;
+        gap: 8px !important;
+        font-size: 12px !important;
+    }
+    .dx-quick-fill-btn {
+        width: 100% !important;
+        padding: 8px 12px !important;
+    }
+    #dxPanels .q-list {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+    #dxPanels .q-item {
+        padding: 14px 12px !important;
+        border-radius: 18px !important;
+    }
+    #dxPanels .q-head {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 6px !important;
+        padding: 10px 12px !important;
+    }
+    #dxPanels .q-title {
+        font-size: 13px !important;
+        line-height: 1.5 !important;
+    }
+    #dxPanels .q-opts {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 6px !important;
+        width: 100% !important;
+    }
+    #dxPanels .q-opt {
+        width: 100% !important;
+        text-align: right !important;
+        padding: 9px 12px !important;
+        font-size: 12px !important;
+    }
+    #dxPanels .q-free {
+        flex-direction: column !important;
+        gap: 6px !important;
+        width: 100% !important;
+    }
+    #dxPanels .q-free input {
+        width: 100% !important;
+        padding: 10px 12px !important;
+        font-size: 13px !important;
+    }
+    #dxPanels .q-free button {
+        width: 100% !important;
+        padding: 10px 14px !important;
+        font-size: 12.5px !important;
+    }
+    #dxPanels .final-card {
+        padding: 18px 14px !important;
+        border-radius: 22px !important;
+        margin-bottom: 16px !important;
+        text-align: center !important;
+    }
+    #dxPanels .final-card .fc-top {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 10px !important;
+    }
+    #dxPanels .final-card .fc-ico {
+        width: 60px !important;
+        height: 60px !important;
+        font-size: 28px !important;
+        margin: 0 auto !important;
+    }
+    #dxPanels .final-card h3 {
+        font-size: 17.5px !important;
+        line-height: 1.4 !important;
+    }
+    #dxPanels .final-card .fc-en {
+        text-align: center !important;
+        font-size: 11.5px !important;
+        margin-top: 2px !important;
+    }
+    #dxPanels .final-card .fc-meta {
+        justify-content: center !important;
+        gap: 6px !important;
+        margin-top: 10px !important;
+    }
+    #dxPanels .final-card .fc-tag {
+        font-size: 11px !important;
+        padding: 4px 10px !important;
+    }
+    #dxPanels .dx-list {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+        margin-bottom: 14px !important;
+    }
+    #dxPanels .dx-li {
+        padding: 12px 14px !important;
+        border-radius: 16px !important;
+        font-size: 12px !important;
+        line-height: 1.65 !important;
+    }
+    #dxPanels .dx-actions {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 8px !important;
+        padding-top: 14px !important;
+    }
+    #dxPanels .dx-btn {
+        width: 100% !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 13px 16px !important;
+        font-size: 13.5px !important;
+    }
+
+    /* Interview Questions & Scale Builder Mobile Refinements */
+    .section > .card {
+        padding: 18px 14px !important;
+        border-radius: 22px !important;
+    }
+    .section .q-list {
+        grid-template-columns: 1fr !important;
+        padding: 12px !important;
+        gap: 10px !important;
+    }
+    .builder-wrap .card.manage-bar,
+    .builder-wrap .card.panel {
+        padding: 18px 14px !important;
+        border-radius: 22px !important;
+    }
+
+}
+
+</style>
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="nav">
+      <div class="nav-inner">
+        <a class="brand" href="index.html">
+          <img class="brand-logo" src="logo.jpg" alt="DIAGNO-ASSIST">
+          <span class="brand-text">
+            <span class="brand-name">DIAGNO-ASSIST</span>
+            <span class="brand-sub" data-i18n="brand_sub">للأخصائيين النفسيين</span>
+          </span>
+        </a>
+        <nav class="nav-links">
+          <a href="index.html"><span class="ico">🏠</span> <span data-i18n="nav_home">الرئيسية</span></a>
+          <a href="index.html#how"><span class="ico">🔬</span> <span data-i18n="nav_how">كيف يعمل</span></a>
+          <a href="index.html#features"><span class="ico">🩺</span> <span data-i18n="nav_features">المميزات</span></a>
+          <a href="pricing.html"><span class="ico">💰</span> <span data-i18n="nav_pricing">الأسعار</span></a>
+        </nav>
+        <button class="nav-cta" id="authBtn" data-i18n="login">تسجيل الدخول</button>
+      </div>
+    </header>
+    
+    <div class="payment-wrap">
+        <div class="pay-header">
+            <h1 data-i18n="payment_title">الدفع بالبطاقة الذهبية</h1>
+            <p data-i18n="payment_subtitle">أدخل بيانات بطاقة الذهبية الجزائرية لإتمام تفعيل اشتراكك</p>
+            <div class="pay-badge">💎 <span data-i18n="payment_secure_badge">معاملة آمنة ومشفرة</span></div>
+        </div>
+        
+        <div class="pay-grid">
+            <!-- Golden Card -->
+            <div class="card-3d">
+                <div class="card-golden">
+                    <div class="card-top">
+                        <div class="card-chip"></div>
+                        <div class="card-brand">
+                            <div class="card-brand-name">EDAHABIA</div>
+                            <div class="card-brand-sub">CARTE RÉVISÉE</div>
+                        </div>
+                    </div>
+                    <div class="card-number" id="cardDisplay">6037 4512 7845 9013</div>
+                    <div class="card-bottom">
+                        <div>
+                            <div class="card-holder-label">CARD HOLDER</div>
+                            <div class="card-holder-name">DIAGNO-ASSIST</div>
+                        </div>
+                        <div class="card-exp">
+                            <div class="card-exp-label">EXPIRES</div>
+                            <div class="card-exp-date" id="expDisplay">12/28</div>
+                        </div>
+                    </div>
+                    <div class="card-network">
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                
+                <div class="amount-section">
+                    <div class="amount-row">
+                        <span class="amount-label" data-i18n="payment_subscription">اشتراك الباقة</span>
+                        <span class="amount-value" id="planName">الباقة الشهرية</span>
+                    </div>
+                    <div class="amount-divider"></div>
+                    <div class="amount-total">
+                        <span class="amount-total-label" data-i18n="payment_total">المبلغ الإجمالي</span>
+                        <span class="amount-total-value" id="planPrice">2,500 دج</span>
+                    </div>
+                    <div class="amount-period" id="planPeriod">شهريًا — بدون التزام</div>
+                </div>
+            </div>
+            
+            <!-- Payment Form -->
+            <div class="pay-form">
+                <h2><span class="icon">💳</span> <span data-i18n="payment_card_data">بيانات البطاقة</span></h2>
+                <div class="field">
+                    <label data-i18n="payment_card_num">رقم البطاقة</label>
+                    <input id="cardNum" value="6037 4512 7845 9013" maxlength="19" placeholder="6037 4512 7845 9013">
+                </div>
+                <div class="field">
+                    <label data-i18n="payment_card_name">اسم حامل البطاقة</label>
+                    <input id="cardName" value="DIAGNO-ASSIST" style="direction:rtl;text-align:right" placeholder="الاسم كما على البطاقة">
+                </div>
+                <div class="pay-row">
+                    <div class="field">
+                        <label data-i18n="payment_expiry">تاريخ الانتهاء</label>
+                        <input id="cardExp" value="12/28" maxlength="5" placeholder="MM/YY">
+                    </div>
+                    <div class="field">
+                        <label data-i18n="payment_cvv">رمز الأمان CVV</label>
+                        <input id="cardCvv" maxlength="3" type="password" placeholder="•••">
+                    </div>
+                </div>
+                <button class="btn-pay" id="payBtn">
+                    <span>💳</span>
+                    <span data-i18n="payment_pay_btn">الدفع الآن</span>
+                </button>
+                <div class="secure-note">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span data-i18n="payment_secure">🔒 معاملة مشفرة وآمنة تمامًا</span>
+                </div>
+                
+                <div class="pay-features">
+                    <h4>🎁 <span data-i18n="payment_whats_included">ماذا تحصل مع الاشتراك</span></h4>
+                    <ul id="planFeatures">
+                        <li data-i18n="pricing_feat_user">مستخدم واحد</li>
+                        <li data-i18n="pricing_feat_2tests">اختبارين متقطعين</li>
+                        <li data-i18n="pricing_feat_2diff">التشخيص الفارقي لاضطرابين محتملين</li>
+                        <li data-i18n="pricing_feat_5files">حفظ 5 ملفات مرضى</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-box">
+            <div class="modal-check">✓</div>
+            <h2 data-i18n="payment_success_title">تم الدفع بنجاح!</h2>
+            <p data-i18n="payment_success_desc">شكرًا على اختيارنا ❤️<br>تم تفعيل اشتراكك بنجاح، وسيصلك إشعار تفعيل على بريدك الإلكتروني.</p>
+            <button class="btn-ok" id="closeSuccess" data-i18n="payment_ok">حسنًا</button>
+        </div>
+    </div>
+    
+    <div class="toast" id="receiptToast">🧐 تم إصدار فاتورتك — رقم العملية: <b style="color:#f5d47a">DA-2026-8471</b></div>
+    
+    <script src="translations.js"></script>
+    <script src="i18n.js"></script>
+    <script>
+        // Plan data
+        var plans = {
+            monthly: { name: 'الباقة الشهرية', nameEn: 'Monthly Plan', nameFr: 'Plan Mensuel', price: '2,500 دج', period: 'شهريًا — بدون التزام', features: ['pricing_feat_user', 'pricing_feat_2tests', 'pricing_feat_2diff', 'pricing_feat_5files', 'pricing_feat_4sessions'] },
+            quarterly: { name: 'باقة 3 أشهر', nameEn: '3-Month Plan', nameFr: 'Plan 3 Mois', price: '7,000 دج', period: 'كل 3 أشهر', features: ['pricing_feat_user', 'pricing_feat_6tests', 'pricing_feat_3diff', 'pricing_feat_10files', 'pricing_feat_6sessions', 'pricing_feat_notes'] },
+            semiannual: { name: 'باقة 6 أشهر', nameEn: '6-Month Plan', nameFr: 'Plan 6 Mois', price: '13,000 دج', period: 'كل 6 أشهر', features: ['pricing_feat_users', 'pricing_feat_unlimited_tests', 'pricing_feat_5diff', 'pricing_feat_20files', 'pricing_feat_10sessions', 'pricing_feat_export'] },
+            yearly: { name: 'الباقة السنوية', nameEn: 'Yearly Plan', nameFr: 'Plan Annuel', price: '22,000 دج', period: 'سنويًا', features: ['pricing_feat_unlimited_users', 'pricing_feat_all_tests', 'pricing_feat_all_diff', 'pricing_feat_unlimited_files', 'pricing_feat_unlimited_sessions', 'pricing_feat_priority'] }
+        };
+        
+        // Get plan from URL
+        var params = new URLSearchParams(window.location.search);
+        var planKey = params.get('plan') || 'monthly';
+        var plan = plans[planKey] || plans.monthly;
+        
+        // Update UI
+        document.getElementById('planName').textContent = plan.name;
+        document.getElementById('planPrice').textContent = plan.price;
+        document.getElementById('planPeriod').textContent = plan.period;
+        
+        // Update features
+        var featuresHtml = '';
+        var lang = localStorage.getItem('diagLang') || 'ar';
+        plan.features.forEach(function(key) {
+            var text = (window.I18N && window.I18N[lang] && window.I18N[lang][key]) || key;
+            featuresHtml += '<li>' + text + '</li>';
+        });
+        document.getElementById('planFeatures').innerHTML = featuresHtml;
+        
+        // Card number formatting
+        document.getElementById('cardNum').addEventListener('input', function(e) {
+            var val = this.value.replace(/\s/g, '').replace(/[^0-9]/g, '');
+            var formatted = val.match(/.{1,4}/g)?.join(' ') || val;
+            this.value = formatted;
+            document.getElementById('cardDisplay').textContent = formatted || '6037 4512 7845 9013';
+        });
+        
+        // Expiry formatting
+        document.getElementById('cardExp').addEventListener('input', function(e) {
+            var val = this.value.replace(/[^0-9]/g, '');
+            if (val.length >= 2) val = val.substring(0,2) + '/' + val.substring(2);
+            this.value = val;
+            document.getElementById('expDisplay').textContent = val || '12/28';
+        });
+        
+        // Pay button
+        document.getElementById('payBtn').addEventListener('click', function() {
+            var num = document.getElementById('cardNum').value.replace(/\s/g, '');
+            var name = document.getElementById('cardName').value.trim();
+            var exp = document.getElementById('cardExp').value.trim();
+            var cvv = document.getElementById('cardCvv').value.trim();
+            if (num.length !== 16 || !name || exp.length < 4 || cvv.length !== 3) {
+                alert('يرجى التحقق من صحة بيانات البطاقة');
+                return;
+            }
+            document.getElementById('successModal').classList.add('show');
+        });
+        
+        document.getElementById('closeSuccess').addEventListener('click', function() {
+            document.getElementById('successModal').classList.remove('show');
+            document.getElementById('receiptToast').classList.add('show');
+            setTimeout(function() { window.location.href = 'index.html'; }, 4000);
+        });
+        
+        // Auth button
+        (function(){
+            var btn = document.getElementById('authBtn');
+            if(!btn) return;
+            var u = JSON.parse(localStorage.getItem('diagUser') || 'null');
+            if(u){
+                btn.textContent = (u.isAdmin ? '👨‍💼 ' : '👤 ') + (u.isAdmin ? 'المدير' : u.name);
+                btn.onclick = function() { location.href = 'profile.html'; };
+            } else {
+                btn.onclick = function() { location.href = 'login.html'; };
+            }
+        })();
+    </script>
+</body>
+</html>

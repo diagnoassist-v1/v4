@@ -1,0 +1,117 @@
+/* ===== INTERLOCKED 3D ROYAL COBALT BLUEPRINT STEPPER BAR (#193fa4 -> #1a41ad -> #1a44b5) ===== */
+.progress-nav {
+    position: relative !important;
+    top: auto !important;
+    z-index: 150 !important;
+    width: 97% !important;
+    max-width: none !important;
+    margin: 0 auto !important;
+    background-color: #183b9e !important;
+    background-image:
+        radial-gradient(circle at 15% 50%, rgba(68, 114, 242, 0.35) 0%, transparent 45%),
+        radial-gradient(circle at 85% 50%, rgba(11, 28, 77, 0.40) 0%, transparent 45%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, #163692 0%, #193fa4 50%, #163692 100%) !important;
+    background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px, 100% 100% !important;
+    padding: 12px 24px !important;
+    border-radius: 0 !important;
+    border-left: 2.5px solid rgba(255, 255, 255, 0.90) !important;
+    border-right: 2.5px solid rgba(255, 255, 255, 0.90) !important;
+    border-top: none !important;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+    box-shadow: inset 0 2px 6px rgba(11, 28, 77, 0.28) !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.progress-nav::-webkit-scrollbar { height: 0; }
+.progress-nav .nav-steps {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 8px !important;
+}
+.progress-nav .step {
+    display: flex !important;
+    align-items: center !important;
+    gap: 9px !important;
+    padding: 8px 20px !important;
+    border-radius: 999px !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+    color: #dbeafe !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(12px) !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    transition: all .28s cubic-bezier(.34,1.56,.64,1) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.25) !important;
+    position: relative !important;
+}
+.progress-nav .step:hover {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.22) !important;
+    border-color: rgba(255, 255, 255, 0.75) !important;
+    transform: translateY(-1px) !important;
+}
+.progress-nav .step .step-icon {
+    width: 27px !important;
+    height: 27px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 12.5px !important;
+    font-weight: 900 !important;
+    flex-shrink: 0 !important;
+    background: rgba(255, 255, 255, 0.20) !important;
+    color: #ffffff !important;
+    transition: all .3s !important;
+}
+.progress-nav .step.completed {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.18) !important;
+    border-color: rgba(255, 255, 255, 0.52) !important;
+}
+.progress-nav .step.completed .step-icon {
+    background: rgba(255, 255, 255, 0.30) !important;
+    color: #ffffff !important;
+}
+.progress-nav .step.active {
+    color: #193fa4 !important;
+    background: #ffffff !important;
+    box-shadow: 0 8px 24px rgba(11, 28, 77, 0.40),
+                inset 0 2px 3px #ffffff !important;
+    border: 2px solid #ffffff !important;
+    transform: scale(1.03) !important;
+}
+.progress-nav .step.active .step-icon {
+    background: linear-gradient(135deg, #193fa4, #1a44b5) !important;
+    color: #ffffff !important;
+    box-shadow: 0 3px 10px rgba(25, 63, 164, 0.30) !important;
+}
+.progress-nav .step-connector {
+    width: 34px !important;
+    height: 2.5px !important;
+    background: rgba(255, 255, 255, 0.32) !important;
+    flex-shrink: 0 !important;
+    border-radius: 99px !important;
+}
+.progress-nav .step.completed + .step-connector {
+    background: rgba(255, 255, 255, 0.68) !important;
+}
+
+@media(max-width:768px) {
+    .progress-nav { padding: 8px 10px !important; width: 96% !important; }
+    .progress-nav .nav-steps { gap: 4px !important; padding: 0 4px !important; }
+    .progress-nav .step { padding: 7px 13px !important; font-size: 11.5px !important; gap: 6px !important; }
+    .progress-nav .step .step-icon { width: 24px !important; height: 24px !important; font-size: 11px !important; }
+    .progress-nav .step-connector { width: 12px !important; }
+    .progress-nav .step span:not(.step-icon) { display: none !important; }
+    .progress-nav .step.active span:not(.step-icon) { display: inline !important; }
+}

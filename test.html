@@ -1,0 +1,3536 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#193fa4">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>تطبيق الاختبار | DIAGNO-ASSIST</title>
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="nav-bar.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family:'Readex Pro','Tajawal','Cairo', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #e8f4fd 0%, #edf1fc 50%, #e6f6ff 100%);
+            color: #1e293b;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        header.nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(16px);background:linear-gradient(120deg,#0b1c4d,#193fa4 45%,#193fa4);border-bottom:1px solid rgba(255,255,255,.14);box-shadow:0 12px 36px rgba(11, 28, 77,.35)}
+        header.nav .brand-name{background:linear-gradient(120deg,#fff,#b6c8f9);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        header.nav .brand-sub{color:#bfd0fa}
+        header.nav .nav-links a{color:#d6e4ff}
+        header.nav .nav-links a::after{background:linear-gradient(90deg,#3b6cf5,#2b5be0)}
+        header.nav .nav-links a:hover{color:#fff}
+        .nav-inner{display:flex;align-items:center;justify-content:space-between;height:96px;gap:24px;width:auto;max-width:none;padding-inline:3%}
+        .brand{display:flex;align-items:center;gap:16px;text-decoration:none;flex-shrink:0}
+        .brand-logo{width:64px;height:64px;border-radius:20px;object-fit:cover;box-shadow:0 10px 26px rgba(26, 65, 173,.30),0 0 0 4px rgba(26, 65, 173,.08)}
+        .brand-text{line-height:1.15}
+        .brand-name{display:block;font-size:27px;font-weight:900;letter-spacing:.5px;background:linear-gradient(120deg,#193fa4,#1a41ad 55%,#1a44b5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .brand-sub{display:block;font-size:13.5px;font-weight:700;letter-spacing:.3px;margin-top:3px}
+        .nav-links{display:flex;gap:34px;align-items:center}
+        .nav-links a{text-decoration:none;font-weight:700;font-size:15.5px;position:relative;padding:6px 0;transition:color .25s}
+        .nav-links a::after{content:"";position:absolute;bottom:-2px;right:0;width:0;height:3px;border-radius:3px;transition:width .3s}
+        .nav-links a:hover::after{width:100%}
+        .nav-links a .ico{font-size:17px}
+        .nav-cta{padding:12px 28px;font-size:15px;border-radius:14px;background:linear-gradient(135deg,#1a41ad,#2b5be0);color:#fff;border:none;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 8px 24px rgba(26, 65, 173,.35);transition:all .25s}
+        .nav-cta:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(26, 65, 173,.45)}
+
+        /* ── Page Wrapper ── */
+        .page-wrapper { max-width: 960px; margin: 0 auto; padding: 0 20px 100px; }
+
+        /* ── Hero Card ── */
+        .hero-card {
+            background: linear-gradient(135deg, #0b1c4d 0%, #193fa4 40%, #1a41ad 100%);
+            border-radius: 0;
+            padding: 28px 40px;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin: 0 0 24px;
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .hero-left { flex: none; text-align: center; position: relative; z-index: 1; }
+        .hero-progress { position: relative; z-index: 1; }
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: -40%; right: -10%;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .hero-card::after {
+            content: '';
+            position: absolute;
+            bottom: -30%; left: 5%;
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .hero-left { flex: none; text-align: center; position: relative; z-index: 1; }
+        .hero-left h1 { font-size: 26px; font-weight: 900; margin-bottom: 8px; }
+        .hero-left p { font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 14px; }
+        .hero-meta { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .hero-tag {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            backdrop-filter: blur(4px);
+        }
+
+        /* ── Progress Area (left of hero) ── */
+        .hero-progress {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+            margin-left: 32px;
+        }
+        .progress-circle-wrap {
+            position: relative;
+            width: 100px; height: 100px;
+        }
+        .progress-circle-svg { width: 100px; height: 100px; transform: rotate(-90deg); }
+        .progress-circle-bg { fill: none; stroke: rgba(255,255,255,0.15); stroke-width: 8; }
+        .progress-circle-fill {
+            fill: none; stroke: #2b5be0; stroke-width: 8; stroke-linecap: round;
+            stroke-dasharray: 283; stroke-dashoffset: 283;
+            transition: stroke-dashoffset 0.6s ease;
+        }
+        .progress-center-text {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+        }
+        .progress-pct { font-size: 24px; font-weight: 900; color: #fff; }
+        .progress-pct-label { font-size: 9px; color: rgba(255,255,255,0.7); font-weight: 600; }
+        .progress-count {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff; padding: 4px 14px;
+            border-radius: 16px; font-size: 12px; font-weight: 700;
+            backdrop-filter: blur(4px);
+        }
+        .progress-count.done { background: #16a34a; border-color: #16a34a; }
+
+        /* ── Scale Legend ── */
+        .scale-legend {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .scale-legend .pill {
+            padding: 7px 18px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            border: 2px solid;
+        }
+        .pill-never {
+            background: #eef2fe; color: #1a41ad; border-color: #b6c8f9;
+        }
+        .pill-few {
+            background: #fff7ed; color: #ea580c; border-color: #fed7aa;
+        }
+        .pill-half {
+            background: #fefce8; color: #ca8a04; border-color: #fde68a;
+        }
+        .pill-daily {
+            background: #fef2f2; color: #dc2626; border-color: #fecaca;
+        }
+
+        /* ── Note ── */
+        .note-test {
+            background: #eef2fe; border: 1px solid #b6c8f9;
+            border-radius: 14px; padding: 14px 20px;
+            font-size: 13px; color: #193fa4; line-height: 1.8; font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        /* ── Questions Grid ── */
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        /* ── Question Card ── */
+        .question-card {
+            background: #fff;
+            border: 2px solid #e8edf5;
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        .question-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+        .question-card:has(button.sel) {
+            border-color: #1a41ad;
+            box-shadow: 0 4px 20px rgba(26, 65, 173,0.1);
+        }
+        .tq-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+        .tq-num {
+            width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+            background: linear-gradient(135deg, #1a41ad, #193fa4); color: #fff;
+            font-weight: 800; font-size: 13px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 8px rgba(26, 65, 173,0.25);
+        }
+        .tq-text { font-size: 13.5px; font-weight: 700; color: #1e293b; line-height: 1.8; flex: 1; }
+
+        /* ── Answer Buttons ── */
+        .answers-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+        }
+        .answers-row button {
+            flex: 1;
+            padding: 10px 6px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            background: #fff;
+            font-family: inherit;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .answers-row button:hover {
+            border-color: #8aa7f5;
+            color: #1a41ad;
+            background: #eef2fe;
+        }
+        .answers-row button.sel {
+            background: #1a41ad;
+            border-color: #1a41ad;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(26, 65, 173,0.3);
+        }
+
+        /* ── Footer / Bottom Bar ── */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-top: 2px solid #e8edf5;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            z-index: 100;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+        }
+        .bottom-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .bottom-bar-center {
+            display: none;
+        }
+        .bottom-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-fill-auto {
+            background: #f8fafc; color: #475569;
+            border: 2px dashed #cbd5e1;
+            padding: 8px 14px; border-radius: 10px; font-weight: 700; font-size: 11px;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
+            transition: all 0.2s; font-family: inherit;
+        }
+        .btn-fill-auto:hover { border-color: #1a41ad; color: #1a41ad; background: #eef2fe; }
+        .btn-back-test {
+            background: #fff; color: #475569;
+            border: 2px solid #e2e8f0;
+            padding: 8px 18px; border-radius: 10px; font-weight: 700; font-size: 12px;
+            cursor: pointer; text-decoration: none; display: inline-flex;
+            align-items: center; gap: 6px; transition: all 0.2s; font-family: inherit;
+        }
+        .btn-back-test:hover { border-color: #8aa7f5; color: #1a41ad; background: #eef2fe; }
+        .btn-save-test {
+            background: linear-gradient(135deg, #1a41ad, #193fa4);
+            color: #fff;
+            border: none; padding: 10px 24px; border-radius: 12px; font-weight: 800;
+            font-size: 13px; cursor: pointer; transition: all 0.2s;
+            font-family: inherit;
+            box-shadow: 0 2px 10px rgba(26, 65, 173,0.3);
+        }
+        .btn-save-test:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(26, 65, 173,0.4); }
+        .btn-time-test {
+            background: linear-gradient(135deg, #16a34a, #15803d);
+            color: #fff;
+            border: none; padding: 10px 20px; border-radius: 12px; font-weight: 800;
+            font-size: 13px; cursor: pointer; transition: all 0.2s;
+            font-family: inherit; font-variant-numeric: tabular-nums;
+            box-shadow: 0 2px 10px rgba(22,163,74,0.3);
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-time-test:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(22,163,74,0.4); }
+        .btn-time-test.running {
+            background: linear-gradient(135deg, #15803d, #166534);
+            box-shadow: 0 0 0 4px rgba(22,163,74,0.18), 0 4px 14px rgba(22,163,74,0.4);
+        }
+        .btn-time-test .time-clock { font-family: monospace; font-size: 14px; letter-spacing: 0.5px; direction: ltr; }
+
+        .bottom-legend {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .bottom-legend .pill {
+            padding: 4px 10px;
+            border-radius: 14px;
+            font-size: 10px;
+            font-weight: 700;
+            border: 1.5px solid;
+        }
+
+        /* ── Results Panel ── */
+        .res-panel {
+            display: none;
+            background: #fff;
+            border: 2px solid #e8edf5;
+            border-radius: 20px;
+            padding: 32px;
+            margin-top: 24px;
+        }
+        .res-panel.show { display: block; animation: fadeSlideIn 0.4s ease; }
+        .res-panel .rp-head { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+        .res-panel .rp-circle {
+            width: 100px; height: 100px; border-radius: 50%;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            color: #fff; font-weight: 800; flex-shrink: 0;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        .res-panel .rp-circle b { font-size: 28px; line-height: 1; }
+        .res-panel .rp-circle small { font-size: 10px; opacity: 0.9; margin-top: 2px; }
+        .rp-low { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+        .rp-mid { background: linear-gradient(135deg, #d97706, #b45309); }
+        .rp-high { background: linear-gradient(135deg, #16a34a, #15803d); }
+        .res-panel .rp-info h3 { font-size: 22px; color: #1e293b; margin-bottom: 6px; }
+        .res-panel .rp-info p { font-size: 13px; color: #475569; line-height: 1.8; }
+        .res-panel .rp-stats {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px;
+        }
+        .res-panel .rp-stats div {
+            background: #f8fafc; border: 1px solid #e8edf5;
+            border-radius: 14px; padding: 16px 12px; text-align: center;
+            font-size: 12px; color: #475569;
+        }
+        .res-panel .rp-stats b {
+            display: block; font-size: 22px; color: #1a41ad; margin-bottom: 4px;
+        }
+
+        .btn-save-file {
+            display: none; width: 100%; margin-top: 16px;
+            background: linear-gradient(135deg, #16a34a, #15803d); color: #fff;
+            border: none; padding: 14px; border-radius: 14px; font-weight: 800;
+            font-size: 14px; cursor: pointer; transition: all 0.2s;
+            font-family: inherit;
+            box-shadow: 0 2px 10px rgba(22,163,74,0.3);
+        }
+        .btn-save-file:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(22,163,74,0.4); }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center; padding: 24px 16px; margin-top: 40px;
+            border-top: 1px solid #e8edf5; color: #94a3b8; font-size: 12px;
+        }
+        footer .footer-brand {
+            display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px;
+        }
+        footer .footer-brand img { width: 30px; height: 30px; border-radius: 8px; }
+        footer .footer-brand .brand-name { font-weight: 800; color: #193fa4; font-size: 14px; }
+
+        /* ── Animations ── */
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .question-card { animation: fadeSlideIn 0.3s ease backwards; }
+        .question-card:nth-child(1) { animation-delay: 0.02s; }
+        .question-card:nth-child(2) { animation-delay: 0.04s; }
+        .question-card:nth-child(3) { animation-delay: 0.06s; }
+        .question-card:nth-child(4) { animation-delay: 0.08s; }
+        .question-card:nth-child(5) { animation-delay: 0.10s; }
+        .question-card:nth-child(6) { animation-delay: 0.12s; }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .questions-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 700px) {
+            .hero-card {
+                flex-direction: column-reverse;
+                padding: 24px 20px;
+                gap: 20px;
+            }
+            .hero-progress { margin-left: 0; }
+            .nav-links { display: none; }
+            .nav-inner{padding-inline:4%}
+            .bottom-bar {
+                flex-wrap: wrap;
+                gap: 8px;
+                padding: 10px 16px;
+            }
+            .bottom-bar-left, .bottom-bar-right { width: 100%; justify-content: center; }
+            .res-panel .rp-head { flex-direction: column; text-align: center; }
+            .res-panel .rp-stats { grid-template-columns: 1fr; }
+            .scale-legend { justify-content: center; }
+            .answers-row { flex-wrap: wrap; }
+            .answers-row button { min-width: 45%; }
+        }
+        @media (max-width: 480px) {
+            .btn-fill-auto { font-size: 10px; padding: 6px 10px; }
+            .btn-back-test { font-size: 11px; padding: 6px 14px; }
+            .btn-save-test { font-size: 12px; padding: 8px 18px; }
+        }
+        @media(max-width:430px){
+          .nav-inner{height:auto;min-height:64px;gap:8px;padding-inline:3%}
+          .brand-logo{width:36px;height:36px;border-radius:10px}
+          .brand-name{font-size:15px}
+          .brand-sub{font-size:9px}
+          .brand{gap:6px}
+          .nav-cta{padding:7px 12px;font-size:11px;border-radius:8px}
+          .hero-card{padding:14px 12px;gap:12px}
+          .hero-card::before{width:120px;height:120px;right:-4%;top:-25%}
+          .hero-card::after{width:80px;height:80px;left:2%;bottom:-15%}
+          .progress-circle-wrap,.progress-circle-svg{width:68px;height:68px}
+          .progress-pct{font-size:17px}
+          .progress-pct-label{font-size:7px}
+          .hero-left h1{font-size:16px}
+          .hero-left p{font-size:11px}
+          .hero-tag{font-size:9px;padding:3px 8px}
+          .note-test{padding:8px 10px;font-size:11px;border-radius:8px}
+          .question-card{padding:12px 10px}
+          .tq-num{width:28px;height:28px;font-size:10px}
+          .tq-text{font-size:12px}
+          .tq-header{gap:6px;margin-bottom:8px}
+          .answers-row{gap:4px}
+          .answers-row button{padding:7px 3px;font-size:10px;min-width:44%}
+          .bottom-bar{padding:6px 8px;gap:4px}
+          .bottom-bar-left,.bottom-bar-right{gap:4px}
+          .btn-fill-auto{font-size:8.5px;padding:4px 6px}
+          .btn-back-test{font-size:10px;padding:5px 10px}
+          .btn-save-test{font-size:11px;padding:6px 14px}
+          .res-panel{padding:14px;border-radius:12px}
+          .res-panel .rp-circle{width:68px;height:68px}
+          .res-panel .rp-circle b{font-size:20px}
+          .res-panel .rp-info h3{font-size:16px}
+          .res-panel .rp-stats div{padding:10px 6px}
+          .res-panel .rp-stats b{font-size:16px}
+          .res-panel .rp-head{gap:12px}
+          .scale-legend .pill{padding:4px 10px;font-size:9px}
+          .scale-legend{gap:4px}
+          .btn-save-file{padding:8px 10px;font-size:11px;border-radius:8px}
+          body{padding-bottom:140px;overflow-x:hidden}
+          .page-wrapper{padding:0 10px 40px}
+          .question-card{animation:none!important}
+          html,body{overflow-x:hidden}
+        }
+
+        /* ── Auto-fill code modal + toast (works even when native dialogs are blocked) ── */
+        .fill-modal-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;z-index:10000;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+        .fill-modal-backdrop.show{opacity:1;visibility:visible}
+        .fill-modal-card{background:#fff;border-radius:22px;padding:28px 26px 22px;width:min(420px,100%);box-shadow:0 30px 80px rgba(11, 28, 77,.35);text-align:center;transform:translateY(14px) scale(.97);transition:transform .3s cubic-bezier(.34,1.56,.64,1);font-family:'Readex Pro','Tajawal','Cairo',Tahoma,sans-serif}
+        .fill-modal-backdrop.show .fill-modal-card{transform:translateY(0) scale(1)}
+        .fill-modal-icon{width:64px;height:64px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:30px;background:linear-gradient(135deg,#eef2fe,#dbe4fc);border:2px solid #b6c8f9}
+        .fill-modal-card h3{font-size:19px;font-weight:900;color:#0b1c4d;margin-bottom:6px}
+        .fill-modal-card p{font-size:12.5px;color:#64748b;line-height:1.7;margin-bottom:16px}
+        .fill-code-input{width:100%;padding:13px 16px;border:2px solid #e2e8f0;border-radius:14px;font-family:inherit;font-size:20px;font-weight:800;letter-spacing:6px;text-align:center;color:#0b1c4d;background:#f8fafc;outline:none;transition:border-color .2s,box-shadow .2s;direction:ltr}
+        .fill-code-input:focus{border-color:#1a41ad;background:#fff;box-shadow:0 0 0 4px rgba(26, 65, 173,.12)}
+        .fill-code-input.error{border-color:#dc2626;background:#fef2f2;animation:fillShake .4s}
+        @keyframes fillShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+        .fill-modal-error{display:none;margin-top:10px;font-size:12px;font-weight:700;color:#dc2626}
+        .fill-modal-error.show{display:block}
+        .fill-modal-actions{display:flex;gap:10px;margin-top:18px}
+        .fill-modal-btn{flex:1;padding:11px 16px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;color:#475569;font-family:inherit;font-weight:800;font-size:13.5px;cursor:pointer;transition:all .2s}
+        .fill-modal-btn:hover{background:#f8fafc}
+        .fill-modal-btn.primary{border:none;background:linear-gradient(135deg,#1a41ad,#193fa4);color:#fff;box-shadow:0 6px 18px rgba(26, 65, 173,.3)}
+        .fill-modal-btn.primary:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(26, 65, 173,.4)}
+        .fill-toast{position:fixed;bottom:96px;left:50%;transform:translateX(-50%) translateY(20px);max-width:min(560px,92vw);background:#0b1c4d;color:#fff;padding:12px 20px;border-radius:14px;font-size:13px;font-weight:700;line-height:1.6;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.35);opacity:0;visibility:hidden;transition:all .3s;z-index:10001}
+        .fill-toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+    
+/* ==========================================================================
+   DIAGNO-ASSIST — 3D NEURO-GLASS & ORBITAL STUDIO (ROYAL COBALT #1a41ad EDITION)
+   Anchored in exact swatch colors: #193fa4 -> #1a41ad -> #1a44b5
+   ========================================================================== */
+:root {
+    --cobalt-core: #1a41ad;
+    --cobalt-left: #193fa4;
+    --cobalt-right: #1a44b5;
+    --cobalt-bright: #2b5be0;
+    --cobalt-deep: #122d7a;
+    --cobalt-navy: #0b1c4d;
+    --cobalt-ice: #edf1fc;
+    --cobalt-border: #c5d3f7;
+    --blue: #1a41ad !important;
+    --blue-deep: #193fa4 !important;
+    --blue-mid: #1a44b5 !important;
+    --blue-light: #2b5be0 !important;
+    --blue-pale: #e3eafd !important;
+    --primary: #1a41ad !important;
+    --primary-dark: #193fa4 !important;
+    --primary-light: #2b5be0 !important;
+    --sky: #1a44b5 !important;
+    --teal: #1a41ad !important;
+    --teal-deep: #193fa4 !important;
+    --teal-soft: #eef2fe !important;
+    --rose: #1a41ad !important;
+    --rose-deep: #193fa4 !important;
+    --rose-soft: #eef2fe !important;
+    --navy: #11286b !important;
+    --navy-dark: #0b1c4d !important;
+    --dark: #0b1c4d !important;
+    --dark-mid: #11286b !important;
+    --ink: #0b1c4d !important;
+    --text: #11286b !important;
+    --text-dark: #0b1c4d !important;
+    --text-mid: #283e7a !important;
+    --text-light: #455a94 !important;
+    --text-lighter: #6478ad !important;
+    --muted: #455a94 !important;
+    --slate: #1f346e !important;
+    --slate-light: #455a94 !important;
+    --line: #cbd7f7 !important;
+    --border: #cbd7f7 !important;
+    --bg: #e0f2fe !important;
+    --grad-start: #122d7a !important;
+    --grad-mid: #193fa4 !important;
+    --grad-end: #1a44b5 !important;
+    --card-radius: 28px !important;
+    --radius: 28px !important;
+}
+
+@keyframes neuroReveal {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal, .fade-up, .plan, .pay-header, .card-3d, .pay-form {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: neuroReveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+}
+
+/* 1. ARCHITECTURAL BLUEPRINT GRID & LIGHT SKY-BLUE CANVAS */
+body {
+    font-family: 'Tajawal', 'Readex Pro', 'Cairo', sans-serif !important;
+    background-color: #e0f2fe !important;
+    background-image:
+        radial-gradient(circle at 10% 12%, rgba(56, 189, 248, 0.20) 0%, transparent 38%),
+        radial-gradient(circle at 90% 18%, rgba(14, 165, 233, 0.15) 0%, transparent 42%),
+        radial-gradient(circle at 50% 90%, rgba(125, 211, 252, 0.25) 0%, transparent 45%),
+        linear-gradient(to right, rgba(14, 165, 233, 0.075) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(14, 165, 233, 0.075) 1px, transparent 1px),
+        linear-gradient(160deg, #f0f9ff 0%, #dff2fe 52%, #e6f6ff 100%) !important;
+    background-size: 100% 100%, 100% 100%, 100% 100%, 32px 32px, 32px 32px, 100% 100% !important;
+    background-attachment: fixed !important;
+    color: #0b1c4d !important;
+    position: relative;
+}
+
+.bg-fx { background: transparent !important; }
+
+h1, h2, h3, h4, .brand-name, .hero-title, .header-title, .card-title, .section-title, .modal-title {
+    font-family: 'Readex Pro', 'Tajawal', 'Cairo', sans-serif !important;
+    letter-spacing: -0.2px;
+}
+
+.bg-blob.blob-1, .orb-1 { background: #7dd3fc !important; opacity: 0.28 !important; }
+.bg-blob.blob-2, .orb-2 { background: #38bdf8 !important; opacity: 0.20 !important; }
+.orb-3 { background: #bae6fd !important; opacity: 0.30 !important; }
+
+/* 2. FLOATING 3D LOGO-INSPIRED CYAN-AZURE CAPSULE NAVBAR (#34bae6 -> #219ad5 -> #0b69b4) */
+header.nav {
+    position: sticky !important;
+    top: 12px !important;
+    z-index: 200 !important;
+    width: 97% !important;
+    max-width: none !important;
+    margin: 12px auto 0 !important;
+    border-radius: 999px !important;
+    background-color: #219ad5 !important;
+    background-image:
+        radial-gradient(circle at 14% 22%, rgba(52, 186, 230, 0.65) 0%, transparent 45%),
+        radial-gradient(circle at 86% 80%, rgba(9, 103, 175, 0.65) 0%, transparent 50%),
+        linear-gradient(125deg, #0967af 0%, #0b69b4 30%, #219ad5 66%, #34bae6 100%) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 2.5px solid rgba(255, 255, 255, 0.94) !important;
+    box-shadow: 0 20px 46px -10px rgba(9, 103, 175, 0.40),
+                0 0 0 1.5px rgba(33, 154, 213, 0.48),
+                inset 0 2px 5px rgba(255, 255, 255, 0.55),
+                inset 0 -3px 8px rgba(9, 103, 175, 0.42) !important;
+    padding: 0 10px !important;
+}
+header.nav .nav-inner,
+header.nav .container.nav-inner {
+    height: 74px !important;
+    padding-inline: 24px !important;
+    width: 100% !important;
+    max-width: none !important;
+}
+header.nav .brand-logo {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 16px !important;
+    object-fit: cover;
+    border: 2.5px solid #ffffff !important;
+    box-shadow: 0 8px 20px rgba(7, 82, 142, 0.42),
+                0 0 0 3px rgba(255, 255, 255, 0.30) !important;
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1) !important;
+}
+header.nav .brand:hover .brand-logo {
+    transform: scale(1.07) rotate(-4deg) !important;
+}
+header.nav .brand-name {
+    font-size: 22px !important;
+    font-weight: 900 !important;
+    background: linear-gradient(180deg, #ffffff 0%, #e0f7ff 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    filter: drop-shadow(0 2px 6px rgba(7, 82, 142, 0.32)) !important;
+}
+header.nav .brand-sub {
+    color: #e6f8ff !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+}
+header.nav .nav-links {
+    background: rgba(255, 255, 255, 0.18) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.48) !important;
+    padding: 5px 7px !important;
+    border-radius: 999px !important;
+    gap: 6px !important;
+    box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.38), 0 6px 16px rgba(7, 82, 142, 0.20) !important;
+}
+header.nav .nav-links a {
+    color: #ffffff !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+    padding: 7px 16px !important;
+    border-radius: 999px !important;
+    text-shadow: 0 1px 3px rgba(7, 82, 142, 0.32) !important;
+    transition: all 0.25s cubic-bezier(.34,1.56,.64,1) !important;
+}
+header.nav .nav-links a::after { display: none !important; }
+header.nav .nav-links a:hover {
+    background: #ffffff !important;
+    color: #0967af !important;
+    text-shadow: none !important;
+    box-shadow: 0 6px 16px rgba(7, 82, 142, 0.28) !important;
+    transform: translateY(-1px);
+}
+header.nav .nav-cta, header.nav .btn-primary.nav-cta {
+    background: linear-gradient(180deg, #ffffff 0%, #ecf9ff 100%) !important;
+    color: #0967af !important;
+    border-radius: 999px !important;
+    padding: 10px 24px !important;
+    font-size: 14px !important;
+    font-weight: 900 !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 8px 22px rgba(7, 82, 142, 0.35),
+                0 0 0 3px rgba(255, 255, 255, 0.28),
+                inset 0 2px 3px #ffffff !important;
+}
+header.nav .nav-cta:hover {
+    background: #ffffff !important;
+    color: #0b69b4 !important;
+    transform: translateY(-2px) scale(1.03) !important;
+    box-shadow: 0 12px 28px rgba(7, 82, 142, 0.45),
+                0 0 0 4px rgba(255, 255, 255, 0.38) !important;
+}
+
+/* 3. COMPACT 3D ORBITAL ROYAL COBALT HERO ISLAND (FOR INTERIOR PAGES) */
+.page-hero, .hero:not(:has(.hero-grid)), .mini-hero, .hero-card, header.page-header, .pay-header {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 16px auto 24px !important;
+    border-radius: 32px !important;
+    padding: 28px 32px !important;
+    background-color: #1a41ad !important;
+    background-image:
+        radial-gradient(circle at 12% 20%, rgba(68, 114, 242, 0.42) 0%, transparent 40%),
+        radial-gradient(circle at 88% 80%, rgba(11, 28, 77, 0.48) 0%, transparent 48%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px, 100% 100% !important;
+    border: 2.5px solid rgba(255, 255, 255, 0.90) !important;
+    box-shadow: 0 24px 52px -12px rgba(25, 63, 164, 0.42),
+                0 0 0 1.5px rgba(26, 68, 181, 0.45),
+                inset 0 3px 6px rgba(255, 255, 255, 0.45),
+                inset 0 -4px 12px rgba(11, 28, 77, 0.40) !important;
+    color: #ffffff !important;
+    position: relative !important;
+    top: auto !important;
+    overflow: hidden !important;
+}
+.page-hero .container,
+header.page-header .container,
+header.page-header .header-inner,
+.hero .hero-inner,
+.mini-hero .container {
+    width: 100% !important;
+    max-width: none !important;
+}
+/* Orbital 3D Rings inside Hero Island */
+.page-hero::before, .hero:not(:has(.hero-grid))::before, .mini-hero::before, header.page-header::before, .pay-header::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -65px !important;
+    right: -55px !important;
+    width: 230px !important;
+    height: 230px !important;
+    border-radius: 50% !important;
+    border: 2px dashed rgba(255, 255, 255, 0.28) !important;
+    background: radial-gradient(circle, rgba(96, 140, 255, 0.26) 0%, transparent 68%) !important;
+    box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.18), 0 0 0 24px rgba(255, 255, 255, 0.04) !important;
+    pointer-events: none !important;
+}
+.page-hero::after, .hero:not(:has(.hero-grid))::after, .mini-hero::after, header.page-header::after, .pay-header::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: -75px !important;
+    left: -45px !important;
+    width: 210px !important;
+    height: 210px !important;
+    border-radius: 50% !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.16) 0%, transparent 70%) !important;
+    box-shadow: 0 0 0 20px rgba(96, 140, 255, 0.08) !important;
+    pointer-events: none !important;
+}
+.page-hero h1, .hero:not(:has(.hero-grid)) h1, .mini-hero h1, .hero:not(:has(.hero-grid)) .hero-title, .header-title, .hero-left h1, .hero-name, .pay-header h1 {
+    color: #ffffff !important;
+    text-shadow: 0 4px 16px rgba(11, 28, 77, 0.40) !important;
+    font-weight: 900 !important;
+    position: relative;
+    z-index: 2;
+}
+.page-hero h1 .grad, .hero:not(:has(.hero-grid)) h1 .gradient-text {
+    background: linear-gradient(180deg, #ffffff 0%, #c7d7fe 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+.page-hero p, .hero:not(:has(.hero-grid)) p, .mini-hero p, .hero:not(:has(.hero-grid)) .hero-subtitle, .hero-left p, .hero-role, .hero-since, .pay-header p {
+    color: rgba(255, 255, 255, 0.92) !important;
+    font-weight: 600 !important;
+    margin-bottom: 10px !important;
+    position: relative;
+    z-index: 2;
+}
+.breadcrumb {
+    display: inline-flex !important;
+    background: rgba(11, 28, 77, 0.32) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+    padding: 5px 16px !important;
+    border-radius: 999px !important;
+    color: #ffffff !important;
+    margin-bottom: 10px !important;
+}
+.breadcrumb a { color: #dbe4fc !important; font-weight: 800 !important; }
+.breadcrumb a:hover { color: #ffffff !important; text-decoration: underline !important; }
+.back-btn, .patients-list-btn, .hero-pill, .header-badge, .hero-chip, .hero-tag, .hero-stat, .pay-badge {
+    background: rgba(255, 255, 255, 0.20) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.60) !important;
+    color: #ffffff !important;
+    border-radius: 999px !important;
+    box-shadow: 0 6px 18px rgba(11, 28, 77, 0.20), inset 0 1px 2px rgba(255, 255, 255, 0.45) !important;
+    position: relative;
+    z-index: 2;
+}
+.hero-stat { border-radius: 20px !important; }
+.back-btn:hover, .patients-list-btn:hover {
+    background: #ffffff !important;
+    color: #193fa4 !important;
+    border-color: #ffffff !important;
+    transform: translateY(-2px) !important;
+}
+
+/* ==========================================================================
+   BESPOKE REDESIGN FOR INDEX.HTML (ROYAL COBALT #1a41ad EDITION)
+   ========================================================================== */
+.hero:has(.hero-grid) {
+    padding: 24px 0 36px !important;
+}
+.hero-grid {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 0 auto !important;
+    background:
+        radial-gradient(circle at 18% 20%, rgba(26, 68, 181, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(25, 63, 164, 0.10) 0%, transparent 50%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(242, 246, 255, 0.93) 100%) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 3px solid #ffffff !important;
+    border-radius: 40px !important;
+    padding: 52px 56px !important;
+    box-shadow: 0 28px 68px -14px rgba(25, 63, 164, 0.18),
+                0 0 0 1.5px rgba(26, 68, 181, 0.32),
+                inset 0 3px 8px #ffffff !important;
+    position: relative !important;
+}
+.hero:has(.hero-grid) .pill {
+    background: linear-gradient(180deg, #f0f4fe 0%, #dfe8fc 100%) !important;
+    border: 1.5px solid #93aff5 !important;
+    color: #193fa4 !important;
+    box-shadow: 0 6px 16px rgba(25, 63, 164, 0.10), inset 0 1px 0 #ffffff !important;
+}
+.hero:has(.hero-grid) h1.hero-title {
+    color: #0b1c4d !important;
+    text-shadow: none !important;
+}
+.hero:has(.hero-grid) .grad, .sec-head .grad {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #2b5be0 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+.brain-wrap {
+    background:
+        radial-gradient(circle at 30% 25%, #2b5be0 0%, #1a44b5 38%, #1a41ad 72%, #193fa4 100%) !important;
+    border: 4px solid #ffffff !important;
+    box-shadow: 0 34px 72px rgba(25, 63, 164, 0.38),
+                0 0 0 12px rgba(255, 255, 255, 0.75),
+                0 0 0 14px rgba(26, 68, 181, 0.30),
+                inset 0 4px 12px rgba(255, 255, 255, 0.50) !important;
+}
+.float-card {
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 22px !important;
+    box-shadow: 0 18px 42px -8px rgba(25, 63, 164, 0.20),
+                0 0 0 1.5px #bfd0fa,
+                inset 0 2px 3px #ffffff !important;
+}
+.float-card .fc-ico {
+    background: linear-gradient(135deg, #e3eafd, #bfd0fa) !important;
+    border: 1.5px solid #ffffff !important;
+    box-shadow: 0 4px 12px rgba(25, 63, 164, 0.14) !important;
+}
+/* Floating 3D Orbital Trust Band (.marquee-band) */
+.marquee-band {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 4px auto 28px !important;
+    border-radius: 34px !important;
+    padding: 24px 24px !important;
+    background-color: #1a41ad !important;
+    background-image:
+        radial-gradient(circle at 15% 20%, rgba(68, 114, 242, 0.42) 0%, transparent 42%),
+        radial-gradient(circle at 85% 80%, rgba(11, 28, 77, 0.45) 0%, transparent 48%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    background-size: 100% 100%, 100% 100%, 26px 26px, 26px 26px, 100% 100% !important;
+    border: 2.5px solid #ffffff !important;
+    box-shadow: 0 24px 54px -12px rgba(25, 63, 164, 0.38),
+                0 0 0 1.5px rgba(26, 68, 181, 0.45),
+                inset 0 2px 5px rgba(255, 255, 255, 0.45) !important;
+}
+.marquee-band::after { display: none !important; }
+.band-item {
+    background: rgba(255, 255, 255, 0.16) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.52) !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 24px rgba(11, 28, 77, 0.22), inset 0 1px 2px rgba(255, 255, 255, 0.40) !important;
+}
+.band-item .bi {
+    background: rgba(255, 255, 255, 0.22) !important;
+    border: 1px solid rgba(255, 255, 255, 0.48) !important;
+}
+@media(min-width: 1021px) {
+    .band-inner { flex-wrap: nowrap !important; gap: 12px !important; }
+    .band-item { padding: 11px 20px !important; font-size: 14px !important; white-space: nowrap !important; }
+}
+
+section.block { padding: 56px 0 !important; }
+.sec-tag {
+    background: linear-gradient(180deg, #f0f4fe 0%, #dfe8fc 100%) !important;
+    border: 1.5px solid #93aff5 !important;
+    color: #193fa4 !important;
+    padding: 6px 20px !important;
+    border-radius: 999px !important;
+    box-shadow: 0 4px 12px rgba(25, 63, 164, 0.10), inset 0 1px 0 #ffffff !important;
+}
+.feat-card, .step-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(244, 247, 255, 0.96) 100%) !important;
+    border: 2.5px solid #ffffff !important;
+    border-radius: 30px !important;
+    box-shadow: 0 20px 46px -12px rgba(25, 63, 164, 0.15),
+                0 0 0 1.5px #c5d3f7,
+                inset 0 3px 6px #ffffff !important;
+}
+.feat-card::before {
+    height: 6px !important;
+    background: linear-gradient(90deg, #193fa4, #1a41ad, #2b5be0) !important;
+    transform: scaleX(1) !important;
+}
+.feat-card:hover, .step-card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 28px 58px -12px rgba(25, 63, 164, 0.28),
+                0 0 0 2.5px #1a44b5,
+                inset 0 3px 6px #ffffff !important;
+}
+.feat-ico {
+    width: 66px !important;
+    height: 66px !important;
+    border-radius: 20px !important;
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border: 2.5px solid #ffffff !important;
+    box-shadow: 0 12px 26px rgba(25, 63, 164, 0.32),
+                0 0 0 3px rgba(26, 68, 181, 0.22),
+                inset 0 2px 3px rgba(255, 255, 255, 0.40) !important;
+}
+.step-num {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 22px rgba(25, 63, 164, 0.34) !important;
+}
+.step-ico {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 18px !important;
+    background: linear-gradient(135deg, #eef2fe 0%, #dbe4fc 100%) !important;
+    border: 1.5px solid #bfd0fa !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 28px !important;
+}
+.cta-box {
+    background-color: #1a41ad !important;
+    background-image:
+        radial-gradient(circle at 15% 20%, rgba(68, 114, 242, 0.45) 0%, transparent 42%),
+        radial-gradient(circle at 85% 80%, rgba(11, 28, 77, 0.48) 0%, transparent 48%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px, 100% 100% !important;
+    border: 3px solid #ffffff !important;
+    border-radius: 36px !important;
+    box-shadow: 0 28px 64px -12px rgba(25, 63, 164, 0.42),
+                0 0 0 1.5px rgba(26, 68, 181, 0.45),
+                inset 0 3px 6px rgba(255, 255, 255, 0.45) !important;
+}
+.cta-box p { color: rgba(255, 255, 255, 0.92) !important; }
+.btn-white {
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    color: #193fa4 !important;
+    border: 2px solid #bfd0fa !important;
+    box-shadow: 0 14px 32px rgba(11, 28, 77, 0.28), inset 0 2px 3px #ffffff !important;
+}
+
+/* Steps Bar in results.html */
+.steps-bar {
+    width: min(1040px, 92%) !important;
+    margin: 12px auto 4px !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(22px) saturate(180%) !important;
+    padding: 9px 16px !important;
+    border-radius: 999px !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 14px 36px -8px rgba(25, 63, 164, 0.16), 0 0 0 1.5px rgba(26, 68, 181, 0.30) !important;
+}
+.steps-bar .step-pill {
+    color: #284285 !important;
+    background: linear-gradient(180deg, #f4f7fe 0%, #e6ecfc 100%) !important;
+    border: 1.5px solid #cbd7f7 !important;
+    border-radius: 999px !important;
+}
+.steps-bar .step-pill.active {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+    box-shadow: 0 8px 20px rgba(25, 63, 164, 0.38) !important;
+}
+.steps-bar .step-connector { background: #cbd7f7 !important; }
+
+/* 4. 3D SCULPTED WHITE BENTO CARDS */
+.card, .section-card, .write-card, .overview-card, .quick-card, .form-card, .auth-card, .dx-panel, .axis-block, .file-card, .case-card, .stage, .panel, .block:not(section), .ref-card, .metric, .question-card, .plan, .trust-card, .faq-item, .stat, .reassess-card, .pay-form, .amount-section {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(246, 249, 255, 0.96) 100%) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 28px !important;
+    box-shadow: 0 18px 42px -10px rgba(25, 63, 164, 0.13),
+                0 4px 12px rgba(25, 63, 164, 0.06),
+                0 0 0 1.5px rgba(191, 208, 250, 0.85),
+                inset 0 2px 4px #ffffff !important;
+    transition: all 0.3s cubic-bezier(.34,1.56,.64,1) !important;
+}
+.card:hover, .section-card:hover, .file-card:hover, .case-card:hover, .axis-block:hover, .plan:hover, .trust-card:hover, .pay-form:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 24px 50px -10px rgba(25, 63, 164, 0.22),
+                0 0 0 2px #1a44b5,
+                inset 0 2px 4px #ffffff !important;
+}
+
+/* ==========================================================================
+   BESPOKE REDESIGN FOR PROFILE.HTML (ROYAL COBALT 2-COLUMN BENTO)
+   ========================================================================== */
+.profile-section {
+    max-width: 1180px !important;
+    margin: 0 auto 48px !important;
+    padding: 0 20px !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 24px !important;
+    align-items: stretch !important;
+}
+.profile-section .card {
+    margin-bottom: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+.profile-section .card:nth-child(5) {
+    grid-column: 1 / -1 !important;
+}
+.profile-section .card-header {
+    margin: 12px 12px 0 !important;
+    padding: 16px 20px !important;
+    border-radius: 20px !important;
+    background: linear-gradient(135deg, #eef2fe 0%, #dbe4fc 100%) !important;
+    border: 1.5px solid #bfd0fa !important;
+    box-shadow: inset 0 1px 0 #ffffff !important;
+}
+.profile-section .card-header .icon {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 16px !important;
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 18px rgba(25, 63, 164, 0.30), inset 0 2px 2px rgba(255, 255, 255, 0.45) !important;
+}
+.profile-section .card-header .icon svg {
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+}
+.profile-section .card-title {
+    color: #0b1c4d !important;
+    font-size: 1.12rem !important;
+    font-weight: 900 !important;
+}
+.profile-section .card-subtitle { color: #455a94 !important; }
+.profile-section .card-body {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 22px 24px 24px !important;
+}
+.profile-section .card-body > .btn { margin-top: auto !important; }
+.avatar {
+    width: 112px !important;
+    height: 112px !important;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(43, 91, 224, 0.35)) !important;
+    border: 4px solid #ffffff !important;
+    box-shadow: 0 14px 34px rgba(11, 28, 77, 0.36), 0 0 0 6px rgba(255, 255, 255, 0.18) !important;
+}
+.avatar-upload {
+    background: linear-gradient(135deg, #2b5be0, #193fa4) !important;
+    border: 2.5px solid #ffffff !important;
+}
+.lang-option {
+    background: linear-gradient(180deg, #f5f8ff 0%, #e8eeff 100%) !important;
+    border: 1.5px solid #cbd7f7 !important;
+    border-radius: 18px !important;
+    box-shadow: inset 0 1px 0 #ffffff !important;
+}
+.lang-option.active {
+    background: linear-gradient(135deg, #e3eafd 0%, #bfd0fa 100%) !important;
+    border: 2px solid #193fa4 !important;
+    box-shadow: 0 10px 24px rgba(25, 63, 164, 0.18), inset 0 1px 0 #ffffff !important;
+}
+.lang-option.active::after {
+    background: linear-gradient(135deg, #193fa4, #2b5be0) !important;
+}
+@media(max-width: 860px) {
+    .profile-section { grid-template-columns: 1fr !important; }
+    .profile-section .card:nth-child(5) { grid-column: auto !important; }
+}
+
+/* ==========================================================================
+   BESPOKE REDESIGN FOR PAYMENT.HTML (ROYAL COBALT EDAHABIA)
+   ========================================================================== */
+.payment-wrap {
+    max-width: 1240px !important;
+    margin: 0 auto !important;
+    padding: 4px 20px 48px !important;
+}
+.pay-header {
+    width: 100% !important;
+    margin: 14px auto 28px !important;
+}
+.pay-grid {
+    max-width: 1180px !important;
+    margin: 0 auto !important;
+    gap: 28px !important;
+}
+.card-golden {
+    background-color: #193fa4 !important;
+    background-image:
+        radial-gradient(circle at 82% 18%, rgba(245, 212, 122, 0.28) 0%, transparent 45%),
+        radial-gradient(circle at 15% 85%, rgba(68, 114, 242, 0.35) 0%, transparent 50%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(135deg, #0b1c4d 0%, #193fa4 48%, #1a41ad 80%, #1a44b5 100%) !important;
+    background-size: 100% 100%, 100% 100%, 24px 24px, 24px 24px, 100% 100% !important;
+    border-radius: 28px !important;
+    border: 2.5px solid rgba(245, 212, 122, 0.65) !important;
+    box-shadow: 0 26px 56px -12px rgba(11, 28, 77, 0.45),
+                0 0 0 4px rgba(255, 255, 255, 0.8),
+                inset 0 2px 5px rgba(255, 255, 255, 0.35) !important;
+    transform: none !important;
+}
+.card-golden:hover {
+    transform: translateY(-5px) scale(1.01) !important;
+}
+.amount-section {
+    padding: 24px 26px !important;
+    margin-top: 22px !important;
+}
+.amount-label, .amount-total-label {
+    color: #455a94 !important;
+    font-weight: 800 !important;
+}
+.amount-value {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #2b5be0 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+.amount-total-value {
+    color: #0b1c4d !important;
+    font-size: 1.35rem !important;
+    font-weight: 900 !important;
+}
+.amount-period {
+    color: #193fa4 !important;
+    font-weight: 700 !important;
+}
+.amount-divider {
+    background: linear-gradient(90deg, transparent, #bfd0fa, transparent) !important;
+}
+.pay-form h2 {
+    background: linear-gradient(135deg, #eef2fe 0%, #dbe4fc 100%) !important;
+    border: 1.5px solid #bfd0fa !important;
+    padding: 14px 18px !important;
+    border-radius: 20px !important;
+    color: #0b1c4d !important;
+    margin-bottom: 22px !important;
+}
+.pay-form h2 .icon {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border-radius: 14px !important;
+    box-shadow: 0 6px 14px rgba(25, 63, 164, 0.30) !important;
+}
+.btn-pay {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border-radius: 999px !important;
+    border: 2px solid rgba(255, 255, 255, 0.85) !important;
+    box-shadow: 0 12px 28px rgba(25, 63, 164, 0.38),
+                inset 0 2px 3px rgba(255, 255, 255, 0.50) !important;
+}
+.btn-pay:hover {
+    transform: translateY(-2px) scale(1.01) !important;
+    box-shadow: 0 16px 36px rgba(25, 63, 164, 0.48) !important;
+}
+.pay-features {
+    background: linear-gradient(180deg, #f2f5fe 0%, #e6ecfc 100%) !important;
+    border: 1.5px solid #bfd0fa !important;
+    border-radius: 20px !important;
+}
+.pay-features h4 { color: #0b1c4d !important; }
+.pay-features li { color: #1f346e !important; font-weight: 700 !important; }
+.pay-features li::before {
+    background: linear-gradient(135deg, #193fa4, #2b5be0) !important;
+}
+
+/* Summary Card & Form Card Header Contrast in patient.html / patient-severity.html */
+.summary-card, .main-diag {
+    background:
+        radial-gradient(circle at 18% 15%, rgba(68, 114, 242, 0.38) 0%, transparent 45%),
+        linear-gradient(150deg, #122d7a 0%, #193fa4 45%, #1a41ad 78%, #1a44b5 100%) !important;
+    border: 2.5px solid #ffffff !important;
+    border-radius: 28px !important;
+    box-shadow: 0 22px 50px -10px rgba(25, 63, 164, 0.38),
+                0 0 0 1.5px rgba(26, 68, 181, 0.42),
+                inset 0 2px 4px rgba(255, 255, 255, 0.40) !important;
+    color: #ffffff !important;
+}
+.form-card-header {
+    background: linear-gradient(135deg, #eef2fe 0%, #dbe4fc 100%) !important;
+    border-bottom: 1.5px solid #bfd0fa !important;
+    padding: 18px 24px !important;
+}
+.form-card-header .pfh-avatar {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 55%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 16px rgba(25, 63, 164, 0.32) !important;
+}
+.form-card-header .pfh-name { color: #0b1c4d !important; }
+.form-card-header .pfh-sub { color: #455a94 !important; }
+.form-card-header .pfh-file-num {
+    background: #ffffff !important;
+    color: #193fa4 !important;
+    border: 1.5px solid #93aff5 !important;
+    box-shadow: 0 2px 8px rgba(25, 63, 164, 0.10) !important;
+}
+.pm-head {
+    background: linear-gradient(135deg, #122d7a 0%, #193fa4 55%, #1a44b5 100%) !important;
+}
+
+/* 5. CREATIVE BENTO REDESIGN FOR TOOLS.HTML & TOOLS-SEVERITY-SCALE.HTML */
+.pricing-section, .faq-section, .trust-section {
+    background: transparent !important;
+}
+.tools-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    max-width: 1240px !important;
+    gap: 22px !important;
+}
+.tool-card.teal {
+    grid-column: 2 / 3 !important;
+    max-width: none !important;
+}
+@media(max-width: 1020px) {
+    .tools-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    .tool-card.teal { grid-column: 1 / -1 !important; max-width: 480px !important; }
+}
+@media(max-width: 640px) {
+    .tools-grid { grid-template-columns: 1fr !important; }
+    .tool-card.teal { grid-column: auto !important; max-width: none !important; }
+}
+
+.tool-card, .scale-card {
+    background: linear-gradient(180deg, #ffffff 0%, #f6f9ff 100%) !important;
+    border: 2.5px solid #ffffff !important;
+    border-radius: 30px !important;
+    box-shadow: 0 20px 46px -12px rgba(25, 63, 164, 0.16),
+                0 0 0 1.5px #c5d3f7,
+                inset 0 3px 6px #ffffff !important;
+    overflow: hidden !important;
+}
+.tool-card:hover, .scale-card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 28px 60px -12px rgba(25, 63, 164, 0.28),
+                0 0 0 2.5px #1a44b5,
+                inset 0 3px 6px #ffffff !important;
+}
+.tool-card .tool-card-bg, .scale-card .scale-card-bg {
+    background:
+        radial-gradient(circle at 50% 0%, rgba(26, 68, 181, 0.12) 0%, transparent 65%),
+        linear-gradient(180deg, #ffffff 0%, #f2f6ff 100%) !important;
+}
+/* Floating 3D Inset Capsule Banner in exact swatch color (#193fa4 -> #1a41ad -> #1a44b5) */
+.tool-card .tool-card-wave, .scale-card .scale-card-wave {
+    clip-path: none !important;
+    height: 82px !important;
+    top: 12px !important;
+    left: 12px !important;
+    right: 12px !important;
+    border-radius: 22px !important;
+    background-color: #1a41ad !important;
+    background-image:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.30) 0%, transparent 50%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    background-size: 100% 100%, 20px 20px, 20px 20px, 100% 100% !important;
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.45),
+                0 8px 20px rgba(25, 63, 164, 0.22) !important;
+    opacity: 1 !important;
+}
+.tool-card .tool-icon {
+    width: 82px !important;
+    height: 82px !important;
+    margin-top: 14px !important;
+    border-radius: 24px !important;
+    background: linear-gradient(145deg, #ffffff 0%, #eef2fe 100%) !important;
+    border: 3px solid #ffffff !important;
+    box-shadow: 0 14px 28px rgba(25, 63, 164, 0.24),
+                0 0 0 4px rgba(26, 68, 181, 0.22),
+                inset 0 2px 4px #ffffff !important;
+}
+.tool-card:hover .tool-icon {
+    transform: scale(1.08) rotate(-4deg) !important;
+}
+.tool-card h3, .scale-card h3 {
+    color: #0b1c4d !important;
+}
+.tool-card .tool-card-line, .scale-card .scale-card-line {
+    background: linear-gradient(90deg, #2b5be0, #193fa4) !important;
+    height: 4px !important;
+    width: 48px !important;
+    border-radius: 99px !important;
+}
+.tool-card .tool-step {
+    background: linear-gradient(180deg, #f8faff 0%, #eef2fe 100%) !important;
+    border: 1.5px solid #cbd7f7 !important;
+    border-radius: 14px !important;
+    color: #11286b !important;
+    box-shadow: inset 0 1px 0 #ffffff !important;
+}
+.tool-card .tool-step-icon {
+    background: linear-gradient(135deg, #2b5be0, #193fa4) !important;
+    color: #ffffff !important;
+    border-radius: 9px !important;
+    box-shadow: 0 4px 10px rgba(25, 63, 164, 0.25) !important;
+}
+.tool-card .tool-btn, .scale-card .scale-btn, .builder-cta {
+    background: linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border-radius: 999px !important;
+    border: 2px solid rgba(255, 255, 255, 0.85) !important;
+    box-shadow: 0 10px 24px rgba(25, 63, 164, 0.34),
+                inset 0 2px 3px rgba(255, 255, 255, 0.45) !important;
+}
+.scale-card .scale-clipboard {
+    margin-top: 12px !important;
+    border-color: #bfd0fa !important;
+    border-radius: 24px !important;
+    box-shadow: 0 16px 34px rgba(25, 63, 164, 0.20), inset 0 2px 3px #ffffff !important;
+}
+.scale-card .scale-clipboard::before {
+    background: linear-gradient(90deg, #2b5be0, #193fa4) !important;
+}
+.scale-card .scale-clipboard-icon, .scale-card .scale-card-circle {
+    background: linear-gradient(135deg, #2b5be0, #193fa4) !important;
+    box-shadow: 0 6px 16px rgba(25, 63, 164, 0.30) !important;
+}
+.scale-card .scale-card-circle {
+    top: 24px !important;
+    left: 24px !important;
+    width: 48px !important;
+    height: 48px !important;
+    border: 2px solid rgba(255, 255, 255, 0.65) !important;
+}
+.scale-card .scale-clipboard-line { background: #cbd7f7 !important; }
+.scale-card .scale-check { background: #1a41ad !important; }
+.scale-card .en-name, .scale-card .scale-card-dots { color: #193fa4 !important; }
+
+/* 6. PATIENT-FILE.HTML DOSSIER SHELL */
+.file-shell {
+    background: linear-gradient(180deg, #e6ecfc 0%, #d8e2fb 60%, #cad7f9 100%) !important;
+    border: 2.5px solid #ffffff !important;
+    border-radius: 18px 32px 32px 32px !important;
+    box-shadow: 0 26px 60px -12px rgba(25, 63, 164, 0.22),
+                0 0 0 1.5px #b6c8f9,
+                inset 0 3px 6px rgba(255, 255, 255, 0.9) !important;
+}
+.file-shell::before {
+    color: #ffffff !important;
+    background: linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    border: 2px solid #ffffff !important;
+    border-bottom: none !important;
+    border-radius: 18px 18px 0 0 !important;
+    box-shadow: 0 -6px 18px rgba(25, 63, 164, 0.28) !important;
+}
+.file-shell::after {
+    background: repeating-linear-gradient(90deg, #8aa7f5 0 10px, transparent 10px 20px) !important;
+}
+.file-shell .card {
+    background: linear-gradient(180deg, #ffffff 0%, #f8faff 100%) !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 12px 28px rgba(25, 63, 164, 0.10) !important;
+}
+.file-shell .card-title {
+    color: #0b1c4d !important;
+    border-bottom: 1.5px dashed #bfd0fa !important;
+}
+.file-shell .info-item, .file-shell .stat, .file-shell .sess, .file-shell .interview-item {
+    background: #f4f7fe !important;
+    border: 1.5px solid #cbd7f7 !important;
+}
+.file-shell .interview-item { border-inline-start: 4px solid #1a41ad !important; }
+.file-shell .info-item .k, .file-shell .stat .sl, .file-shell .sess-date, .file-shell .interview-date { color: #455a94 !important; }
+.file-shell .info-item .v, .file-shell .sess-scale, .file-shell .interview-title, .file-shell .field-label { color: #0b1c4d !important; }
+.file-shell .stat .sv { color: #193fa4 !important; }
+.file-shell .sess-num { background: linear-gradient(135deg, #2b5be0, #193fa4) !important; }
+.file-shell .btn-primary {
+    background: linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    box-shadow: 0 8px 22px rgba(25, 63, 164, 0.34) !important;
+}
+.file-shell .btn-soft, .file-shell .chip:not(.sev) {
+    background: #eaeffd !important;
+    color: #193fa4 !important;
+    border-color: #bfd0fa !important;
+}
+
+/* 7. TACTILE 3D INPUTS, BUTTONS, PILLS, & TABLES ACROSS ALL PAGES */
+input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="date"], input[type="tel"], input[type="time"], select, textarea, .form-input, .search-input, .sort-select, .symptoms-area, .notes-area, .scale-search, .pay-form .field input {
+    background: linear-gradient(180deg, #f4f7fe 0%, #ffffff 100%) !important;
+    border: 1.5px solid #c5d3f7 !important;
+    border-radius: 16px !important;
+    color: #0b1c4d !important;
+    box-shadow: inset 0 2px 5px rgba(25, 63, 164, 0.06), 0 1px 0 #ffffff !important;
+    font-family: 'Tajawal', 'Readex Pro', 'Cairo', sans-serif !important;
+}
+input:focus, select:focus, textarea:focus, .form-input:focus, .search-input:focus, .sort-select:focus, .symptoms-area:focus, .notes-area:focus, .scale-search:focus, .pay-form .field input:focus {
+    background: #ffffff !important;
+    border-color: #1a44b5 !important;
+    box-shadow: 0 8px 22px rgba(26, 65, 173, 0.16), 0 0 0 4px rgba(26, 68, 181, 0.18) !important;
+    outline: none !important;
+}
+
+/* All Primary Buttons Unified in Exact Swatch Royal Cobalt (#193fa4 -> #1a41ad -> #1a44b5) */
+.btn-primary, .btn-primary2, .auth-btn, .btn-analyze, .btn-save-test, .act-btn.primary-solid, .act-btn.save, .dx-btn:not(.ghost), .fbtn.open, .btn-test, .action-btn.primary, .fill-modal-btn.primary, .btn-gen, .rem-btn.solid, .btn-main, .plan:not(.golden) .btn-buy, .cta-btn {
+    background: linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border-radius: 999px !important;
+    border: 2px solid rgba(255, 255, 255, 0.85) !important;
+    box-shadow: 0 10px 24px rgba(25, 63, 164, 0.36),
+                inset 0 2px 3px rgba(255, 255, 255, 0.45) !important;
+}
+.btn-primary:hover, .btn-primary2:hover, .auth-btn:hover, .btn-analyze:hover, .btn-save-test:hover, .act-btn.primary-solid:hover, .dx-btn:not(.ghost):hover, .fbtn.open:hover, .btn-test:hover, .btn-gen:hover, .rem-btn.solid:hover, .btn-main:hover, .plan:not(.golden) .btn-buy:hover {
+    transform: translateY(-2px) scale(1.01) !important;
+    box-shadow: 0 14px 32px rgba(25, 63, 164, 0.48),
+                inset 0 2px 4px rgba(255, 255, 255, 0.60) !important;
+}
+
+/* Tactile 3D Answer & Option Pills */
+.answers-row button, .q-opt, .sel-opt, .step-pill {
+    border-radius: 16px !important;
+    border: 1.5px solid #cbd7f7 !important;
+    background: linear-gradient(180deg, #ffffff 0%, #f2f5fe 100%) !important;
+    color: #152f78 !important;
+    box-shadow: 0 4px 10px rgba(25, 63, 164, 0.06), inset 0 1px 0 #ffffff !important;
+}
+.answers-row button:hover, .q-opt:hover, .sel-opt:hover {
+    border-color: #1a44b5 !important;
+    background: #ffffff !important;
+    color: #193fa4 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(26, 65, 173, 0.16) !important;
+}
+.answers-row button.sel, .q-opt.on, .sel-opt.sel, .step-pill.active {
+    background: linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 22px rgba(25, 63, 164, 0.36), inset 0 2px 3px rgba(255, 255, 255, 0.45) !important;
+}
+
+.question-card:has(button.sel), .question-card.answered {
+    border-color: #1a44b5 !important;
+    background: linear-gradient(180deg, #ffffff 0%, #f2f6ff 100%) !important;
+    box-shadow: 0 16px 38px rgba(25, 63, 164, 0.16), 0 0 0 2px #1a44b5 !important;
+}
+.tq-num, .fc-avatar, .score-circle, .auth-ico, .write-icon {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    box-shadow: 0 8px 20px rgba(25, 63, 164, 0.32), inset 0 2px 3px rgba(255, 255, 255, 0.45) !important;
+    color: #ffffff !important;
+}
+
+/* Tabs & Segmented Pills */
+.tabs, .diff-chips, .seg {
+    background: linear-gradient(180deg, #e6ecfc 0%, #dbe4fb 100%) !important;
+    border: 1.5px solid #cbd7f7 !important;
+    border-radius: 999px !important;
+    padding: 5px !important;
+    box-shadow: inset 0 2px 4px rgba(25, 63, 164, 0.08) !important;
+}
+.tab, .diff-chips .chip { border-radius: 999px !important; }
+.tab.active, .diff-chips .chip.active {
+    background: linear-gradient(90deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 16px rgba(25, 63, 164, 0.32), inset 0 1px 2px rgba(255, 255, 255, 0.45) !important;
+}
+
+/* Tables */
+.appt-table th, .ans-table th, .crit-table th, table th {
+    background: linear-gradient(180deg, #ecf1fd 0%, #dfe7fc 100%) !important;
+    color: #0b1c4d !important;
+    border-bottom: 2px solid #b6c8f9 !important;
+}
+
+/* Floating Bottom Action Bars */
+.action-bar, .bottom-bar {
+    width: min(1060px, 94%) !important;
+    margin: 0 auto !important;
+    bottom: 12px !important;
+    border-radius: 999px !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 20px 50px rgba(11, 28, 77, 0.18), 0 0 0 1.5px rgba(26, 68, 181, 0.35) !important;
+}
+
+/* 8. FLOATING 3D ROYAL COBALT FOOTER ISLAND */
+footer, .footer {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 40px auto 24px !important;
+    border-radius: 34px !important;
+    background:
+        radial-gradient(circle at 85% 20%, rgba(68, 114, 242, 0.25) 0%, transparent 45%),
+        linear-gradient(135deg, #0b1c4d 0%, #143185 48%, #193fa4 100%) !important;
+    border: 2.5px solid rgba(255, 255, 255, 0.80) !important;
+    box-shadow: 0 26px 60px -12px rgba(11, 28, 77, 0.36),
+                inset 0 2px 4px rgba(96, 140, 255, 0.35) !important;
+    color: #dbe4fc !important;
+    padding-inline: 28px !important;
+    overflow: hidden !important;
+}
+footer .footer-col a, .footer .footer-col a { color: #b6c8f9 !important; }
+footer .footer-col a:hover, .footer .footer-col a:hover { color: #ffffff !important; }
+
+@media(max-width:640px) {
+    header.nav { top: 8px !important; width: 96% !important; border-radius: 24px !important; }
+    .page-hero, .hero:not(:has(.hero-grid)), .mini-hero, .hero-card, header.page-header, .pay-header {
+        width: 96% !important;
+        border-radius: 24px !important;
+        padding: 24px 16px !important;
+        margin: 12px auto 18px !important;
+    }
+    .hero-grid {
+        width: 96% !important;
+        border-radius: 26px !important;
+        padding: 28px 18px !important;
+    }
+    .action-bar, .bottom-bar {
+        width: 96% !important;
+        border-radius: 24px !important;
+        bottom: 8px !important;
+    }
+    footer, .footer {
+        width: 96% !important;
+        border-radius: 26px !important;
+        padding-inline: 18px !important;
+    }
+}
+
+
+/* ==========================================================================
+   UNIFIED INTERLOCKED BARS + FULL-WIDTH AUTH PORTAL
+   - Top bar (header.nav): Crisp 3D White/Ice Royal Glass (distinct from the dark blue hero bar below!)
+   - Stepper (.progress-nav) + Hero (.page-hero): Interlocked Dark Royal Blue Blueprint-Grid (#193fa4 -> #1a41ad -> #1a44b5)
+   ========================================================================== */
+header.nav {
+    position: sticky !important;
+    top: 10px !important;
+    z-index: 200 !important;
+    width: 97% !important;
+    max-width: none !important;
+    margin: 10px auto 6px !important;
+    border-radius: 24px 24px 12px 12px !important;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, rgba(238, 245, 255, 0.96) 100%) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 2.5px solid #ffffff !important;
+    box-shadow: 0 14px 34px -10px rgba(25, 63, 164, 0.18),
+                0 0 0 1.5px rgba(25, 63, 164, 0.22),
+                inset 0 2px 4px #ffffff !important;
+    padding: 0 14px !important;
+}
+header.nav .nav-inner,
+header.nav .container.nav-inner {
+    height: 74px !important;
+    padding-inline: 24px !important;
+    width: 100% !important;
+    max-width: none !important;
+}
+header.nav .brand-logo {
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 8px 20px rgba(25, 63, 164, 0.30),
+                0 0 0 3px rgba(25, 63, 164, 0.16) !important;
+}
+header.nav .brand-name {
+    background: linear-gradient(135deg, #0b1c4d 0%, #193fa4 55%, #2563eb 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    filter: none !important;
+}
+header.nav .brand-sub {
+    color: #455a94 !important;
+}
+header.nav .nav-links {
+    background: linear-gradient(180deg, #edf3ff 0%, #dfeafd 100%) !important;
+    border: 1.5px solid #c5d5f8 !important;
+    padding: 5px 8px !important;
+    border-radius: 999px !important;
+    gap: 6px !important;
+    box-shadow: inset 0 2px 4px rgba(25, 63, 164, 0.08), 0 1px 0 #ffffff !important;
+}
+header.nav .nav-links a {
+    color: #152f78 !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+    padding: 7px 16px !important;
+    border-radius: 999px !important;
+    text-shadow: none !important;
+}
+header.nav .nav-links a:hover {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 14px rgba(25, 63, 164, 0.28) !important;
+}
+header.nav .nav-cta, header.nav .btn-primary.nav-cta {
+    background: linear-gradient(135deg, #193fa4 0%, #1a41ad 50%, #1a44b5 100%) !important;
+    color: #ffffff !important;
+    border-radius: 999px !important;
+    padding: 10px 26px !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 8px 20px rgba(25, 63, 164, 0.32),
+                inset 0 2px 3px rgba(255, 255, 255, 0.35) !important;
+}
+header.nav .nav-cta:hover {
+    background: linear-gradient(135deg, #143388 0%, #193fa4 100%) !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) scale(1.02) !important;
+}
+
+/* Middle Interlocked Stepper Bar (.progress-nav & .steps-bar) — Docked directly onto .page-hero in Dark Royal Blue Blueprint */
+nav.progress-nav, .progress-nav, .steps-bar {
+    position: relative !important;
+    top: auto !important;
+    width: 97% !important;
+    max-width: none !important;
+    margin: 0 auto !important;
+    border-radius: 24px 24px 0 0 !important;
+    background-color: #183b9e !important;
+    background-image:
+        radial-gradient(circle at 15% 50%, rgba(68, 114, 242, 0.35) 0%, transparent 45%),
+        radial-gradient(circle at 85% 50%, rgba(11, 28, 77, 0.40) 0%, transparent 45%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, #163692 0%, #193fa4 50%, #163692 100%) !important;
+    background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px, 100% 100% !important;
+    padding: 12px 24px !important;
+    border-top: 2.5px solid rgba(255, 255, 255, 0.90) !important;
+    border-left: 2.5px solid rgba(255, 255, 255, 0.90) !important;
+    border-right: 2.5px solid rgba(255, 255, 255, 0.90) !important;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+    box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.28) !important;
+}
+.progress-nav .nav-steps {
+    max-width: 100% !important;
+    width: 100% !important;
+    justify-content: center !important;
+    gap: 12px !important;
+}
+.progress-nav .step, .steps-bar .step-pill {
+    color: #dbeafe !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+    border-radius: 999px !important;
+}
+.progress-nav .step.completed {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.18) !important;
+    border-color: rgba(255, 255, 255, 0.52) !important;
+}
+.progress-nav .step .step-icon,
+.progress-nav .step.completed .step-icon {
+    background: rgba(255, 255, 255, 0.24) !important;
+    color: #ffffff !important;
+}
+.progress-nav .step.active, .steps-bar .step-pill.active {
+    background: #ffffff !important;
+    color: #193fa4 !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 8px 24px rgba(11, 28, 77, 0.40) !important;
+}
+.progress-nav .step.active .step-icon {
+    background: linear-gradient(135deg, #193fa4, #1a44b5) !important;
+    color: #ffffff !important;
+}
+.progress-nav .step-connector, .steps-bar .step-connector {
+    background: rgba(255, 255, 255, 0.35) !important;
+    width: 34px !important;
+}
+
+/* Hero Banner (.page-hero, header.page-header, .hero-card, .mini-hero, .hero) */
+.page-hero, .hero:not(:has(.hero-grid)), .mini-hero, .hero-card, header.page-header {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 0 auto 24px !important;
+    border-radius: 14px 14px 30px 30px !important;
+    border: 2.5px solid rgba(255, 255, 255, 0.90) !important;
+    box-shadow: 0 24px 52px -12px rgba(25, 63, 164, 0.42),
+                inset 0 -4px 12px rgba(11, 28, 77, 0.40) !important;
+}
+
+/* When .page-hero / header.page-header / .hero-card immediately follows .progress-nav, fuse them seamlessly! */
+.progress-nav + .page-hero,
+.progress-nav + header.page-header,
+.progress-nav + .hero-card,
+.progress-nav + .mini-hero,
+.steps-bar + .page-hero {
+    border-radius: 0 0 30px 30px !important;
+    border-top: none !important;
+}
+
+/* For payment.html where .pay-header is inside .payment-wrap */
+.payment-wrap {
+    max-width: none !important;
+    width: 100% !important;
+    padding-top: 0 !important;
+}
+.pay-header {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 0 auto 24px !important;
+    border-radius: 14px 14px 30px 30px !important;
+}
+.pay-grid {
+    max-width: 1140px !important;
+    margin: 0 auto !important;
+}
+
+/* ==========================================================================
+   FULL-WIDTH 2-COLUMN CLINICAL AUTH PORTAL FOR LOGIN.HTML & REGISTER.HTML
+   ========================================================================== */
+.auth-wrap {
+    width: 97% !important;
+    max-width: none !important;
+    margin: 6px auto 28px !important;
+    padding: 0 !important;
+    display: grid !important;
+    grid-template-columns: 1.05fr 0.95fr !important;
+    gap: 22px !important;
+    align-items: stretch !important;
+    min-height: calc(100vh - 120px) !important;
+}
+.auth-showcase {
+    background-color: #1a41ad !important;
+    background-image:
+        radial-gradient(circle at 12% 20%, rgba(68, 114, 242, 0.42) 0%, transparent 40%),
+        radial-gradient(circle at 88% 80%, rgba(11, 28, 77, 0.48) 0%, transparent 48%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(135deg, #15358e 0%, #193fa4 50%, #1a44b5 100%) !important;
+    background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px, 100% 100% !important;
+    border: 2.5px solid rgba(255, 255, 255, 0.92) !important;
+    border-radius: 30px !important;
+    padding: 42px 40px !important;
+    color: #ffffff !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    gap: 28px !important;
+    box-shadow: 0 24px 54px -12px rgba(25, 63, 164, 0.40),
+                inset 0 3px 6px rgba(255, 255, 255, 0.40) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+.as-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: rgba(255, 255, 255, 0.16) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+    color: #ffffff !important;
+    padding: 7px 18px !important;
+    border-radius: 999px !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    margin-bottom: 20px !important;
+}
+.as-brand-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 18px !important;
+}
+.as-logo {
+    width: 74px !important;
+    height: 74px !important;
+    border-radius: 22px !important;
+    object-fit: cover !important;
+    border: 3px solid #ffffff !important;
+    box-shadow: 0 12px 28px rgba(11, 28, 77, 0.40) !important;
+    flex-shrink: 0 !important;
+}
+.as-brand-row h2 {
+    font-size: clamp(24px, 2.5vw, 32px) !important;
+    font-weight: 900 !important;
+    color: #ffffff !important;
+    margin-bottom: 6px !important;
+}
+.as-brand-row p {
+    font-size: 15px !important;
+    color: #dbeafe !important;
+    line-height: 1.75 !important;
+    font-weight: 600 !important;
+}
+.as-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+}
+.as-item {
+    background: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.30) !important;
+    border-radius: 22px !important;
+    padding: 18px 18px !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 14px !important;
+    transition: transform 0.25s ease, background 0.25s ease !important;
+}
+.as-item:hover {
+    transform: translateY(-3px) !important;
+    background: rgba(255, 255, 255, 0.18) !important;
+}
+.as-ico {
+    width: 46px !important;
+    height: 46px !important;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.22) !important;
+    border: 1px solid rgba(255, 255, 255, 0.45) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 22px !important;
+    flex-shrink: 0 !important;
+}
+.as-item b {
+    display: block !important;
+    font-size: 15.5px !important;
+    font-weight: 900 !important;
+    color: #ffffff !important;
+    margin-bottom: 4px !important;
+}
+.as-item span {
+    display: block !important;
+    font-size: 13px !important;
+    color: #dbeafe !important;
+    line-height: 1.65 !important;
+    font-weight: 600 !important;
+}
+.as-foot {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 14px !important;
+    flex-wrap: wrap !important;
+    padding: 14px 20px !important;
+    background: rgba(11, 28, 77, 0.32) !important;
+    border: 1px solid rgba(255, 255, 255, 0.24) !important;
+    border-radius: 18px !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+    color: #e0f2fe !important;
+}
+.auth-card {
+    width: 100% !important;
+    max-width: none !important;
+    border-radius: 30px !important;
+    padding: 42px 44px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+@media (max-width: 1024px) {
+    .auth-wrap {
+        grid-template-columns: 1fr !important;
+    }
+    .as-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+
+/* Circular Logo Harmony */
+.brain-emoji,
+header.nav .brand-logo,
+.brand-logo,
+.footer-brand img,
+.id-brand-logo {
+    border-radius: 50% !important;
+    object-fit: cover !important;
+}
+
+
+/* ==========================================================================
+   NATIVE MOBILE APP EXPERIENCE (@media max-width: 768px ONLY)
+   Desktop (> 768px) remains 100% untouched!
+   ========================================================================== */
+.mobile-app-tabbar {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+    body {
+        padding-bottom: 88px !important;
+    }
+    body:has(.action-bar),
+    body:has(.bottom-bar) {
+        padding-bottom: 175px !important;
+    }
+
+    .container {
+        width: 95% !important;
+        padding-inline: 0 !important;
+    }
+
+    /* 1. Compact Native App Top Bar (header.nav) */
+    header.nav {
+        position: sticky !important;
+        top: 6px !important;
+        width: 95% !important;
+        margin: 6px auto 6px !important;
+        border-radius: 20px !important;
+        padding: 0 10px !important;
+        box-shadow: 0 10px 26px -6px rgba(25, 63, 164, 0.18),
+                    0 0 0 1.5px rgba(25, 63, 164, 0.20) !important;
+    }
+    header.nav .nav-inner,
+    header.nav .container.nav-inner {
+        height: 58px !important;
+        padding-inline: 6px !important;
+        gap: 8px !important;
+    }
+    header.nav .brand {
+        gap: 9px !important;
+    }
+    header.nav .brand-logo {
+        width: 38px !important;
+        height: 38px !important;
+        border-radius: 50% !important;
+    }
+    header.nav .brand-name {
+        font-size: 16.5px !important;
+        letter-spacing: 0 !important;
+    }
+    header.nav .brand-sub {
+        font-size: 9.5px !important;
+        margin-top: 1px !important;
+    }
+    header.nav .nav-links {
+        display: none !important;
+    }
+    header.nav .nav-cta,
+    header.nav .btn-primary.nav-cta {
+        padding: 7px 14px !important;
+        font-size: 12px !important;
+        border-radius: 999px !important;
+        white-space: nowrap !important;
+    }
+
+    /* 2. Native Bottom App Tab Bar (.mobile-app-tabbar) */
+    .mobile-app-tabbar {
+        display: grid !important;
+        grid-template-columns: repeat(5, 1fr) !important;
+        align-items: center !important;
+        position: fixed !important;
+        bottom: 8px !important;
+        left: 2.5% !important;
+        right: 2.5% !important;
+        height: 62px !important;
+        background: rgba(255, 255, 255, 0.96) !important;
+        backdrop-filter: blur(24px) saturate(180%) !important;
+        -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+        border: 2px solid #ffffff !important;
+        border-radius: 22px !important;
+        box-shadow: 0 14px 36px rgba(11, 28, 77, 0.24),
+                    0 0 0 1.5px rgba(25, 63, 164, 0.22),
+                    inset 0 2px 4px #ffffff !important;
+        z-index: 9990 !important;
+        padding: 4px 6px !important;
+        gap: 4px !important;
+    }
+    .mobile-app-tabbar .mat-item {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 2px !important;
+        height: 100% !important;
+        border-radius: 16px !important;
+        text-decoration: none !important;
+        color: #455a94 !important;
+        font-size: 10px !important;
+        font-weight: 800 !important;
+        transition: all 0.22s cubic-bezier(.34,1.56,.64,1) !important;
+    }
+    .mobile-app-tabbar .mat-ico {
+        font-size: 18px !important;
+        line-height: 1.1 !important;
+        transition: transform 0.22s ease !important;
+    }
+    .mobile-app-tabbar .mat-item.active {
+        background: linear-gradient(135deg, #193fa4 0%, #1a41ad 55%, #2563eb 100%) !important;
+        color: #ffffff !important;
+        box-shadow: 0 6px 16px rgba(25, 63, 164, 0.32) !important;
+    }
+    .mobile-app-tabbar .mat-item.active .mat-ico {
+        transform: translateY(-1px) scale(1.06) !important;
+    }
+
+    /* 3. Mobile App Stepper Bar (.progress-nav & .steps-bar) */
+    nav.progress-nav, .progress-nav, .steps-bar {
+        width: 95% !important;
+        padding: 8px 10px !important;
+        border-radius: 18px 18px 0 0 !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    .progress-nav .nav-steps {
+        justify-content: flex-start !important;
+        width: max-content !important;
+        margin: 0 auto !important;
+        gap: 6px !important;
+        padding: 0 4px !important;
+    }
+    .progress-nav .step, .steps-bar .step-pill {
+        padding: 6px 12px !important;
+        font-size: 11.5px !important;
+        gap: 5px !important;
+    }
+    .progress-nav .step span:not(.step-icon) {
+        display: inline !important;
+    }
+    .progress-nav .step .step-icon {
+        width: 22px !important;
+        height: 22px !important;
+        font-size: 10.5px !important;
+    }
+    .progress-nav .step-connector, .steps-bar .step-connector {
+        width: 10px !important;
+    }
+
+    /* 4. Mobile App Hero Banners (.page-hero, header.page-header, .hero-card, .mini-hero, .pay-header) */
+    .page-hero, .hero:not(:has(.hero-grid)), .mini-hero, .hero-card, header.page-header, .pay-header {
+        width: 95% !important;
+        padding: 18px 16px !important;
+        margin: 0 auto 14px !important;
+        border-radius: 16px 16px 24px 24px !important;
+    }
+    .progress-nav + .page-hero,
+    .progress-nav + header.page-header,
+    .progress-nav + .hero-card,
+    .progress-nav + .mini-hero {
+        border-radius: 0 0 24px 24px !important;
+    }
+    .page-hero h1, .hero:not(:has(.hero-grid)) h1, .mini-hero h1, .hero:not(:has(.hero-grid)) .hero-title, .header-title, .hero-left h1, .hero-name, .pay-header h1 {
+        font-size: 20px !important;
+        line-height: 1.35 !important;
+        margin-bottom: 6px !important;
+    }
+    .page-hero p, .hero:not(:has(.hero-grid)) p, .mini-hero p, .hero:not(:has(.hero-grid)) .hero-subtitle, .hero-left p, .pay-header p {
+        font-size: 12.5px !important;
+        line-height: 1.65 !important;
+        margin-bottom: 8px !important;
+    }
+    .breadcrumb {
+        font-size: 11px !important;
+        padding: 4px 12px !important;
+        margin-bottom: 8px !important;
+    }
+    .back-btn, .patients-list-btn, .hero-pill, .header-badge {
+        font-size: 11.5px !important;
+        padding: 6px 14px !important;
+    }
+    header.page-header .header-inner {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 8px !important;
+    }
+
+    /* 5. Landing Page (index.html) App Layout */
+    .hero:has(.hero-grid) {
+        padding: 2px 0 14px !important;
+    }
+    .hero-grid {
+        width: 95% !important;
+        padding: 22px 16px !important;
+        border-radius: 24px !important;
+        gap: 18px !important;
+        grid-template-columns: 1fr !important;
+        text-align: center !important;
+    }
+    .hero:has(.hero-grid) .pill {
+        font-size: 11.5px !important;
+        padding: 8px 14px !important;
+        line-height: 1.55 !important;
+        margin-bottom: 14px !important;
+        border-radius: 16px !important;
+    }
+    h1.hero-title {
+        font-size: 24px !important;
+        line-height: 1.35 !important;
+        margin-bottom: 16px !important;
+    }
+    .hero-btns {
+        flex-direction: column !important;
+        gap: 10px !important;
+        margin-bottom: 4px !important;
+    }
+    .hero-btns .btn {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 13px 20px !important;
+        font-size: 15px !important;
+    }
+    .brain-wrap {
+        width: 150px !important;
+        height: 150px !important;
+        margin: 0 auto !important;
+    }
+    .marquee-band {
+        width: 95% !important;
+        padding: 14px 12px !important;
+        border-radius: 22px !important;
+        margin: 0 auto 18px !important;
+    }
+    .band-inner {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
+    .band-item {
+        padding: 9px 10px !important;
+        font-size: 11.5px !important;
+        border-radius: 16px !important;
+        justify-content: flex-start !important;
+    }
+    .band-item:last-child {
+        grid-column: 1 / -1 !important;
+        justify-content: center !important;
+    }
+    .band-item .bi {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 16px !important;
+    }
+    section.block {
+        padding: 18px 0 !important;
+    }
+    .sec-head {
+        padding: 18px 16px !important;
+        border-radius: 22px !important;
+        margin-bottom: 16px !important;
+    }
+    .sec-head h2 {
+        font-size: 21px !important;
+    }
+    .sec-head p {
+        font-size: 13px !important;
+    }
+    .feat-grid, .steps-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+    .feat-card, .step-card {
+        padding: 20px 16px !important;
+        border-radius: 22px !important;
+    }
+    .cta-box {
+        padding: 26px 16px !important;
+        border-radius: 24px !important;
+    }
+    .cta-box h2 {
+        font-size: 20px !important;
+    }
+    .cta-box p {
+        font-size: 13.5px !important;
+        margin-bottom: 18px !important;
+    }
+    .cta-box .btn-white {
+        width: 100% !important;
+        padding: 14px 20px !important;
+        font-size: 15px !important;
+    }
+    footer, .footer {
+        width: 95% !important;
+        border-radius: 24px !important;
+        padding-inline: 16px !important;
+        margin: 20px auto 10px !important;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        padding: 24px 0 18px !important;
+        text-align: center !important;
+    }
+    .footer-brand {
+        justify-content: center !important;
+    }
+
+    /* 6. Tools & Scales Cards (tools.html & tools-severity-scale.html) */
+    .tools-grid, .scales-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+    .tool-card, .scale-card {
+        border-radius: 22px !important;
+        min-height: auto !important;
+    }
+    .custom-head {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        padding: 14px 16px !important;
+        border-radius: 20px !important;
+    }
+    .scale-search {
+        width: 100% !important;
+    }
+
+    /* 7. Patient Files & Yellow Folders (patient-files.html, patient-file.html, patient.html) */
+    .toolbar {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        padding: 14px !important;
+        border-radius: 20px !important;
+    }
+    .toolbar .tabs {
+        width: 100% !important;
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    .toolbar .tab {
+        text-align: center !important;
+        justify-content: center !important;
+        padding: 8px 6px !important;
+        font-size: 12px !important;
+    }
+    .files-grid {
+        grid-template-columns: 1fr !important;
+        gap: 28px !important;
+        padding-top: 22px !important;
+    }
+    .file-card {
+        padding: 20px 14px 14px !important;
+        border-radius: 10px 22px 22px 22px !important;
+    }
+    .file-card .fc-actions {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
+    .file-card .fbtn.open {
+        grid-column: 1 / -1 !important;
+        padding: 11px !important;
+        font-size: 14px !important;
+    }
+    .file-shell {
+        width: 95% !important;
+        margin: 34px auto 20px !important;
+        padding: 22px 12px 18px !important;
+        border-radius: 12px 24px 24px 24px !important;
+    }
+    .file-shell .card {
+        padding: 16px 14px !important;
+        border-radius: 20px !important;
+    }
+    .file-shell .info-grid,
+    .file-shell .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 8px !important;
+    }
+    .horiz-layout {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+    .form-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    /* 8. Scale Builder, Interview Questions, Diagnosis, Results, Test, Appointments, Profile, Payment */
+    .builder-studio,
+    .dx-split,
+    #dxPanels .dx-cards-grid,
+    #dxPanels .dx-q-grid,
+    #dxPanels .dx-res-grid,
+    #resContent .res-grid-2,
+    .charts-grid,
+    .pay-grid,
+    .profile-section,
+    .pricing-grid,
+    .trust-grid,
+    .auth-wrap {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+    .card, .section-card, .write-card, .overview-card, .quick-card, .form-card, .auth-card, .dx-panel, .pay-form {
+        padding: 18px 14px !important;
+        border-radius: 22px !important;
+    }
+    input, select, textarea {
+        font-size: 15px !important;
+    }
+
+    /* Test & Custom-Test Hero Progress + Floating Bottom Bar above Mobile Tab Bar */
+    .hero-card {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 12px !important;
+        padding: 16px 14px !important;
+    }
+    .action-bar, .bottom-bar {
+        width: 95% !important;
+        bottom: 76px !important;
+        border-radius: 20px !important;
+        padding: 10px 12px !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+    .action-bar .act-btn,
+    .bottom-bar button,
+    .bottom-bar .btn {
+        flex: 1 1 calc(50% - 6px) !important;
+        font-size: 12px !important;
+        padding: 10px 10px !important;
+        justify-content: center !important;
+    }
+    /* 9. Results Page (results.html) & Differential Diagnosis Panels (diagnosis.html) Mobile Harmony */
+    .steps-bar + .page-hero {
+        border-radius: 0 0 24px 24px !important;
+        border-top: none !important;
+    }
+    .steps-bar .container {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        width: max-content !important;
+        min-width: 100% !important;
+        gap: 6px !important;
+        padding-inline: 4px !important;
+        margin: 0 auto !important;
+    }
+    .steps-bar .step-pill {
+        padding: 5px 11px !important;
+        font-size: 11px !important;
+        gap: 5px !important;
+        flex-shrink: 0 !important;
+    }
+    .steps-bar .step-pill .step-ico {
+        width: 22px !important;
+        height: 22px !important;
+        font-size: 11px !important;
+    }
+    .steps-bar .step-connector {
+        width: 10px !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Hero Stats in results.html: Sleek 3-Column Mobile App Bar */
+    .page-hero .hero-stats,
+    .hero-stats {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 8px !important;
+        width: 100% !important;
+        margin-top: 10px !important;
+        align-items: stretch !important;
+    }
+    .page-hero .hero-stat,
+    .hero-stat {
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: none !important;
+        padding: 10px 6px !important;
+        border-radius: 16px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .hero-stat .hs-value {
+        font-size: 15px !important;
+        line-height: 1.25 !important;
+        word-break: break-word !important;
+    }
+    .hero-stat .hs-label {
+        font-size: 10px !important;
+        margin-top: 3px !important;
+        line-height: 1.3 !important;
+    }
+
+    /* Main Content & 2-Column Collapse in results.html */
+    .main-content {
+        padding: 16px 0 36px !important;
+    }
+    #resContent .two-col,
+    .two-col {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+        width: 100% !important;
+    }
+    #resContent .col-main,
+    .col-main {
+        width: 100% !important;
+        order: 1 !important;
+    }
+    #resContent .col-side,
+    .col-side {
+        width: 100% !important;
+        order: 2 !important;
+    }
+
+    /* Primary Diagnosis Card (.main-diag) in results.html */
+    #resContent .main-diag,
+    .main-diag {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 20px 16px !important;
+        gap: 14px !important;
+        border-radius: 24px !important;
+        margin-bottom: 14px !important;
+        width: 100% !important;
+    }
+    #resContent .main-diag .md-circle,
+    .main-diag .md-circle {
+        width: 88px !important;
+        height: 88px !important;
+        border-width: 3.5px !important;
+        margin: 0 auto !important;
+    }
+    #resContent .main-diag .md-circle b,
+    .main-diag .md-circle b {
+        font-size: 24px !important;
+        line-height: 1.1 !important;
+    }
+    #resContent .main-diag .md-circle small,
+    .main-diag .md-circle small {
+        font-size: 11px !important;
+    }
+    #resContent .main-diag .md-text,
+    .main-diag .md-text {
+        min-width: 0 !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+    #resContent .main-diag .md-text h2,
+    .main-diag .md-text h2 {
+        font-size: 18px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 6px !important;
+        word-break: break-word !important;
+    }
+    #resContent .main-diag .md-text p,
+    .main-diag .md-text p {
+        font-size: 12.5px !important;
+        line-height: 1.65 !important;
+    }
+    #resContent .main-diag .md-badge,
+    .main-diag .md-badge {
+        margin-top: 10px !important;
+        padding: 6px 14px !important;
+        font-size: 11.5px !important;
+        border-radius: 999px !important;
+        display: inline-block !important;
+        max-width: 100% !important;
+    }
+
+    /* Section Cards & Differential Section in results.html */
+    #resContent .section-card,
+    #resContent .diff-section {
+        padding: 16px 14px !important;
+        border-radius: 22px !important;
+        margin-bottom: 14px !important;
+        width: 100% !important;
+    }
+    #resContent .section-header,
+    #resContent .diff-section h3 {
+        gap: 10px !important;
+        margin-bottom: 14px !important;
+        padding-bottom: 12px !important;
+        font-size: 15.5px !important;
+    }
+    #resContent .section-icon.blue,
+    #resContent .section-icon.purple,
+    #resContent .section-icon.green,
+    #resContent .section-icon.orange,
+    #resContent .diff-section h3 .section-icon {
+        width: 38px !important;
+        height: 38px !important;
+        border-radius: 12px !important;
+        font-size: 17px !important;
+        flex-shrink: 0 !important;
+    }
+    #resContent .section-title {
+        font-size: 15.5px !important;
+        line-height: 1.35 !important;
+    }
+    #resContent .section-subtitle {
+        font-size: 11.5px !important;
+        line-height: 1.45 !important;
+    }
+    #resContent .diag-row {
+        padding: 14px 12px !important;
+        border-radius: 18px !important;
+        margin-bottom: 12px !important;
+    }
+    #resContent .diag-row .d-top,
+    #resContent .diff-item .d-top {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        align-items: center !important;
+    }
+    #resContent .diag-row .d-name,
+    #resContent .diff-item .d-name {
+        font-size: 13.5px !important;
+        line-height: 1.45 !important;
+        min-width: 0 !important;
+        flex: 1 1 auto !important;
+    }
+    #resContent .diag-row .d-per {
+        font-size: 11.5px !important;
+        padding: 3px 10px !important;
+        flex-shrink: 0 !important;
+    }
+    #resContent .kw-box {
+        gap: 6px !important;
+        margin-top: 10px !important;
+    }
+    #resContent .kw-chip {
+        font-size: 11px !important;
+        padding: 4px 10px !important;
+    }
+
+    /* Excluded Disorders Grid (#diffList) & Scale Selector (.sel-list) in results.html */
+    #resContent #diffList {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+    #resContent .diff-item {
+        padding: 14px 12px !important;
+        border-radius: 16px !important;
+    }
+    #resContent .other-note {
+        padding: 12px 14px !important;
+        font-size: 12px !important;
+        line-height: 1.65 !important;
+        border-radius: 14px !important;
+    }
+    #resContent .sel-list {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+        margin-bottom: 14px !important;
+    }
+    #resContent .sel-opt {
+        padding: 12px 14px !important;
+        font-size: 13px !important;
+        border-radius: 14px !important;
+        width: 100% !important;
+    }
+    #resContent .btn-test {
+        padding: 13px 18px !important;
+        font-size: 14.5px !important;
+        border-radius: 16px !important;
+        width: 100% !important;
+    }
+
+    /* Patient Dossier Sidebar Card (.col-side) in results.html */
+    #resContent .col-side .section-card {
+        padding: 0 14px 16px !important;
+    }
+    #resContent .col-side .section-header {
+        margin: 0 -14px 14px !important;
+        padding: 14px !important;
+    }
+    #resContent .patient-card .p-top {
+        padding: 14px 12px !important;
+        border-radius: 16px !important;
+        gap: 10px !important;
+    }
+    #resContent .patient-card .p-avatar {
+        width: 52px !important;
+        height: 52px !important;
+        font-size: 20px !important;
+        border-radius: 16px !important;
+    }
+    #resContent .action-row {
+        flex-direction: column !important;
+        gap: 10px !important;
+        margin-bottom: 14px !important;
+    }
+    #resContent .action-btn {
+        width: 100% !important;
+        min-width: 0 !important;
+        padding: 13px 16px !important;
+        font-size: 13.5px !important;
+    }
+
+    /* Differential Diagnosis Page (diagnosis.html) & Analysis Result Panels (#dxProgress + #dxPanels) */
+    .content-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+    .write-sub {
+        padding-right: 0 !important;
+        font-size: 12px !important;
+    }
+    .counter-row {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+    #dxProgress.dx-progress {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+        padding: 8px !important;
+        border-radius: 18px !important;
+        width: 100% !important;
+        margin: 0 auto 12px !important;
+    }
+    #dxProgress .dx-pstep {
+        padding: 7px 10px !important;
+        font-size: 11.5px !important;
+        justify-content: flex-start !important;
+        width: 100% !important;
+    }
+    #dxPanels .dx-panel {
+        padding: 18px 14px !important;
+        border-radius: 22px !important;
+        margin-top: 8px !important;
+    }
+    #dxPanels .dx-panel h2 {
+        font-size: 17.5px !important;
+        gap: 8px !important;
+        line-height: 1.35 !important;
+    }
+    #dxPanels .dx-panel h2::before {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 17px !important;
+        border-radius: 11px !important;
+        flex-shrink: 0 !important;
+    }
+    #dxPanels .dx-sub {
+        font-size: 12px !important;
+        line-height: 1.65 !important;
+        margin-bottom: 14px !important;
+    }
+    #dxPanels .dx-reco {
+        padding: 10px 12px !important;
+        gap: 6px !important;
+        border-radius: 16px !important;
+        margin-bottom: 16px !important;
+    }
+    #dxPanels .dx-chip {
+        font-size: 11px !important;
+        padding: 5px 10px !important;
+        white-space: normal !important;
+        line-height: 1.45 !important;
+    }
+    #dxPanels .hypo-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+        margin-bottom: 18px !important;
+    }
+    #dxPanels .hypo-card {
+        border-radius: 22px !important;
+        padding-bottom: 14px !important;
+    }
+    #dxPanels .hypo-card::before {
+        height: 58px !important;
+        margin-bottom: -28px !important;
+    }
+    #dxPanels .hypo-card .hc-ico {
+        width: 56px !important;
+        height: 56px !important;
+        font-size: 26px !important;
+        border-radius: 18px !important;
+    }
+    #dxPanels .hypo-card h3 {
+        font-size: 16px !important;
+        padding: 0 12px !important;
+    }
+    .hc-evidence-box {
+        width: calc(100% - 24px) !important;
+        margin: 10px 12px 0 !important;
+        padding: 10px 12px !important;
+        border-radius: 14px !important;
+    }
+    .dx-live-progress-bar {
+        padding: 12px 14px !important;
+        border-radius: 16px !important;
+        margin-bottom: 14px !important;
+    }
+    .dx-live-top {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        text-align: center !important;
+        gap: 8px !important;
+        font-size: 12px !important;
+    }
+    .dx-quick-fill-btn {
+        width: 100% !important;
+        padding: 8px 12px !important;
+    }
+    #dxPanels .q-list {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+    #dxPanels .q-item {
+        padding: 14px 12px !important;
+        border-radius: 18px !important;
+    }
+    #dxPanels .q-head {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 6px !important;
+        padding: 10px 12px !important;
+    }
+    #dxPanels .q-title {
+        font-size: 13px !important;
+        line-height: 1.5 !important;
+    }
+    #dxPanels .q-opts {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 6px !important;
+        width: 100% !important;
+    }
+    #dxPanels .q-opt {
+        width: 100% !important;
+        text-align: right !important;
+        padding: 9px 12px !important;
+        font-size: 12px !important;
+    }
+    #dxPanels .q-free {
+        flex-direction: column !important;
+        gap: 6px !important;
+        width: 100% !important;
+    }
+    #dxPanels .q-free input {
+        width: 100% !important;
+        padding: 10px 12px !important;
+        font-size: 13px !important;
+    }
+    #dxPanels .q-free button {
+        width: 100% !important;
+        padding: 10px 14px !important;
+        font-size: 12.5px !important;
+    }
+    #dxPanels .final-card {
+        padding: 18px 14px !important;
+        border-radius: 22px !important;
+        margin-bottom: 16px !important;
+        text-align: center !important;
+    }
+    #dxPanels .final-card .fc-top {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 10px !important;
+    }
+    #dxPanels .final-card .fc-ico {
+        width: 60px !important;
+        height: 60px !important;
+        font-size: 28px !important;
+        margin: 0 auto !important;
+    }
+    #dxPanels .final-card h3 {
+        font-size: 17.5px !important;
+        line-height: 1.4 !important;
+    }
+    #dxPanels .final-card .fc-en {
+        text-align: center !important;
+        font-size: 11.5px !important;
+        margin-top: 2px !important;
+    }
+    #dxPanels .final-card .fc-meta {
+        justify-content: center !important;
+        gap: 6px !important;
+        margin-top: 10px !important;
+    }
+    #dxPanels .final-card .fc-tag {
+        font-size: 11px !important;
+        padding: 4px 10px !important;
+    }
+    #dxPanels .dx-list {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+        margin-bottom: 14px !important;
+    }
+    #dxPanels .dx-li {
+        padding: 12px 14px !important;
+        border-radius: 16px !important;
+        font-size: 12px !important;
+        line-height: 1.65 !important;
+    }
+    #dxPanels .dx-actions {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 8px !important;
+        padding-top: 14px !important;
+    }
+    #dxPanels .dx-btn {
+        width: 100% !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 13px 16px !important;
+        font-size: 13.5px !important;
+    }
+
+    /* Interview Questions & Scale Builder Mobile Refinements */
+    .section > .card {
+        padding: 18px 14px !important;
+        border-radius: 22px !important;
+    }
+    .section .q-list {
+        grid-template-columns: 1fr !important;
+        padding: 12px !important;
+        gap: 10px !important;
+    }
+    .builder-wrap .card.manage-bar,
+    .builder-wrap .card.panel {
+        padding: 18px 14px !important;
+        border-radius: 22px !important;
+    }
+
+}
+
+</style>
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="nav">
+      <div class="nav-inner">
+        <a class="brand" href="index.html">
+          <img class="brand-logo" src="logo.jpg" alt="DIAGNO-ASSIST">
+          <span class="brand-text">
+            <span class="brand-name">DIAGNO-ASSIST</span>
+            <span class="brand-sub" data-i18n="brand_sub">للأخصائيين النفسيين</span>
+          </span>
+        </a>
+        <nav class="nav-links">
+          <a href="index.html"><span class="ico">🏠</span> <span data-i18n="nav_home">الرئيسية</span></a>
+          <a href="index.html#how"><span class="ico">🔬</span> <span data-i18n="nav_how">كيف يعمل</span></a>
+          <a href="index.html#features"><span class="ico">🩺</span> <span data-i18n="nav_features">المميزات</span></a>
+          <a href="pricing.html"><span class="ico">💰</span> <span data-i18n="nav_pricing">الأسعار</span></a>
+        </nav>
+        <button class="nav-cta" id="authBtn">تسجيل الدخول</button>
+      </div>
+    </header>
+
+    <nav class="progress-nav">
+        <div class="nav-steps">
+            <a class="step completed" href="patient.html">
+                <span class="step-icon">✓</span>
+                <span>التجهيز</span>
+            </a>
+            <div class="step-connector"></div>
+            <a class="step completed" href="patient.html">
+                <span class="step-icon">👤</span>
+                <span>ملف المريض</span>
+            </a>
+            <div class="step-connector"></div>
+            <a class="step completed" href="diagnosis.html">
+                <span class="step-icon">📊</span>
+                <span>التشخيص الفارقي</span>
+            </a>
+            <div class="step-connector"></div>
+            <a class="step active" href="test.html">
+                <span class="step-icon">🔍</span>
+                <span>المقياس</span>
+            </a>
+            <div class="step-connector"></div>
+            <a class="step" href="charts.html">
+                <span class="step-icon">📈</span>
+                <span>التقرير</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Card - Full Width Sticky -->
+    <div class="hero-card">
+        <div class="hero-progress">
+            <div class="progress-circle-wrap">
+                <svg class="progress-circle-svg" viewBox="0 0 100 100">
+                    <circle class="progress-circle-bg" cx="50" cy="50" r="45"/>
+                    <circle class="progress-circle-fill" id="progressFill" cx="50" cy="50" r="45"/>
+                </svg>
+                <div class="progress-center-text">
+                    <div class="progress-pct" id="progressPct">0%</div>
+                    <div class="progress-pct-label" data-i18n="test_completed">مكتمل</div>
+                </div>
+            </div>
+            <span class="progress-count" id="questCount">0 / 0</span>
+        </div>
+        <div class="hero-left">
+            <h1 data-i18n="test_title">تطبيق الاختبار التشخيصي</h1>
+            <p id="testPatientInfo">المريض: محمد عبد الله — جلسة التشخيص</p>
+            <div class="hero-meta">
+                <div class="hero-tag"><span id="testName">مقياس الطلبة لاضطراب ما بعد الصدمة</span></div>
+                <div class="hero-tag"><span id="testHint">اختر مدى تكرار كل عبارة خلال الشهر الماضي</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-wrapper">
+
+        <!-- Questions Grid -->
+        <div id="questions" class="questions-grid"></div>
+
+        <!-- Results Panel -->
+        <div class="res-panel" id="resPanel">
+            <div class="rp-head">
+                <div class="rp-circle" id="rpCircle">
+                    <b id="rpTotal">0</b>
+                    <small id="rpMax">من 0</small>
+                </div>
+                <div class="rp-info">
+                    <h3 id="rpState">—</h3>
+                    <p id="rpDesc">—</p>
+                </div>
+            </div>
+            <div class="rp-stats">
+                <div><b id="rpAnswered">0</b><span data-i18n="test_answered_count">عدد العبارات المجابة</span></div>
+                <div><b id="rpAvg">0</b><span data-i18n="test_avg_score">متوسط الدرجة لكل عبارة (من 4)</span></div>
+                <div><b id="rpPct">0%</b><span data-i18n="test_max_pct">نسبة الدرجة القصوى</span></div>
+            </div>
+        </div>
+
+        <button class="btn-save-file" id="saveFileBtn" data-i18n="test_save_btn">💾 حفظ الملف (جلسة جديدة) — وعرض الرسوم البيانية</button>
+
+        <div class="note-test" style="margin-top:4px;" data-i18n="test_save_note">
+            💡 تُحسب النتيجة تلقائيًا وتُحفظ في سجل المريض مع الجلسة الحالية.
+        </div>
+
+        <span id="testName2" style="display:none;"></span>
+
+    </div>
+
+    <!-- Fixed Bottom Bar -->
+    <div class="bottom-bar">
+        <div class="bottom-bar-right">
+            <a class="btn-back-test" href="tools-severity-scale.html" data-i18n="test_back">← رجوع</a>
+            <button class="btn-time-test" id="timeBtn" title="ابدأ عدّاد مدة الاختبار — اضغط مرة أخرى لإيقافه">
+                <span>⏱ مدة الاختبار</span>
+                <span class="time-clock" id="timeClock">00:00</span>
+            </button>
+            <button class="btn-save-test" id="calcBtn" data-i18n="test_calc">الحساب المباشر 🧮</button>
+        </div>
+        <div class="bottom-bar-center">
+        </div>
+        <div class="bottom-bar-left">
+            <button class="btn-fill-auto" id="fillAutoBtn" data-i18n="test_fill_auto">⚙️ تعبئة تلقائية (متوسطة)</button>
+            <button class="btn-fill-auto" id="fillHighBtn" data-i18n="test_fill_high">🟢 تعبئة تلقائية (مرتفعة)</button>
+        </div>
+    </div>
+
+    <!-- نافذة إدخال رمز التعبئة التلقائية (بديل عن prompt المحظور في بعض المتصفحات) -->
+    <div class="fill-modal-backdrop" id="fillModal" role="dialog" aria-modal="true" aria-labelledby="fillModalTitle">
+        <div class="fill-modal-card">
+            <div class="fill-modal-icon">🔐</div>
+            <h3 id="fillModalTitle">أدخل الرمز الخاص للتعبئة التلقائية</h3>
+            <p id="fillModalDesc">هذه التعبئة مخصصة للتجربة السريعة. أدخل الرمز للمتابعة.</p>
+            <input type="text" id="fillCodeInput" class="fill-code-input" inputmode="numeric" autocomplete="off" maxlength="8" placeholder="••••">
+            <div class="fill-modal-error" id="fillCodeError">رمز غير صحيح — حاول مرة أخرى.</div>
+            <div class="fill-modal-actions">
+                <button type="button" class="fill-modal-btn primary" id="fillCodeOk">تأكيد</button>
+                <button type="button" class="fill-modal-btn" id="fillCodeCancel">إلغاء</button>
+            </div>
+        </div>
+    </div>
+    <div class="fill-toast" id="fillToast" role="status" aria-live="polite"></div>
+
+    <script src="translations.js"></script>
+    <script src="i18n.js"></script>
+    <script>
+        const ITEMS_PTSD = [
+            'تتقحّم ذاكرتي تفاصيل الحدث الصادم دون رغبة مني',
+            'تباغتني مشاعر العجز التي عشتها أثناء الصدمة وكأنها تحدث الآن',
+            'أشعر بأنني أعيد معايشة الحدث الصادم من جديد',
+            'تتكرر مراودة الذكريات عن الحدث الصادم دون إرادتي',
+            'أجد صعوبة في إخراج تفاصيل الحدث الصادم من رأسي',
+            'تداهمني نوبات من الخوف المفاجئ دون سبب واضح منذ وقوع الصدمة',
+            'تراودني كوابيس تتعلق بالحادث الذي تعرضت له',
+            'تعيد لي الكوابيس مشاعر مرتبطة بالصدمة',
+            'تجتاحني تقلبات مزاجية حادة لا أستطيع السيطرة عليها',
+            'عندما تهاجمني ذكرى الصدمة يختل إدراكي للوقت أو المكان للحظات',
+            'أشعر أن ذكريات الصدمة تلاحقني حتى في لحظات الاسترخاء أو قبل النوم مباشرة',
+            'أشعر فجأة وكأنني أرى الحدث الصدمي الآن بكامل تفاصيله',
+            'أشعر بالذعر لمجرد التفكير في أنني قد أجبر على التحدث عما حدث لي',
+            'أتحاشى مشاهدة الأخبار أو البرامج التي قد تثير ذكريات الصدمة',
+            'أحاول تفادي الأفكار المزعجة التي تذكرني بالحدث',
+            'أقوم بجهد كبير لإشغال نفسي بالعمل أو أي نشاط للهرب من التفكير',
+            'أتهرب بصرامة من المحادثات أو النقاشات التي قد تفتح سيرة الصدمة',
+            'أغير طريقي أو أتجنب الأماكن الجغرافية التي وقعت فيها الصدمة',
+            'أتجنب الأشخاص الذين يذكرونني بالحدث الصادم',
+            'أبذل جهدًا واعيًا لتجنب التفكير في أي شيء يخص الحدث الصادم',
+            'أرفض الحديث عن تفاصيل تجربتي الصادمة للآخرين',
+            'أهملت أشياء أو هوايات كنت أحبها لمجرد أنها باتت مرتبطة في ذهني بذكريات الصدمة',
+            'أبتعد عن الأنشطة التي قد تتقاطع مع تفاصيل صدمتي',
+            'أكتم مشاعري الداخلية بجهد كبير لكي أتجنب الشعور بالألم المرتبط بالحدث',
+            'فقدت القدرة على الشعور بالاستمتاع تجاه الأنشطة التي كنت أستمتع بها قبل الحادثة',
+            'أشعر بالذنب تجاه ما حدث',
+            'ينتابني شعور باليأس تجاه المستقبل',
+            'منذ الحادث الصادم أشعر بالعجز عن التخطيط للمستقبل',
+            'منذ الحادث أصبحت أشعر بالغربة عن الآخرين',
+            'يسيطر عليّ شعور دائم بالترقب وكأن شيئًا ما سيحدث',
+            'أصبحت عاجزًا عن التعبير عن مشاعري تجاه المقربين مني',
+            'أشعر بعدم الارتياح عند رؤية صورة أو شخص مرتبط بالحدث الصادم',
+            'منذ الحادث أجد صعوبة في اتخاذ القرارات البسيطة بوضوح',
+            'يتشتت ذهني دومًا لفترة طويلة منذ الحادثة',
+            'أشعر بالذنب تجاه نجاتي من الحادث',
+            'عجزت عن تذكر أجزاء أو تفاصيل مهمة جدًا من الحدث الصادم',
+            'ألوم نفسي بقسوة على عدم قدرتي على منع الحادث',
+            'تسيطر عليّ مشاعر سلبية كالخوف والرعب والغضب أو الخزي والندم',
+            'فقدت القدرة على عيش المشاعر الإيجابية كالحب والفرح أو الرضا التام',
+            'ينتابني ضيق نفسي شديد إذا مررت بموقف أو سمعت كلمة تذكرني بما حدث',
+            'يستجيب جسدي بعنف (تسارع نبضات، تعرق، ضيق تنفس) عند التعرض لأي مذكّر بالصدمة',
+            'أعيش في حالة تأهب قصوى وترقب دائم للمخاطر كأنني مهدد في كل لحظة',
+            'أعاني من تشتت ذهني حاد وصعوبة بالغة في التركيز على دراستي أو عملي منذ الحادث',
+            'أنفجر غضبًا بشكل مفاجئ دون مبرر كاف',
+            'أشعر برغبة قوية لإيذاء الآخرين جسديًا أو ضرب الأشياء من حولي',
+            'أفزع وأنتفض بعنف من الأصوات المفاجئة أو الحركات غير المتوقعة',
+            'أقوم بتصرفات طائشة أو تدميرية لذاتي منذ الحادث الصدمي',
+            'أشعر بتململ حركي مستمر وعجز تام عن الجلوس بهدوء أو الاسترخاء',
+            'أبدي سلوكيات عدوانية (لفظية أو جسدية) دون مبرر كاف',
+            'أعاني من تشتت ذهني حاد وصعوبة بالغة في التركيز على دراستي أو عملي منذ الحادث',
+            'أجد صعوبة شديدة في الدخول في النوم أو الاستمرار فيه بشكل مريح',
+            'أستيقظ مذعورًا في منتصف الليل مع تسارع في ضربات القلب وضيق في الصدر',
+            'أصبحت سريع الاستثارة والانزعاج من المثيرات البيئية حولي (كالإضاءة أو الضوضاء)',
+            'يراودني قلق مزمن حيال سلامتي الشخصية وسلامة من أحبهم بشكل مبالغ فيه',
+            'أشعر بضغط نفسي جسدي (كغصة في الحلق أو ثقل في الصدر) نتيجة كبت الانفعالات الحادة',
+            'أشعر أنني أصبحت سريع الانفعال على أتفه الأمور بدون سبب واضح',
+            'عندما تجتاحني مشاعر قوية، أعجز عن تهدئة نفسي أو استعادة توازني',
+            'أمر بتقلبات مزاجية سريعة جدًا دون أسباب واضحة لمن حولي',
+            'أعيش حالة من الخدر العاطفي الطويل حيث لا أشعر بأي شيء على الإطلاق',
+            'تخرج انفعالاتي عن السيطرة بشكل يجعلني أشعر بالرعب من نفسي ومن ردود أفعالي',
+            'منذ الحادث، ألجأ لسلوكيات اندفاعية خطرة لكي أهرب من مشاعري عندما أشعر بالحزن أو الضغط',
+            'تمنعني حدة مشاعري من التفكير بعقلانية واتخاذ القرارات السليمة',
+            'صرت أبكي بحرقة حادة في مواقف قد يراها الآخرون عادية أو بسيطة، منذ الحادث الصادم',
+            'أصبحت أواجه صعوبة بالغة في التعبير عما بداخلي من مشاعر',
+            'أتهجم على الآخرين بالكلام الجارح كوسيلة للتنفيس عن غضبي',
+            'ينتابني إحساس بأنني قنبلة قد تنفجر انفعالياً في أي لحظة',
+            'أشعر أن حياتي قد انتهت فعليًا بعد ذلك الحدث الصادم',
+            'أعتقد أنني كنت السبب وراء ما حدث بشكل أو بآخر',
+            'يرافقني شعور بأنني إنسان محطم من الداخل لا يمكن إصلاحي',
+            'يتملكني إحساس بالعار من نفسي بسبب ما مررت به',
+            'أرى نفسي أقل قيمة من أي شخص أتعامل معه',
+            'أشعر أنني تحولت إلى عبء ثقيل على كاهل المحيطين بي وعائلتي',
+            'أجد صعوبة بالغة في مسامحة نفسي على أي خطأ',
+            'أشعر أن شخصيتي الحقيقية قد تلاشت وضاعت بعد الصدمة',
+            'يسيطر عليّ شعور بأنني لا أستحق السعادة أو النجاح أو الحب من الآخرين',
+            'أشعر أنني ضحية',
+            'أشعر بالعجز عن حماية نفسي أو السيطرة على مجريات حياتي',
+            'أشعر بالدونية حتى عندما يمدحني الآخرون',
+            'يتملكني يقين داخلي بأنني شخص غير مرغوب فيه',
+            'تشكلت لدي قناعة سلبية وثابتة بأنني شخص سيء',
+            'منذ الحادث، صرت أحس أنني غير كافٍ',
+            'أجد صعوبة في بناء علاقات مقربة أو حميمية مع أشخاص جدد في حياتي',
+            'أحافظ على مسافة وجدانية وعزلة عن الآخرين حماية لنفسي من التعرض للأذى',
+            'يسيطر عليّ شك من نوايا الآخرين حتى عندما يظهرون لي اللطف',
+            'أعجز عن الشعور بالأمان الوجداني داخل علاقاتي العاطفية أو الأسرية الحالية',
+            'أجد صعوبة في الجلوس أو الاقتراب من أو الاندماج مع الآخرين',
+            'أصبحت أفضل العزلة عن البشر على عناء التعامل معهم',
+            'أنسحب من العلاقة بمجرد أن أشعر أنها أصبحت قريبة أو جادة',
+            'أشعر بالخوف من أن الأشخاص الذين أحبهم سيهجرونني أو يتخلون عني',
+            'أشعر بنفور إذا حاول شخص ما التقرب مني أو إظهار التعاطف معي',
+            'صرت أجد نفسي أدخل في علاقات غير صحية أو مؤذية',
+            'أشعر أن الآخرين عاجزون عن فهم عمق المعاناة التي عشتها',
+            'صرت أنسحب من المناسبات الاجتماعية',
+            'فقدت الثقة في الأشخاص منذ الحادث الصادم'
+        ];
+
+        const ITEMS_MDD = [
+            'شعرت بمسحة من الحزن تخيم على يومي دون وجود سبب واضح',
+            'فقدت الاستمتاع بالأنشطة التي كنت أمارسها سابقًا',
+            'شعرت بفراغ داخلي يصعب عليّ تفسيره',
+            'شعرت برغبة متكررة في البكاء',
+            'لاحظت أن مزاجي يكون في أسوأ حالاته صباحًا عند الاستيقاظ',
+            'يتحسن مزاجي تدريجيًا خلال اليوم بعد أن كان سيئًا في أوله',
+            'لم تعد الهوايات التي أحبها تمنحني المتعة',
+            'شعرت بأن قدرتي على الإحساس بالمشاعر قد تراجعت',
+            'لم تعد الأنباء السارة أو المناسبات السعيدة تحرك مشاعري',
+            'اختفت لديّ مشاعر البهجة',
+            'شعرت بالجفاء من الأشخاص المقربين مني (كالعائلة أو الأصدقاء)',
+            'شعرت بالبرود العاطفي تجاه الأشخاص المقربين',
+            'حدث أن أردت البكاء دون أن أستطيع فعل ذلك',
+            'انتابني إحساس بالمرارة وكأن كل ما حولي في الحياة فقد قيمته',
+            'شعرت بضيق جعلني سريع الانفعال من أقل الكلمات أو المواقف',
+            'عجزت عن التفاعل انفعاليًا مع محيطي',
+            'شعرت بأنني منفصل عن الآخرين حتى عندما أكون بينهم',
+            'عجزت عن الحفاظ على تركيزي أثناء القراءة، أو مشاهدة التلفاز، أو متابعة نقاش بسيط',
+            'سيطرت عليّ فكرة أن الفشل هو حليفي الحتمي في أي عمل أو خطوة قد أقدم عليها',
+            'تملكني اعتقاد راسخ بأنني عبء ثقيل على عائلتي وعلى كل من حولي',
+            'واجهت صعوبة في استدعاء المعلومات أو تذكر المواعيد والالتزامات اليومية الروتينية',
+            'انتابتني أفكار تلح عليّ بأن الموت قد يكون راحة لي من هذه المعاناة المستمرة',
+            'أعتقد بأن عقلي مشوش أو أقل كفاءة',
+            'أحس وكأن عملياتي العقلية أصبحت أبطأ',
+            'شعرت بالتردد الشديد في اتخاذ القرارات اليومية البسيطة (مثل اختيار ملابسي أو طعامي)',
+            'سيطر عليّ التشاؤم تجاه مستقبلي',
+            'تملكني اعتقاد بأنني شخص عديم الجدوى',
+            'أفكر كثيرًا في الماضي',
+            'أعتقد أن الموت أحسن من الحياة',
+            'أعتقد بأن وجودي لا يترك أثرًا ذا قيمة',
+            'أرى بأن حياتي تفتقد إلى هدف واضح',
+            'راودتني أفكار بإنهاء حياتي',
+            'أفسر الأخطاء الصغيرة على أنها دليل على فشلي',
+            'عانيت من صعوبة شديدة في الدخول في النوم رغم شعوري بالتعب',
+            'استيقظت في منتصف الليل أو في الصباح الباكر وعجزت عن العودة للنوم مجددًا',
+            'نمت لساعات طويلة ومع ذلك استيقظت وأنا أشعر بالخمول',
+            'فقدت رغبتي في تناول الطعام',
+            'شعرت بشراهة غير معتادة للأكل',
+            'نقص وزني أو زاد وزني بشكل واضح',
+            'شعرت بإنهاك جسدي وفقدان مطلق للطاقة رغم أنني لم أبذل مجهودًا كبيرًا',
+            'عانيت من آلام أو أوجاع جسدية متفرقة (كصداع أو آلام ظهر) ليس لها تفسير طبي واضح',
+            'شعرت بثقل شديد وصعوبة في تحريك أطرافي (يداي وقدمي)',
+            'لاحظت تراجعًا في الرغبة الجنسية مقارنة بمستواي المعتاد',
+            'شعرت باضطرابات في جهازي الهضمي (كالغثيان أو الإمساك المستمر)',
+            'أبقى في فراشي لوقت طويل',
+            'أبديت ردود فعل جامدة تجاه المواقف التي كانت تستدعي مني استجابة سلوكية سريعة',
+            'أصبحت أؤجل كل المهام والمسؤوليات إلى أن تتراكم عليّ',
+            'أدائي أو إنتاجيتي في تراجع بشكل ملحوظ',
+            'تهاونت في مظهري الخارجي (اللبس، التنسيق...)',
+            'أهملت نظافتي الشخصية بشكل غير معتاد بالنسبة لي',
+            'استجاباتي بطيئة',
+            'انسحبت من التفاعلات الاجتماعية',
+            'تجنبت الرد على الاتصالات أو لقاء الأصدقاء',
+            'وجدت نفسي أقوم بحركات لا إرادية',
+            'انحصر نشاطي الحركي في مساحة محدودة (كالبقاء في غرفة واحدة) لمعظم اليوم',
+            'لاحظت أنا أو المقربون مني أن نبرة صوتي أصبحت خالية من التعابير الانفعالية',
+            'عجزت عن اتخاذ المبادرة لبدء أي نشاط جديد',
+            'أتكاسل عن أداء المهام الروتينية الأساسية (مثل إعداد الطعام أو ترتيب المكان...)',
+            'لاحظت كثرة تنهدي أو زفيري بشكل غير معتاد',
+            'أجد صعوبة في مغادرة المنزل حتى عندما يكون ذلك ضروريًا',
+            'أجلت الرد على الرسائل أو المكالمات رغم أهميتها',
+            'قضيت وقتًا طويلاً دون القيام بأي نشاط ذي معنى'
+        ];
+
+        const TESTS = {
+            ptsd: {
+                id: 'ptsd',
+                name: 'مقياس الطلبة لاضطراب ما بعد الصدمة',
+                items: ITEMS_PTSD,
+                fillMid: 240,
+                fillHigh: 300,
+                sessionKey: 'diagSessionsV2',
+                seedFixed: [[1, '01/07/2026', 112], [2, '12/07/2026', 158], [3, '19/07/2026', 224], [4, '26/07/2026', 271]],
+                seedDefault: 271
+            },
+            mdd: {
+                id: 'mdd',
+                name: 'مقياس الاكتئاب (MDD)',
+                items: ITEMS_MDD,
+                fillMid: 155,
+                fillHigh: 200,
+                sessionKey: 'diagSessionsMddV2',
+                seedFixed: [[1, '01/07/2026', 78], [2, '12/07/2026', 96], [3, '19/07/2026', 132], [4, '26/07/2026', 160]],
+                seedDefault: 160
+            }
+        };
+
+        const AP = JSON.parse(localStorage.getItem('diagActivePatient') || 'null');
+        const ptKey = base => AP ? base + '_' + AP.id : base;
+
+        const chosenId = localStorage.getItem(ptKey('chosenTest')) === 'mdd' ? 'mdd' : 'ptsd';
+        const T = TESTS[chosenId];
+        const ITEMS = T.items;
+        const MAX_SCORE = ITEMS.length * 4;
+        const MID_START = Math.ceil(MAX_SCORE / 2) + 1;
+        const HIGH_START = Math.ceil(MAX_SCORE * 0.75) + 1;
+        document.getElementById('testName').textContent = T.name + (AP ? ' — ملف: ' + AP.name : '');
+        document.getElementById('testHint').textContent = 'اختر مدى تكرار كل عبارة خلال الشهر الماضي' + (AP ? ' — ' + AP.name : '');
+        
+        // Update patient info dynamically
+        var testPatientInfo = document.getElementById('testPatientInfo');
+        if (testPatientInfo && AP) {
+            testPatientInfo.textContent = 'المريض: ' + AP.name + ' — جلسة التشخيص';
+        }
+        document.getElementById('rpMax').textContent = 'من ' + MAX_SCORE;
+        document.getElementById('questCount').textContent = '0 / ' + ITEMS.length;
+
+        const REVERSE = [];
+
+        const OPTS = [
+            { v: 0, label: 'لم يحدث أبدًا', tip: 'لم يحدث أبدًا خلال الشهر الماضي' },
+            { v: 1, label: 'أيام قليلة فقط', tip: 'حدثت لأيام قليلة فقط (أقل من أسبوع)' },
+            { v: 2, label: 'نصف الأيام', tip: 'حدثت في نصف الأيام (أسبوع إلى أسبوعين)' },
+            { v: 3, label: 'يوميًا تقريبًا', tip: 'يحدث يوميًا تقريبًا أو معظم أيام الشهر' }
+        ];
+
+        const questionsBox = document.getElementById('questions');
+        const questCount = document.getElementById('questCount');
+        const progressFill = document.getElementById('progressFill');
+        const calcBtn = document.getElementById('calcBtn');
+        const resPanel = document.getElementById('resPanel');
+
+        function scoreOf(btn, qNo) {
+            const idx = parseInt(btn.dataset.v);
+            return REVERSE.includes(qNo) ? idx + 1 : 4 - idx;
+        }
+
+        function updateProgress() {
+            const answered = questionsBox.querySelectorAll('button.sel').length;
+            questCount.textContent = answered + ' / ' + ITEMS.length;
+            questCount.classList.toggle('done', answered === ITEMS.length);
+            const pct = ITEMS.length > 0 ? (answered / ITEMS.length) * 100 : 0;
+            progressFill.style.width = pct + '%';
+            progressFill.classList.toggle('complete', answered === ITEMS.length);
+
+            const circleEl = document.querySelector('.progress-circle-fill');
+            if (circleEl) {
+                const circumference = 2 * Math.PI * 45;
+                const offset = circumference - (pct / 100) * circumference;
+                circleEl.style.strokeDashoffset = offset;
+            }
+            const pctText = document.getElementById('progressPct');
+            if (pctText) pctText.textContent = Math.round(pct) + '%';
+        }
+
+        function buildQuestions() {
+            questionsBox.innerHTML = '';
+            if (ITEMS.length === 0) {
+                questCount.textContent = '0 / 0';
+                return;
+            }
+            ITEMS.forEach((text, idx) => {
+                const q = document.createElement('div');
+                q.className = 'question-card';
+                q.dataset.no = idx + 1;
+                let btns = '';
+                OPTS.forEach(o => {
+                    btns += '<button data-v="' + o.v + '" title="' + o.tip + '">' + o.label + '</button>';
+                });
+                q.innerHTML = '<div class="tq-header"><div class="tq-num">' + (idx + 1) + '</div><div class="tq-text">' + text + '</div></div>' +
+                    '<div class="answers-row">' + btns + '</div>';
+                questionsBox.appendChild(q);
+            });
+            questionsBox.querySelectorAll('.answers-row').forEach(row => {
+                row.querySelectorAll('button').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        row.querySelectorAll('button').forEach(b => b.classList.remove('sel'));
+                        btn.classList.add('sel');
+                        updateProgress();
+                    });
+                });
+            });
+            updateProgress();
+        }
+        buildQuestions();
+
+        function runCalculation() {
+            let total = 0;
+            let answered = 0;
+            questionsBox.querySelectorAll('.question-card').forEach(q => {
+                const sel = q.querySelector('button.sel');
+                if (sel) { total += scoreOf(sel, parseInt(q.dataset.no)); answered++; }
+            });
+            const maxScore = MAX_SCORE;
+            const avg = (total / answered).toFixed(2);
+            const pct = Math.round((total / maxScore) * 100);
+            let cls, state, desc;
+            if (total >= HIGH_START) {
+                cls = 'rp-high'; state = 'النتيجة: مرتفعة 🟢';
+                desc = 'الدرجة مرتفعة — أعراض ' + (chosenId === 'mdd' ? 'الاكتئاب' : 'اضطراب ما بعد الصدمة') + ' لدى المريض قليلة، ويعيش توازنًا نفسيًا جيدًا مقارنة بمعايير المقياس.';
+            } else if (total >= MID_START) {
+                cls = 'rp-mid'; state = 'النتيجة: متوسطة 🟠';
+                desc = 'الدرجة متوسطة — توجد بعض الأعراض، يُنصح بالمتابعة والرصد في الجلسات القادمة.';
+            } else {
+                cls = 'rp-low'; state = 'النتيجة: ضعيفة 🔴';
+                desc = 'الدرجة ضعيفة — الأعراض مرتفعة جدًا، يُنصح بتقييم سريري معمّق وبروتوكول علاجي متخصص.';
+            }
+            document.getElementById('rpCircle').className = 'rp-circle ' + cls;
+            document.getElementById('rpTotal').textContent = total;
+            document.getElementById('rpState').textContent = state;
+            document.getElementById('rpDesc').textContent = desc;
+            document.getElementById('rpAnswered').textContent = answered + ' / ' + ITEMS.length;
+            document.getElementById('rpAvg').textContent = avg + ' / 4';
+            document.getElementById('rpPct').textContent = pct + '%';
+            resPanel.classList.add('show');
+            resPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            const answerList = [];
+            questionsBox.querySelectorAll('.question-card').forEach(q => {
+                const sel = q.querySelector('button.sel');
+                const idx = parseInt(sel.dataset.v);
+                answerList.push({
+                    no: parseInt(q.dataset.no),
+                    text: q.querySelector('.tq-text').textContent.replace(/^\d+\.\s*/, ''),
+                    label: OPTS[idx].label,
+                    score: scoreOf(sel, parseInt(q.dataset.no))
+                });
+            });
+            const today = new Date();
+            const dateStr = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+            window.__curSession = {
+                number: 0,
+                date: dateStr,
+                total: total,
+                max: maxScore,
+                avg: parseFloat(avg),
+                pct: pct,
+                state: total >= HIGH_START ? 'مرتفعة' : total >= MID_START ? 'متوسطة' : 'ضعيفة',
+                answers: answerList
+            };
+            saveFileBtn.style.display = 'block';
+            saveFileBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        /* ── عدّاد مدة الاختبار ── */
+        const timeBtn = document.getElementById('timeBtn');
+        const timeClock = document.getElementById('timeClock');
+        let timeRunning = false;
+        let timeElapsed = 0;      /* ميلي ثانية */
+        let timeStartedAt = 0;
+        let timeTick = null;
+
+        function pad2(n) { return (n < 10 ? '0' : '') + n; }
+        function formatDuration(ms) {
+            const total = Math.max(0, Math.floor(ms / 1000));
+            const h = Math.floor(total / 3600);
+            const m = Math.floor((total % 3600) / 60);
+            const s = total % 60;
+            return (h > 0 ? h + ':' + pad2(m) : pad2(m)) + ':' + pad2(s);
+        }
+        function currentElapsed() {
+            return timeRunning ? timeElapsed + (Date.now() - timeStartedAt) : timeElapsed;
+        }
+        function paintTime() {
+            timeClock.textContent = formatDuration(currentElapsed());
+        }
+        function startTimer() {
+            if (timeRunning) return;
+            timeRunning = true;
+            timeStartedAt = Date.now(); /* يكمل من المدة الموقوفة إن وجدت */
+            timeBtn.classList.add('running');
+            timeBtn.title = 'اضغط لإيقاف عدّاد مدة الاختبار';
+            paintTime();
+            timeTick = setInterval(paintTime, 1000);
+        }
+        function stopTimer() {
+            if (!timeRunning) return;
+            timeElapsed = currentElapsed();
+            timeRunning = false;
+            clearInterval(timeTick);
+            timeTick = null;
+            timeBtn.classList.remove('running');
+            timeBtn.title = 'اضغط لبدء عدّاد مدة الاختبار من جديد';
+            paintTime();
+        }
+        timeBtn.addEventListener('click', () => {
+            if (timeRunning) { stopTimer(); return; }
+            startTimer();
+        });
+
+        calcBtn.addEventListener('click', () => {
+            stopTimer();
+            if (ITEMS.length === 0) {
+                showFillToast('لم تُضف عبارات المقياس بعد.');
+                return;
+            }
+            const answered = questionsBox.querySelectorAll('button.sel').length;
+            if (answered < ITEMS.length) {
+                showFillToast('يرجى الإجابة على جميع العبارات قبل الحساب (' + answered + ' / ' + ITEMS.length + ').');
+                return;
+            }
+            openCodeModal({ type: 'calc' });
+        });
+
+        const DEFAULT_CALC_CODE = '0912';
+        const fillModal = document.getElementById('fillModal');
+        const fillModalTitle = document.getElementById('fillModalTitle');
+        const fillModalDesc = document.getElementById('fillModalDesc');
+        const fillCodeInput = document.getElementById('fillCodeInput');
+        const fillCodeError = document.getElementById('fillCodeError');
+        const fillToast = document.getElementById('fillToast');
+        let pendingAction = null;
+        let fillToastTimer = null;
+
+        function getCalcCode() {
+            let code = '';
+            try { code = (localStorage.getItem('diagCalcCode') || '').trim(); } catch (e) { code = ''; }
+            return code || DEFAULT_CALC_CODE;
+        }
+
+        function showFillToast(message) {
+            fillToast.textContent = message;
+            fillToast.classList.add('show');
+            clearTimeout(fillToastTimer);
+            fillToastTimer = setTimeout(() => fillToast.classList.remove('show'), 5500);
+        }
+
+        function closeFillModal() {
+            fillModal.classList.remove('show');
+            fillCodeInput.value = '';
+            fillCodeInput.classList.remove('error');
+            fillCodeError.classList.remove('show');
+            pendingAction = null;
+        }
+
+        function openCodeModal(action) {
+            pendingAction = action;
+            fillCodeInput.value = '';
+            fillCodeInput.classList.remove('error');
+            fillCodeError.classList.remove('show');
+            if (action.type === 'calc') {
+                fillModalTitle.textContent = 'أدخل رمز الحساب المباشر';
+                fillModalDesc.textContent = 'أدخل الرمز الصحيح لعرض نتيجة الاختبار.';
+            } else {
+                fillModalTitle.textContent = 'أدخل الرمز الخاص للتعبئة التلقائية';
+                fillModalDesc.textContent = 'هذه التعبئة مخصصة للتجربة السريعة. أدخل الرمز للمتابعة.';
+            }
+            fillModal.classList.add('show');
+            setTimeout(function () { fillCodeInput.focus(); }, 60);
+        }
+
+        function applyFill(total, label) {
+            const extra = total - ITEMS.length;
+            const scores = new Array(ITEMS.length).fill(1);
+            for (let i = 0; i < extra; i++) scores[(i * 37) % ITEMS.length]++;
+            questionsBox.querySelectorAll('.question-card').forEach((q, idx) => {
+                const score = scores[idx] || 1;
+                const btn = q.querySelector('button[data-v="' + (4 - score) + '"]');
+                if (btn) {
+                    q.querySelectorAll('button').forEach(b => b.classList.remove('sel'));
+                    btn.classList.add('sel');
+                }
+            });
+            updateProgress();
+            showFillToast('تم ملء الاختبار تلقائيًا — النتيجة المتوقعة: ' + label + ' (' + total + ' / ' + MAX_SCORE + '). اضغط "الحساب المباشر 🧮" لعرضها.');
+        }
+
+        function fillTo(total, label) {
+            openCodeModal({ type: 'fill', total: total, label: label });
+        }
+
+        function submitCode() {
+            if (!pendingAction) return;
+            if (fillCodeInput.value.trim() !== getCalcCode()) {
+                fillCodeError.classList.add('show');
+                fillCodeInput.classList.add('error');
+                fillCodeInput.value = '';
+                fillCodeInput.focus();
+                return;
+            }
+            const action = pendingAction;
+            closeFillModal();
+            if (action.type === 'calc') runCalculation();
+            else applyFill(action.total, action.label);
+        }
+
+        document.getElementById('fillAutoBtn').addEventListener('click', () => fillTo(T.fillMid, 'متوسطة 🟠'));
+        document.getElementById('fillHighBtn').addEventListener('click', () => fillTo(T.fillHigh, 'مرتفعة 🟢'));
+        document.getElementById('fillCodeOk').addEventListener('click', submitCode);
+        document.getElementById('fillCodeCancel').addEventListener('click', closeFillModal);
+        fillModal.addEventListener('click', function (e) { if (e.target === fillModal) closeFillModal(); });
+        fillCodeInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') { e.preventDefault(); submitCode(); }
+            if (e.key === 'Escape') { e.preventDefault(); closeFillModal(); }
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && fillModal.classList.contains('show')) closeFillModal();
+        });
+
+        const SESSION_KEY = ptKey(T.sessionKey);
+        function seedFixedSessions() {
+            const L = { 1: 'يوميًا تقريبًا', 2: 'نصف الأيام', 3: 'أيام قليلة فقط', 4: 'لم يحدث أبدًا' };
+            const mk = (number, date, total) => {
+                const extra = total - ITEMS.length;
+                const scores = new Array(ITEMS.length).fill(1);
+                for (let i = 0; i < extra; i++) scores[(i * 37) % ITEMS.length]++;
+                const answers = ITEMS.map((text, idx) => ({
+                    no: idx + 1, text: text, label: L[scores[idx]], score: scores[idx]
+                }));
+                return {
+                    number: number, date: date, total: total, max: MAX_SCORE,
+                    avg: Math.round((total / ITEMS.length) * 100) / 100,
+                    pct: Math.round((total / MAX_SCORE) * 100),
+                    state: total >= HIGH_START ? 'مرتفعة' : total >= MID_START ? 'متوسطة' : 'ضعيفة',
+                    answers: answers
+                };
+            };
+            return T.seedFixed.slice(0, 3).map(s => mk(s[0], s[1], s[2]));
+        }
+        const saveFileBtn = document.getElementById('saveFileBtn');
+        saveFileBtn.addEventListener('click', () => {
+            if (!window.__curSession) { alert('احسب النتيجة أولًا.'); return; }
+            stopTimer();
+            window.__curSession.duration = Math.round(currentElapsed() / 1000);
+            let sessions = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+            if (!Array.isArray(sessions)) sessions = [];
+            if (AP) {
+                /* ملف مريض حقيقي: الحفاظ على السجل كاملًا وترقيم تسلسلي (لا زرع ولا قص) */
+                const maxNo = sessions.reduce((m, s) => Math.max(m, (s && s.number) || 0), 0);
+                window.__curSession.number = maxNo + 1;
+            } else {
+                /* تجربة زائر: الجلسات التجريبية كما كانت */
+                if (!sessions.length) sessions = seedFixedSessions();
+                sessions = sessions.slice(0, 3);
+                window.__curSession.number = 4;
+            }
+            sessions.push(window.__curSession);
+            localStorage.setItem(SESSION_KEY, JSON.stringify(sessions));
+            localStorage.setItem(ptKey('diagTestAnswered'), '1');
+            localStorage.setItem(ptKey('activeChartTest'), chosenId);
+            location.href = 'charts.html';
+        });
+    </script>
+
+    <script>
+    (function(){
+      var btn=document.getElementById('authBtn');
+      if(!btn)return;
+      var u=JSON.parse(localStorage.getItem('diagUser')||'null');
+      if(u){
+        btn.textContent=(u.isAdmin?'👨‍💼 ':'👤 ')+(u.isAdmin?'المدير':u.name);
+        btn.onclick=function(){location.href='profile.html'};
+      }else{
+        btn.onclick=function(){location.href='login.html'};
+      }
+    })();
+    </script>
+
+</body>
+</html>
